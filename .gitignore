@@ -1,3 +1,11 @@
+# Binaries and libraries
+bin
+lib
+
+# My scripts
+jcomp
+jrun
+
 # Compiled class file
 *.class
 
