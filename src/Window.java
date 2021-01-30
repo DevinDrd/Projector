@@ -23,7 +23,10 @@ public class Window {
 		} catch (IOException e) {
             System.out.println("There was an error reading a shader.");
             System.exit(1);
-		}
+        }
+        
+        openGL.setShader(vertexShader);
+        openGL.setShader(fragmentShader);
 
     }
 

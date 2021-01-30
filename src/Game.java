@@ -7,6 +7,8 @@ public class Game {
 
     private boolean RENDER_TIME = false; // display ups and fps to standard output
 
+    private Map map;
+
     public Game() {
         window = new Window();
 
