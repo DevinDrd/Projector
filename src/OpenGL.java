@@ -24,6 +24,8 @@ public class OpenGL {
 	
 	private FloatBuffer positionsBuffer;
 	private FloatBuffer colorsBuffer;
+
+	private float[] clearColor;
     
     private int width;
     private int height;
@@ -35,7 +37,19 @@ public class OpenGL {
     public OpenGL(int w, int h, String t) {
         width = w;
         height = h;
+		title = t;
+		
+		clearColor = new float[] {0.0f, 0.0f, 1.0f, 1.0f};
+
+        init();
+	}
+
+	public OpenGL(int w, int h, String t, float[] cC) {
+        width = w;
+        height = h;
         title = t;
+
+		clearColor = cC;
 
         init();
     }
@@ -121,9 +135,15 @@ public class OpenGL {
 		GL11.glEnable( GL11.GL_DEPTH_TEST );
 		GL11.glClearDepth( 1.0f );
 		GL11.glDepthFunc( GL11.GL_LESS );
-		
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    }
+
+		setClearColor(clearColor);
+	}
+	
+	public void update() {
+		// Poll for window events. The key callback above will only be
+		// invoked during this call.
+		glfwPollEvents();
+	}
 
 	public void render(float[] vertices, float[] colors) {
         if (vertices.length % 3 != 0) throw new IllegalArgumentException();
@@ -131,9 +151,11 @@ public class OpenGL {
         
 		FloatBufferUtil.putArray(vertices, positionsBuffer);
 		FloatBufferUtil.putArray(colors, colorsBuffer);
+
+		display();
 	}
 
-	public void display() {
+	private void display() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 		
 		int marker = positionsBuffer.position();
@@ -157,10 +179,11 @@ public class OpenGL {
 		
 		glfwSwapBuffers(window); // swap the color buffers
 
-		// Poll for window events. The key callback above will only be
-		// invoked during this call.
-		glfwPollEvents();
-    }
+	}
+	
+	public boolean isOpen() {
+		return !glfwWindowShouldClose(window);
+	}
     
     public void close() {
 		// Free the window callbacks and destroy the window
@@ -172,8 +195,8 @@ public class OpenGL {
 		glfwSetErrorCallback(null).free();
 	}
 	
-	public void setClearColor(float r, float g, float b, float a) {
-		glClearColor(r, g, b, a);
+	public void setClearColor(float[] cC) {
+		glClearColor(cC[0], cC[1], cC[2], cC[3]);
 	}
 	
 	public void setShader(Shader shader) {
