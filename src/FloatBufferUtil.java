@@ -45,4 +45,14 @@ public class FloatBufferUtil {
 			buffer.put(array[k]);
 	}
 
+	public static void printFloats(float[] array) {
+		String output = "[";
+
+		for (float f:array) output += f + ", ";
+		output = output.substring(0, output.length() - 2);
+
+		output += "]";
+		System.out.print(output);
+	}
+
 }

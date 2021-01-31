@@ -17,6 +17,10 @@ public class Triple {
         throw new ArrayIndexOutOfBoundsException();
     }
 
+    public float[] getFloats() {
+        return new float[] {a, b, c};
+    }
+
     public String toString() {
         String output = "(";
 

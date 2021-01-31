@@ -28,7 +28,7 @@ public class Map {
                 loadTriangle(file);
             }
             else {
-                System.out.println("Unknown type of object \"" + type + "\" if map file " + path);
+                System.out.println("Unknown type of object \"" + type + "\" in map file " + path);
                 System.exit(0);
             }
         }
@@ -37,7 +37,24 @@ public class Map {
     }
 
     private void loadTriangle(Scanner file) {
-        
+        float[] vertices = new float[9];
+        float[] colors = new float[9];
+
+        for (int i = 0; i < vertices.length; i++)
+            vertices[i] = file.nextFloat();
+
+        file.nextLine();
+
+        for (int i = 0; i < vertices.length; i++)
+            colors[i] = file.nextFloat();
+
+        if (file.hasNextLine()) file.nextLine();
+
+        objects.add(new Object(0, 0, 0, new Model(vertices, colors)));
+    }
+
+    public ArrayList<Object> getObjects() {
+        return objects;
     }
     
 }

@@ -5,6 +5,8 @@ public class Triangle {
     public final static int LENGTH = 3;
     
     public Triangle(float[] vertices) {
+        if (vertices.length != 9) throw new IllegalArgumentException();
+
         this.vertices = new Triple[3];
 
         this.vertices[0] = new Triple(vertices[0], vertices[1], vertices[2]);
@@ -21,10 +23,12 @@ public class Triangle {
     }
 
     public Triangle(Triple[] verts) {
+        if (verts.length != 3) throw new IllegalArgumentException();
+        
         vertices = verts;
     }
 
-    public float[] getFloats() {
+    public float[] getVertices() {
 		float[] floats = new float[9];
 		
 		for (int i = 0; i < LENGTH; i++)
@@ -34,14 +38,10 @@ public class Triangle {
 		return floats;
     }
 
-    public static void main(String[] args) {
-        float[] floats = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-
-        Triangle tri = new Triangle(floats);
-
-        float[] f = tri.getFloats();
-        for (float fl:f) System.out.print(fl + ", ");
-        System.out.println();
+    public String toString() {
+        String output = "";
+        for (Triple t:vertices) output += t + ", ";
+        return output.substring(0, output.length() - 2);
     }
     
 }
