@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
@@ -89,10 +90,15 @@ public class Game {
 	
 	private void update() {
 		window.update();
+		handleEvents();
 	}
 	
 	private void render() {
 		window.render(map);
+	}
+
+	private void handleEvents() {
+		ArrayList<KeyEvent> events = window.getEvents();
 	}
 
     public static void main(String[] args) {

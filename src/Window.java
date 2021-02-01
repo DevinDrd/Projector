@@ -43,6 +43,10 @@ public class Window {
         openGL.render(vertices, colors);
     }
 
+    public ArrayList<KeyEvent> getEvents() {
+        return openGL.pollEvents();
+    }
+
     public boolean isOpen() {
         return openGL.isOpen();
     }

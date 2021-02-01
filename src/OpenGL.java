@@ -2,6 +2,8 @@ import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
+import java.util.ArrayList;
+
 import java.nio.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -31,7 +33,9 @@ public class OpenGL {
 
     private String title;
 
-    private int maxTries = 10;
+	private int maxTries = 10;
+	
+	private ArrayList<KeyEvent> keys;
 
     public OpenGL(int w, int h, String t) {
         width = w;
@@ -39,6 +43,8 @@ public class OpenGL {
 		title = t;
 		
 		clearColor = new float[] {0.0f, 0.0f, 1.0f, 1.0f};
+
+		keys = new ArrayList<KeyEvent>();
 
         init();
 	}
@@ -49,6 +55,8 @@ public class OpenGL {
         title = t;
 
 		clearColor = cC;
+
+		keys = new ArrayList<KeyEvent>();
 
         init();
     }
@@ -81,6 +89,8 @@ public class OpenGL {
 		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
 			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
 				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
+			else if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+				keys.add(new KeyEvent(key, action));
 		});
 
 		// Get the thread stack and push a new frame
@@ -218,6 +228,10 @@ public class OpenGL {
 		
 		GL20.glLinkProgram(p);
 		GL20.glUseProgram(p);
+	}
+
+	public ArrayList<KeyEvent> pollEvents() {
+		return keys;
 	}
 
 }
