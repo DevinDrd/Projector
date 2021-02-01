@@ -1,4 +1,5 @@
 import Math.*;
+import Model.*;
 
 public class Object {
 

@@ -102,6 +102,8 @@ public class Game {
 
 	private void handleEvents() {
 		ArrayList<KeyEvent> events = window.getEvents();
+
+		for (KeyEvent k:events) System.out.println(k);
 	}
 
     public static void main(String[] args) {

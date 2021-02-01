@@ -12,6 +12,8 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import Util.FloatBufferUtil;
+
 public class OpenGL {
 
 	// The window handle
@@ -33,7 +35,7 @@ public class OpenGL {
 
     private String title;
 
-	private int maxTries = 10;
+	private int maxTris = 25;
 	
 	private ArrayList<KeyEvent> keys;
 
@@ -89,7 +91,7 @@ public class OpenGL {
 		glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
 			if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
 				glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
-			else if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+			else
 				keys.add(new KeyEvent(key, action));
 		});
 
@@ -137,8 +139,8 @@ public class OpenGL {
 		positionHandler = GL15.glGenBuffers();
 		colorHandler = GL15.glGenBuffers();
 		
-		positionsBuffer = FloatBufferUtil.createFloatBuffer(maxTries * 3 * 3);// triangles * coordinates * vertices
-		colorsBuffer = FloatBufferUtil.createFloatBuffer(maxTries * 3 * 3); // triangles * rgb * vertices
+		positionsBuffer = FloatBufferUtil.createFloatBuffer(maxTris * 3 * 3);// triangles * coordinates * vertices
+		colorsBuffer = FloatBufferUtil.createFloatBuffer(maxTris * 3 * 3); // triangles * rgb * vertices
 		
 		
 		GL11.glEnable( GL11.GL_DEPTH_TEST );
@@ -231,7 +233,9 @@ public class OpenGL {
 	}
 
 	public ArrayList<KeyEvent> pollEvents() {
-		return keys;
+		ArrayList<KeyEvent> temp = keys;
+		keys = new ArrayList<KeyEvent>();
+		return temp;
 	}
 
 }

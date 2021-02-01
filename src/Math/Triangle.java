@@ -41,7 +41,7 @@ public class Triangle {
     }
 
     public String toString() {
-        String output = "";
+        String output = "Triangle: ";
         for (Tuple t:vertices) output += t + ", ";
         return output.substring(0, output.length() - 2);
     }

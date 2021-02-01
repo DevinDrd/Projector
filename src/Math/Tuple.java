@@ -37,12 +37,14 @@ public class Tuple {
     }
 
     public String toString() {
-        String output = "<";
+        String output = "(";
 
-        for (float f:tuple) output += f + ", ";
-        output = output.substring(0, tuple.length - 2);
+        for (float f:tuple)
+            output += f + ", ";
+
+        output = output.substring(0, output.length() - 2);
         
-        output += ">";
+        output += ")";
 
         return output;
     }

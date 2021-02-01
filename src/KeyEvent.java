@@ -8,4 +8,13 @@ public class KeyEvent {
         this.action = action;
     }
 
+    public String toString() {
+        String output = "";
+
+        output += "Key: " + key;
+        output += " | Action: " + action;
+
+        return output;
+    }
+
 }
