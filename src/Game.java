@@ -50,6 +50,7 @@ public class Game {
 		}
 
 		player = new Player(0, 0, 0);
+		player.getPosition();
     }
 
     private void run() {
