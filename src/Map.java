@@ -65,6 +65,10 @@ public class Map {
         colorCount += 9;
     }
 
+    public void update() {
+        for (Object o:objects) o.update();
+    }
+
     public ArrayList<Object> getObjects() {
         return objects;
     }

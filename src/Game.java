@@ -16,6 +16,8 @@ public class Game {
 	private Map map;
 	private String mapPath;
 
+	private Player player;
+
     public Game() {
         window = new Window();
 
@@ -46,6 +48,8 @@ public class Game {
 			System.out.println("Illegal path: " + mapPath);
 			System.exit(0);
 		}
+
+		player = new Player(0, 0, 0);
         
     }
 

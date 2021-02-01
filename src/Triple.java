@@ -21,6 +21,22 @@ public class Triple {
         return new float[] {a, b, c};
     }
 
+    public static Triple add(Triple a, Triple b) {
+        return new Triple(a.get(0) + b.get(0), a.get(1) + b.get(1), a.get(2) + b.get(2));
+    }
+
+    public static Triple subtract(Triple a, Triple b) {
+        return new Triple(a.get(0) - b.get(0), a.get(1) - b.get(1), a.get(2) - b.get(2));
+    }
+
+    public static Triple multiply(Triple a, Triple b) {
+        return new Triple(a.get(0) * b.get(0), a.get(1) * b.get(1), a.get(2) * b.get(2));
+    }
+
+    public static Triple divide(Triple a, Triple b) {
+        return new Triple(a.get(0) / b.get(0), a.get(1) / b.get(1), a.get(2) / b.get(2));
+    }
+
     public String toString() {
         String output = "(";
 
