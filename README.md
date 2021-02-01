@@ -1,7 +1,7 @@
 # Projector
 A basic 3D world sandbox type game.
 
-Helpful Commands to compile and run:
+Helpful Commands to compile and run on linux:
 Compile:
     javac -cp .:./src:./lib/lwjgl/lwjgl.jar:./lib/lwjgl/lwjgl-glfw.jar:./lib/lwjgl/lwjgl-opengl.jar -d ./bin src/Game.java
 
