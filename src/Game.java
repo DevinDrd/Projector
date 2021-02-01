@@ -92,7 +92,7 @@ public class Game {
 	}
 	
 	private void render() {
-		window.render(new Object[0]); // FIXME
+		window.render(map);
 	}
 
     public static void main(String[] args) {

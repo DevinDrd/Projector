@@ -8,11 +8,20 @@ public class Map {
 
     private ArrayList<Object> objects;
 
+    private int vertexCount;
+    private int colorCount;
+
     public Map() {
         objects = new ArrayList<Object>();
+
+        vertexCount = 0;
+        colorCount = 0;
     }
 
     public Map(String pth) throws FileNotFoundException {
+        vertexCount = 0;
+        colorCount = 0;
+        
         loadMap(pth);
     }
 
@@ -51,10 +60,49 @@ public class Map {
         if (file.hasNextLine()) file.nextLine();
 
         objects.add(new Object(0, 0, 0, new Model(vertices, colors)));
+
+        vertexCount += 9;
+        colorCount += 9;
     }
 
     public ArrayList<Object> getObjects() {
         return objects;
+    }
+
+    public float[] getVertices() {
+        float[] vertices = new float[vertexCount];
+
+        for (int i = 0; i < objects.size(); i++) {
+            float[] f = objects.get(i).getModel().getVertices();
+
+            for (int j = 0; j < f.length; j++) {
+                vertices[j + i*f.length] = f[j];
+            }
+        }
+
+        return vertices;
+    }
+
+    public float[] getColors() {
+        float[] colors = new float[colorCount];
+
+        for (int i = 0; i < objects.size(); i++) {
+            float[] f = objects.get(i).getModel().getColors();
+
+            for (int j = 0; j < f.length; j++) {
+                colors[j + i*f.length] = f[j];
+            }
+        }
+
+        return colors;
+    }
+
+    public int getVertexCount() {
+        return vertexCount;
+    }
+
+    public int getColorCount() {
+        return colorCount;
     }
     
 }

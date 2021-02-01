@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import java.io.IOException;
 
 public class Window {
@@ -34,8 +36,11 @@ public class Window {
         openGL.update();
     }
 
-    public void render(Object[] objects) {
-        openGL.render(new float[0], new float[0]); // FIXME
+    public void render(Map map) {
+        float[] vertices = map.getVertices();
+        float[] colors = map.getColors();
+
+        openGL.render(vertices, colors);
     }
 
     public boolean isOpen() {
