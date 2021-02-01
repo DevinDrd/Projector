@@ -1,3 +1,5 @@
+package Math;
+
 public class Triangle {
 
     private final Tuple[] vertices;

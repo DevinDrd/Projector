@@ -1,3 +1,5 @@
+import Math.*;
+
 public class Player extends Object {
 
     public Player(float x, float y, float z) {

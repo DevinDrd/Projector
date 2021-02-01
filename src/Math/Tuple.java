@@ -1,3 +1,5 @@
+package Math;
+
 public class Tuple {
 
     private final float[] tuple;

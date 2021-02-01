@@ -1,3 +1,5 @@
+package Math;
+
 public class Vector {
 
     private final float[] vec;

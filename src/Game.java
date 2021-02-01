@@ -50,7 +50,6 @@ public class Game {
 		}
 
 		player = new Player(0, 0, 0);
-        
     }
 
     private void run() {

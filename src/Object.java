@@ -1,3 +1,5 @@
+import Math.*;
+
 public class Object {
 
     private Tuple position;

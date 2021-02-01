@@ -1,3 +1,5 @@
+import Math.*;
+
 public class Model {
 
     private Triangle[] tris;
