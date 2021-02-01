@@ -1,14 +1,14 @@
 public class Model {
 
     private Triangle[] tris;
-    private Triple[][] cols; // 3 colors per triangle
+    private Tuple[][] cols; // 3 colors per triangle
 
     public Model(float[] vertices, float[] colors) {
         if (vertices.length % 9 != 0) throw new IllegalArgumentException();
         if (vertices.length != colors.length) throw new IllegalArgumentException();
 
         tris = new Triangle[vertices.length / 9];
-        cols = new Triple[tris.length][3];
+        cols = new Tuple[tris.length][3];
 
         for (int i = 0; i < tris.length; i++) {
             tris[i] = new Triangle(
@@ -16,9 +16,9 @@ public class Model {
                              vertices[3 + i], vertices[4 + i], vertices[5 + i],
                              vertices[6 + i], vertices[7 + i], vertices[8 + i]});
 
-            cols[i][0] = new Triple(colors[0 + i], colors[1 + i], colors[2 + i]);
-            cols[i][1] = new Triple(colors[3 + i], colors[4 + i], colors[5 + i]);
-            cols[i][2] = new Triple(colors[6 + i], colors[7 + i], colors[8 + i]);
+            cols[i][0] = new Tuple(colors[0 + i], colors[1 + i], colors[2 + i]);
+            cols[i][1] = new Tuple(colors[3 + i], colors[4 + i], colors[5 + i]);
+            cols[i][2] = new Tuple(colors[6 + i], colors[7 + i], colors[8 + i]);
         }
     }
 

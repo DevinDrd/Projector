@@ -1,25 +1,30 @@
 public class Vector {
 
-    private final float a;
-    private final float b;
-    private final float c;
+    private final float[] vec;
 
-    public Vector(int a, int b, int c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
+    public Vector(float... x) {
+        vec = x;
     }
 
-    public Triple toTriple() {
-        return new Triple(a, b, c);
+    public int getLength() {
+        return vec.length;
+    }
+
+    public float get(int index) {
+        return vec[index];
+    }
+
+    public Tuple toTuple() {
+        return new Tuple(vec);
     }
 
     public String toString() {
         String output = "<";
+
+        for (float f:vec) output += f + ", ";
+        output = output.substring(0, vec.length - 2);
         
-        output += a + ", ";
-        output += b + ", ";
-        output += c + ">";
+        output += ">";
 
         return output;
     }

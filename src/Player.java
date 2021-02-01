@@ -4,7 +4,7 @@ public class Player extends Object {
         super(x, y, z);
     }
 
-    public Player(Triple position) {
+    public Player(Tuple position) {
         super(position);
     }
 
@@ -12,7 +12,7 @@ public class Player extends Object {
         super(x, y, z, model);
     }
 
-    public Player(Triple position, Model model) {
+    public Player(Tuple position, Model model) {
         super(position, model);
     }
     

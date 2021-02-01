@@ -1,18 +1,18 @@
 public class Object {
 
-    private Triple position;
+    private Tuple position;
     private Vector velocity;
 
     private Model model;
 
     public Object(float x, float y, float z) {
-        position = new Triple(x, y, z);
+        position = new Tuple(x, y, z);
         velocity = new Vector(0, 0, 0);
 
         model = new Model(new float[] {}, new float[] {});
     }
 
-    public Object(Triple position) {
+    public Object(Tuple position) {
         this.position = position;
         velocity = new Vector(0, 0, 0);
 
@@ -20,13 +20,13 @@ public class Object {
     }
 
     public Object(float x, float y, float z, Model model) {
-        position = new Triple(x, y, z);
+        position = new Tuple(x, y, z);
         velocity = new Vector(0, 0, 0);
 
         this.model = model;
     }
 
-    public Object(Triple position, Model model) {
+    public Object(Tuple position, Model model) {
         this.position = position;
         velocity = new Vector(0, 0, 0);
 
@@ -34,14 +34,19 @@ public class Object {
     }
 
     public void update() {
-        position = Triple.add(position, velocity.toTriple());
+        position = Tuple.add(position, velocity.toTuple());
+        updateModel();
+    }
+
+    private void updateModel() {
+        
     }
 
     public Model getModel() {
         return model;
     }
 
-    public Triple getPosition() {
+    public Tuple getPosition() {
         return position;
     }
 
