@@ -8,7 +8,7 @@ import Model.*;
 
 public class Map {
 
-    private ArrayList<Object> objects;
+    private ArrayList<Entity> entitys;
 
     private int vertexCount;
     private int colorCount;
@@ -16,7 +16,7 @@ public class Map {
     private static boolean verbos = true;
 
     public Map() {
-        objects = new ArrayList<Object>();
+        entitys = new ArrayList<Entity>();
 
         vertexCount = 0;
         colorCount = 0;
@@ -32,7 +32,7 @@ public class Map {
     public void loadMap(String path) throws FileNotFoundException {
         Scanner file = new Scanner(new File(path));
 
-        objects = new ArrayList<Object>();
+        entitys = new ArrayList<Entity>();
 
         while(file.hasNextLine()) {
             String type = file.nextLine();
@@ -48,8 +48,8 @@ public class Map {
                 System.exit(0);
             }
 
-            vertexCount += objects.get(objects.size() - 1).getModel().getVertices().length;
-            colorCount += objects.get(objects.size() - 1).getModel().getColors().length;
+            vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
+            colorCount += entitys.get(entitys.size() - 1).getModel().getColors().length;
         }
 
         file.close();
@@ -71,7 +71,7 @@ public class Map {
 
         if (file.hasNextLine()) file.nextLine();
 
-        objects.add(new Object(0, 0, 0, new TriangleModel(vertices, colors)));
+        entitys.add(new Entity(0, 0, 0, new TriangleModel(vertices, colors)));
     }
 
     private void loadSquare(Scanner file) {
@@ -90,15 +90,15 @@ public class Map {
 
         if (file.hasNextLine()) file.nextLine();
 
-        objects.add(new Object(0, 0, 0, new SquareModel(vertices, colors)));
+        entitys.add(new Entity(0, 0, 0, new SquareModel(vertices, colors)));
     }
 
     public void update() {
-        for (Object o:objects) o.update();
+        for (Entity o:entitys) o.update();
     }
 
-    public ArrayList<Object> getObjects() {
-        return objects;
+    public ArrayList<Entity> getEntities() {
+        return entitys;
     }
 
     public float[] getVertices() {
@@ -106,8 +106,8 @@ public class Map {
 
         int mark = 0;
 
-        for (int i = 0; i < objects.size(); i++) {
-            float[] f = objects.get(i).getModel().getVertices();
+        for (int i = 0; i < entitys.size(); i++) {
+            float[] f = entitys.get(i).getModel().getVertices();
 
             for (int j = 0; j < f.length; j++)
                 vertices[j + mark] = f[j];
@@ -123,8 +123,8 @@ public class Map {
 
         int mark = 0;
 
-        for (int i = 0; i < objects.size(); i++) {
-            float[] f = objects.get(i).getModel().getColors();
+        for (int i = 0; i < entitys.size(); i++) {
+            float[] f = entitys.get(i).getModel().getColors();
 
             for (int j = 0; j < f.length; j++)
                 colors[j + mark] = f[j];
