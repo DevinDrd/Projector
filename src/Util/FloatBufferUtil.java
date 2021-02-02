@@ -53,7 +53,7 @@ public class FloatBufferUtil {
 		for (float f:array) output += f + ", ";
 		output = output.substring(0, output.length() - 2);
 
-		output += "]";
+		output += "]\n";
 		System.out.print(output);
 	}
 

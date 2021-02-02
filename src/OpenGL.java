@@ -14,6 +14,9 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import Util.FloatBufferUtil;
 
+import Math.*;
+import Util.*;
+
 public class OpenGL {
 
 	// The window handle
@@ -230,6 +233,17 @@ public class OpenGL {
 		
 		GL20.glLinkProgram(p);
 		GL20.glUseProgram(p);
+	}
+
+	public void setUniMat4(String identifier, Matrix matrix) {
+		if (matrix.dimensions()[0] != 4 | matrix.dimensions()[1] != 4)
+			throw new IllegalArgumentException();
+
+		int uniformHandle = GL20.glGetUniformLocation(p, identifier);
+		if (uniformHandle != -1) 
+			GL20.glUniformMatrix4fv(uniformHandle, true,  FloatBufferUtil.arrayToBuffer(matrix.toArray()));
+		else
+			throw new IllegalArgumentException();
 	}
 
 	public ArrayList<KeyEvent> pollEvents() {
