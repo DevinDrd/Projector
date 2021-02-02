@@ -146,9 +146,9 @@ public class OpenGL {
 		colorsBuffer = FloatBufferUtil.createFloatBuffer(maxTris * 3 * 3); // triangles * rgb * vertices
 		
 		
-		GL11.glEnable( GL11.GL_DEPTH_TEST );
-		GL11.glClearDepth( 1.0f );
-		GL11.glDepthFunc( GL11.GL_LESS );
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glClearDepth(1.0f);
+		GL11.glDepthFunc(GL11.GL_LEQUAL);
 
 		setClearColor(clearColor);
 	}

@@ -24,9 +24,22 @@ public class Game {
         ups = 60;
 		fps = 60;
 		
-		mapPath = "./res/maps/map.txt";
+		mapPath = "./res/maps/ortho.txt";
 
-        init();
+		init();
+		run();
+	}
+	
+	public Game(String path) {
+        window = new Window();
+
+        ups = 60;
+		fps = 60;
+		
+		mapPath = path;
+
+		init();
+		run();
     }
 
     private void init() {
@@ -108,7 +121,8 @@ public class Game {
 	}
 
     public static void main(String[] args) {
-        new Game().run();
+		new Game("./res/maps/ortho.txt");
+		new Game("./res/maps/perspective.txt");
     }
 
 }

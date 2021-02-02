@@ -41,6 +41,8 @@ public class Map {
                 loadTriangle(file);
             else if (type.equals("square"))
                 loadSquare(file);
+            else if (type.equals("end"))
+                break;
             else {
                 System.out.println("Unknown type of object \"" + type + "\" in map file " + path);
                 System.exit(0);
