@@ -21,13 +21,14 @@ public class Window {
 
     private OpenGL openGL;
 
-    private static boolean ortho = true; // TODO: REMOVEME
 
     public Window() {
         openGL = new OpenGL(width, height, title, clearColor);
         
-        projection = ortho ? Matrix.ortho(-10, 10, -10, 10, -10, 10): Matrix.frustum(-10, 10, -10, 10, 1, 10);
-        ortho = false; // TODO: REMOVEME
+        // projection = Matrix.ortho(-10, 10, -10, 10, -10, 10);
+        projection = Matrix.frustum(-10, 10, -10, 10, 1, 10);
+        Matrix lookAt = Matrix.lookAt(new Tuple(0, 0, 0), new Tuple(0, 0, -1), new Vector(0, 1, 0)); // temporary
+        projection = Matrix.multiply(projection, lookAt); // temporary
 
         try {
 			vertexShader = new Shader("./res/shaders/VertexShader.txt");

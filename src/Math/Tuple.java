@@ -20,6 +20,10 @@ public class Tuple {
         return tuple.length;
     }
 
+    public Vector toVector() {
+        return new Vector(tuple);
+    }
+
     public static Tuple add(Tuple a, Tuple b) {
         return new Tuple(a.get(0) + b.get(0), a.get(1) + b.get(1), a.get(2) + b.get(2));
     }

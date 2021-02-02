@@ -121,7 +121,6 @@ public class Game {
 	}
 
     public static void main(String[] args) {
-		new Game("./res/maps/ortho.txt");
 		new Game("./res/maps/perspective.txt");
     }
 
