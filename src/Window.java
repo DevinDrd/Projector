@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-import org.lwjgl.opengl.GL11;
-
 import java.io.IOException;
 
 import Math.*;

@@ -7,13 +7,6 @@ public class Matrix {
 
     private final float[][] matrix;
 
-    public static final Matrix IDTTY4 = new Matrix(new float[][] {
-        {1, 0, 0, 0},
-        {0, 1, 0, 0},
-        {0, 0, 1, 0},
-        {0, 0, 0, 1}
-    });
-
     public Matrix(float[][] nums) {
         rows = nums.length;
         cols = nums[0].length;
@@ -25,6 +18,10 @@ public class Matrix {
                 throw new IllegalArgumentException();
 
         matrix = nums;
+    }
+
+    public float get(int row, int col) {
+        return matrix[row][col];
     }
 
     public int[] dimensions() {
@@ -39,6 +36,31 @@ public class Matrix {
                 data[i*cols + j] = matrix[i][j];
 
         return data;
+    }
+
+    public static Matrix multiply(Matrix m1, Matrix m2) {
+        if (m1.cols != m2.rows) throw new ArithmeticException();
+
+        float[][] product = new float[m1.rows][m2.cols];
+
+        for (int i = 0; i < product.length; i++)
+            for (int j = 0; j < product[i].length; j++)
+                for (int k = 0; k < m1.cols; k++)
+                    product[i][j] += m1.get(i, k)*m2.get(k, j);
+
+        return new Matrix(product);
+    }
+
+    public static Matrix identity(int dimension) {
+        if (dimension == 0) throw new IllegalArgumentException();
+
+        float[][] idtty = new float[dimension][dimension];
+        
+        for (int i = 0; i < dimension; i++)
+            for (int j = 0; j < dimension; j++)
+                idtty[i][j] = i == j ? 1: 0;
+
+        return new Matrix(idtty);
     }
 
     public static Matrix frustum(float l, float r, float b, float t, float n, float f) {
@@ -61,7 +83,12 @@ public class Matrix {
 		});
 
 		return ortho;
-	}
+    }
+    
+    public static Matrix lookAt(Tuple e, Tuple c, Tuple u) {
+
+        return null; // TODO: FIMEME
+    }
 
     public String toString() {
         String output = "";

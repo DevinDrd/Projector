@@ -15,7 +15,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import Util.FloatBufferUtil;
 
 import Math.*;
-import Util.*;
 
 public class OpenGL {
 

@@ -1,7 +1,6 @@
 package Model;
 
 import Math.*;
-import Util.*;
 
 public class SquareModel extends Model {
 
