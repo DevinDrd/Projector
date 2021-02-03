@@ -85,16 +85,14 @@ public class Matrix {
 		return ortho;
     }
     
-    // TODO: TESTME
-    public static Matrix lookAt(Tuple e, Tuple c, Vector u) {
-        Vector n = Tuple.subtract(c, e).toVector();
-        Vector r = Vector.cross(n, u);
-        Vector w = Vector.cross(r, n);
+    public static Matrix lookAt(Tuple e, Vector d, Vector u) {
+        Vector r = Vector.cross(d, u);
+        Vector w = Vector.cross(r, d);
 
         float[][] look = new float[][] {
             {r.get(0), r.get(1), r.get(2), -e.get(0)*r.get(0) - e.get(1)*r.get(1) - e.get(2)*r.get(2)},
             {w.get(0), w.get(1), w.get(2), -e.get(0)*w.get(0) - e.get(1)*w.get(1) - e.get(2)*w.get(2)},
-            {-n.get(0), -n.get(1), -n.get(2), e.get(0)*n.get(0) + e.get(1)*n.get(1) + e.get(2)*n.get(2)},
+            {-d.get(0), -d.get(1), -d.get(2), e.get(0)*d.get(0) + e.get(1)*d.get(1) + e.get(2)*d.get(2)},
             {0, 0, 0, 1}
         };
 

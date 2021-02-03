@@ -123,7 +123,7 @@ public class Game {
 	}
 
     public static void main(String[] args) {
-		new Game("./res/maps/perspective.txt");
+		new Game("./res/maps/map.txt");
     }
 
 }

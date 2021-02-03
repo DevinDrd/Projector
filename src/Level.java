@@ -10,6 +10,7 @@ import Model.*;
 public class Level {
 
     private ArrayList<Entity> entitys;
+    private ArrayList<Player> players;
 
     private int vertexCount;
     private int colorCount;
@@ -18,6 +19,7 @@ public class Level {
 
     public Level() {
         entitys = new ArrayList<Entity>();
+        players = new ArrayList<Player>();
 
         vertexCount = 0;
         colorCount = 0;
@@ -94,14 +96,24 @@ public class Level {
         entitys.add(new Entity(0, 0, 0, new SquareModel(vertices, colors)));
     }
 
+    public void addPlayer(Player p) {
+        players.add(p);
+    }
+
     public void update() {
         for (Entity o:entitys) o.update();
+        for (Player p:players) p.update();
     }
 
     public ArrayList<Entity> getEntities() {
         return entitys;
     }
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    // FIXME: handle player vertices
     public float[] getVertices() {
         float[] vertices = new float[vertexCount];
 
@@ -119,6 +131,7 @@ public class Level {
         return vertices;
     }
 
+    // FIXME: handle player colors
     public float[] getColors() {
         float[] colors = new float[colorCount];
 
@@ -136,10 +149,12 @@ public class Level {
         return colors;
     }
 
+    // FIXME: handle player vertices
     public int getVertexCount() {
         return vertexCount;
     }
 
+    // FIXME: handle player colors
     public int getColorCount() {
         return colorCount;
     }
