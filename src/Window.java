@@ -47,7 +47,7 @@ public class Window {
         openGL.update();
     }
 
-    public void render(Map map) {
+    public void render(Level map) {
         float[] vertices = map.getVertices();
         float[] colors = map.getColors();
 

@@ -15,7 +15,7 @@ public class Game {
 
     private boolean RENDER_TIME = false; // display ups and fps to standard output
 
-	private Map map;
+	private Level level;
 	private String mapPath;
 
 	private Player player;
@@ -46,7 +46,7 @@ public class Game {
 
     private void init() {
 		try {
-			map = new Map(mapPath);
+			level = new Level(mapPath);
 		} catch (FileNotFoundException e) {
 			System.out.println("Could not file: " + mapPath);
 			System.exit(0);
@@ -113,7 +113,7 @@ public class Game {
 	}
 	
 	private void render() {
-		window.render(map);
+		window.render(level);
 	}
 
 	private void handleEvents() {

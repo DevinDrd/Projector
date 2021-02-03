@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import Entity.*;
 import Model.*;
 
-public class Map {
+public class Level {
 
     private ArrayList<Entity> entitys;
 
@@ -16,14 +16,14 @@ public class Map {
 
     private static boolean verbos = true;
 
-    public Map() {
+    public Level() {
         entitys = new ArrayList<Entity>();
 
         vertexCount = 0;
         colorCount = 0;
     }
 
-    public Map(String pth) throws FileNotFoundException {
+    public Level(String pth) throws FileNotFoundException {
         vertexCount = 0;
         colorCount = 0;
         
