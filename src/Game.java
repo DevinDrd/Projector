@@ -24,7 +24,7 @@ public class Game {
         ups = 60;
 		fps = 60;
 		
-		mapPath = "./res/maps/ortho.txt";
+		mapPath = "./res/maps/map.txt";
 
 		init();
 		run();

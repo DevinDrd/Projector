@@ -7,7 +7,7 @@ jcomp
 jrun
 
 #
-*.*
+.*
 
 # Compiled class file
 *.class
