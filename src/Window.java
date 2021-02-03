@@ -47,16 +47,15 @@ public class Window {
         openGL.update();
     }
 
-    public void render(Level map) {
-        float[] vertices = map.getVertices();
-        float[] colors = map.getColors();
-
-        openGL.setUniMat4(projUni, projection);
-        openGL.render(vertices, colors);
-    }
-
     public ArrayList<KeyEvent> getEvents() {
         return openGL.pollEvents();
+    }
+
+    public void render(Level level) {
+
+
+        openGL.setUniMat4(projUni, projection);
+        openGL.render(level.getVertices(), level.getColors());
     }
 
     public boolean isOpen() {

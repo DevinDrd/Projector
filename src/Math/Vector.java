@@ -18,18 +18,44 @@ public class Vector {
         return vec[index];
     }
 
-    public Tuple toTuple() {
-        return new Tuple(vec);
+    public static float magnitude(Vector v) {
+        float mag = 0;
+        for (float f: v.vec)
+            mag += Math.pow(f, 2);
+
+        return (float) Math.sqrt(mag);
     }
 
-    // TODO: TESTME
-    public Matrix toMatrix() {
-        float[][] mat = new float[1][length];
+    public static Vector normalize(Vector v) {
+        float[] n = new float[v.length];
+        float mag = magnitude(v);
 
-        for (int i = 0; i < length; i++)
-            mat[i][0] = vec[i];
+        for (int i = 0; i < n.length; i++)
+            n[i] = v.vec[i]/mag;
+ 
+        return new Vector(n);
+    }
 
-        return new Matrix(mat);
+    public static Vector add(Vector v1, Vector v2) {
+        if (v1.length != v2.length) throw new ArithmeticException();
+
+        float[] sum = new float[v2.length];
+
+        for (int i = 0; i < sum.length; i++)
+            sum[i] = v1.vec[i] + v2.vec[i];
+
+        return new Vector(sum);
+    }
+
+    public static Vector subtract(Vector v1, Vector v2) {
+        if (v1.length != v2.length) throw new ArithmeticException();
+
+        float[] diff = new float[v2.length];
+
+        for (int i = 0; i < diff.length; i++)
+            diff[i] = v1.vec[i] - v2.vec[i];
+
+        return new Vector(diff);
     }
 
     // TODO: IMPLEMENT, TEST
@@ -48,6 +74,20 @@ public class Vector {
         return new Vector(product);
     }
 
+    public Tuple toTuple() {
+        return new Tuple(vec);
+    }
+
+    // TODO: TESTME
+    public Matrix toMatrix() {
+        float[][] mat = new float[1][length];
+
+        for (int i = 0; i < length; i++)
+            mat[i][0] = vec[i];
+
+        return new Matrix(mat);
+    }
+
     public String toString() {
         String output = "<";
 
@@ -58,5 +98,4 @@ public class Vector {
 
         return output;
     }
-    
 }

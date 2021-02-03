@@ -5,10 +5,10 @@ import Model.*;
 
 public class Entity {
 
-    private Tuple position;
-    private Vector velocity;
+    protected Tuple position;
+    protected Vector velocity;
 
-    private Model model;
+    protected Model model;
 
     public Entity(float x, float y, float z) {
         position = new Tuple(x, y, z);
