@@ -32,9 +32,19 @@ public class Player extends Entity {
     }
 
     public void update() {
-        camera.update();
         position = Tuple.add(position, velocity.toTuple());
+        camera.update();
         updateModel();
+    }
+
+    public void setVelocity(Vector vec) {
+        velocity = vec;
+        camera.setVelocity(vec);
+    }
+
+    public void addVelocity(Vector vec) {
+        velocity = Vector.add(velocity, vec);
+        camera.setVelocity(velocity);
     }
 
     public Camera getCamera() {
