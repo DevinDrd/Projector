@@ -43,7 +43,7 @@ public class Entity {
         updateModel();
     }
 
-    private void updateModel() {
+    protected void updateModel() {
         
     }
 
@@ -57,6 +57,10 @@ public class Entity {
 
     public Vector getVelocity() {
         return velocity;
+    }
+
+    public void setVelocity(Vector vel) {
+        velocity = vel;
     }
 
     public String toString() {

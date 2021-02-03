@@ -16,6 +16,12 @@ public class Camera extends Entity {
     private float n; // near side of the camera
     private float f; // far side of the camera
 
+
+    // usefull for testing map.txt
+    // Camera c = new Camera(new Tuple(0, 0, 4f), new Vector(0, 0, -1), new Vector(0, 1, 0), -5, 5, -5, 5, 2, 10);          TODO:DELETE
+    // Camera o = new Camera(new Tuple(0, 0, 0), new Vector(0, 0, -1), new Vector(0, 1, 0), -10, 10, -10, 10, -10, 10);     TODO:DELETE
+
+
     public Camera(Tuple position, Vector direction, Vector up, float left, float right, float bottom, float top, float near, float far) {
         super(position);
 

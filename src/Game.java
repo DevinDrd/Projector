@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
@@ -8,12 +7,14 @@ import Entity.*;
 
 public class Game {
 
-    private Window window;
+	private Window window;
+	
+	private Controller controller;
 
     private int ups;    // updates per second
     private int fps;    // frames per second
 
-    private boolean RENDER_TIME = false; // display ups and fps to standard output
+	private boolean RENDER_TIME = false; // display ups and fps to standard output
 
 	private Level level;
 	private String mapPath;
@@ -21,7 +22,7 @@ public class Game {
 	private Player player;
 
     public Game() {
-        window = new Window();
+		window = new Window();
 
         ups = 60;
 		fps = 60;
@@ -33,7 +34,7 @@ public class Game {
 	}
 	
 	public Game(String path) {
-        window = new Window();
+		window = new Window();
 
         ups = 60;
 		fps = 60;
@@ -64,8 +65,7 @@ public class Game {
 			System.exit(0);
 		}
 
-		player = new Player(0, 0, 0);
-		player.getPosition();
+		controller = new Controller(level.getPlayers().get(0));
     }
 
     private void run() {
@@ -108,18 +108,13 @@ public class Game {
 	}
 	
 	private void update() {
-		window.update();
-		handleEvents();
+		window.update(); // updates window events
+		controller.update(window.getEvents());
+		level.update();
 	}
 	
 	private void render() {
 		window.render(level);
-	}
-
-	private void handleEvents() {
-		ArrayList<KeyEvent> events = window.getEvents();
-
-		for (KeyEvent k:events) System.out.println(k);
 	}
 
     public static void main(String[] args) {

@@ -19,20 +19,10 @@ public class Window {
 
     private String projUni = "MVP";
 
-    private Camera c;
-    private Camera o;
-
     private OpenGL openGL;
-
 
     public Window() {
         openGL = new OpenGL(width, height, title, clearColor);
-        
-
-        // projection = Matrix.ortho(-10, 10, -10, 10, -10, 10);
-
-        c = new Camera(new Tuple(0, 0, 3f), new Vector(0, 0, -1), new Vector(0, 1, 0), -10, 10, -10, 10, 1, 5);
-        o = new Camera(new Tuple(0, 0, 0), new Vector(0, 0, -1), new Vector(0, 1, 0), -10, 10, -10, 10, -10, 10);
 
         try {
 			vertexShader = new Shader("./res/shaders/VertexShader.txt");
@@ -56,7 +46,7 @@ public class Window {
     }
 
     public void render(Level level) {
-        openGL.setUniMat4(projUni, c.getPerspective());
+        openGL.setUniMat4(projUni, level.getPlayers().get(0).getCamera().getPerspective());
         openGL.render(level.getVertices(), level.getColors());
     }
 
