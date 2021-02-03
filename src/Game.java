@@ -4,6 +4,8 @@ import java.util.NoSuchElementException;
 
 import java.io.FileNotFoundException;
 
+import Entity.*;
+
 public class Game {
 
     private Window window;

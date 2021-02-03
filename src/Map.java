@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import Entity.*;
 import Model.*;
 
 public class Map {
