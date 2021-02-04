@@ -28,22 +28,22 @@ public class Controller {
         if (event.action == GLFW_PRESS) {
 
             if (key == GLFW_KEY_W) // move in direction of the camera
-                player.addVelocity(Vector.divide(player.getCamera().getDirectionForward(), 10));
+                player.forwardForce(player.getForce());
 
             else if (key == GLFW_KEY_A) // move in the direction to the right from the camera's perspective
-                player.addVelocity(Vector.divide(player.getCamera().getDirectionRight(), -10)); // negative sign**
+                player.leftForce(player.getForce());
 
             else if (key == GLFW_KEY_S) // move in opposite direction of the camera
-                player.addVelocity(Vector.divide(player.getCamera().getDirectionForward(), -10)); // negative sign**
+                player.backwardForce(player.getForce());
 
             else if (key == GLFW_KEY_D) // move in the direction to the left from the camera's perspective
-                player.addVelocity(Vector.divide(player.getCamera().getDirectionRight(), 10));
+                player.rightForce(player.getForce());
 
             else if (key == GLFW_KEY_SPACE)
-                player.addVelocity(Vector.divide(player.getCamera().getDirectionUp(), 10));
+                player.upForce(player.getForce());
 
             else if (key == GLFW_KEY_LEFT_SHIFT)
-                player.addVelocity(Vector.divide(player.getCamera().getDirectionUp(), -10)); // negative sign**
+                player.downForce(player.getForce());
 
             else if (key == GLFW_KEY_UP);
 
@@ -52,29 +52,37 @@ public class Controller {
             else if (key == GLFW_KEY_LEFT);
 
             else if (key == GLFW_KEY_RIGHT);
-            
+
         }
         else if (event.action == GLFW_REPEAT) {
 
         }
         else if (event.action == GLFW_RELEASE) {
-            if (key == GLFW_KEY_W) // move in direction of the camera
-                player.addVelocity(Vector.divide(player.getCamera().getDirectionForward(), -10)); // negative sign**
+            if (key == GLFW_KEY_W) // stop movement
+                player.forwardForce(-player.getForce());
 
-            else if (key == GLFW_KEY_A) // move in the direction to the right from the camera's perspective
-                player.addVelocity(Vector.divide(player.getCamera().getDirectionRight(), 10));
+            else if (key == GLFW_KEY_A) // stop movement
+                player.leftForce(-player.getForce());
 
-            else if (key == GLFW_KEY_S) // move in opposite direction of the camera
-                player.addVelocity(Vector.divide(player.getCamera().getDirectionForward(), 10));
+            else if (key == GLFW_KEY_S) // stop movement
+                player.backwardForce(-player.getForce());
 
-            else if (key == GLFW_KEY_D) // move in the direction to the left from the camera's perspective
-                player.addVelocity(Vector.divide(player.getCamera().getDirectionRight(), -10)); // negative sign**
+            else if (key == GLFW_KEY_D) // stop movement
+                player.rightForce(-player.getForce());
 
-            else if (key == GLFW_KEY_SPACE)
-                player.addVelocity(Vector.divide(player.getCamera().getDirectionUp(), -10)); // negative sign**
+            else if (key == GLFW_KEY_SPACE) // stop movement
+                player.upForce(-player.getForce());
 
-            else if (key == GLFW_KEY_LEFT_SHIFT)
-                player.addVelocity(Vector.divide(player.getCamera().getDirectionUp(), 10));
+            else if (key == GLFW_KEY_LEFT_SHIFT) // stop movement
+                player.downForce(-player.getForce());
+
+            else if (key == GLFW_KEY_UP);
+
+            else if (key == GLFW_KEY_DOWN);
+
+            else if (key == GLFW_KEY_LEFT);
+
+            else if (key == GLFW_KEY_RIGHT);
         }
     }
     

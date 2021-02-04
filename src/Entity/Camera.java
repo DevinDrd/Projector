@@ -36,6 +36,10 @@ public class Camera extends Entity {
         f = far;
     }
 
+    public void setDirection() {
+        
+    }
+
     public Vector getDirectionForward() {
         return d;
     }
