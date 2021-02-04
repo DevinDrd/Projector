@@ -62,7 +62,6 @@ public class Level {
         file.close();
     }
 
-    // FIXME
     private void loadPlayer(Scanner file) {
         if (verbos) System.out.println("Map->Loading Player");
 

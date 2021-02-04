@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import static org.lwjgl.glfw.GLFW.*;
 
 import Entity.*;
-import Math.*;
 
 public class Controller {
 

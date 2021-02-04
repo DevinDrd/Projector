@@ -70,6 +70,32 @@ public class Player extends Entity {
     public void downForce(float f) {
         subtractVelocity(Vector.multiply(camera.getDirectionUp(), f));
     }
+
+    public void lookUp(float radian) {
+
+    }
+
+    public void lookDown(float radian) {
+
+    }
+
+    public void lookLeft(float radian) {
+
+    }
+
+    public void lookRight(float radian) {
+
+    }
+
+    // TODO:IMPLEMENT
+    public void spinCounterclockwise(float radian) {
+
+    }
+
+    // TODO:IMPLEMENT
+    public void spingClockwise() {
+
+    }
     
     public void setVelocity(Vector vec) {
         velocity = vec;

@@ -4,8 +4,6 @@ import Math.*;
 
 public class Camera extends Entity {
 
-    // perspective camera
-
     private Vector d; // camera direction
     private Vector u; // camera up orientation
 
@@ -34,10 +32,6 @@ public class Camera extends Entity {
         t = top;
         n = near;
         f = far;
-    }
-
-    public void setDirection() {
-        
     }
 
     public Vector getDirectionForward() {

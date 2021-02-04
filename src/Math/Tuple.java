@@ -4,8 +4,11 @@ public class Tuple {
 
     private final float[] tuple;
 
+    private int length;
+
     public Tuple(float... x) {
         tuple = x;
+        length = x.length;
     }
 
     public float get(int index) {
@@ -24,21 +27,26 @@ public class Tuple {
         return new Vector(tuple);
     }
 
-    // FIXME: THISONLYWORKSFOR 3-TIPLES!!!!!!
     public static Tuple add(Tuple a, Tuple b) {
-        return new Tuple(a.get(0) + b.get(0), a.get(1) + b.get(1), a.get(2) + b.get(2));
+        if (a.length != b.length) throw new ArithmeticException();
+
+        float[] sum = new float[a.length];
+
+        for (int i = 0; i < sum.length; i++)
+            sum[i] = a.tuple[i] + b.tuple[i];
+
+        return new Tuple(sum);
     }
 
     public static Tuple subtract(Tuple a, Tuple b) {
-        return new Tuple(a.get(0) - b.get(0), a.get(1) - b.get(1), a.get(2) - b.get(2));
-    }
+        if (a.length != b.length) throw new ArithmeticException();
 
-    public static Tuple multiply(Tuple a, Tuple b) {
-        return new Tuple(a.get(0) * b.get(0), a.get(1) * b.get(1), a.get(2) * b.get(2));
-    }
+        float[] diff = new float[a.length];
 
-    public static Tuple divide(Tuple a, Tuple b) {
-        return new Tuple(a.get(0) / b.get(0), a.get(1) / b.get(1), a.get(2) / b.get(2));
+        for (int i = 0; i < diff.length; i++)
+            diff[i] = a.tuple[i] - b.tuple[i];
+
+        return new Tuple(diff);
     }
 
     public String toString() {
