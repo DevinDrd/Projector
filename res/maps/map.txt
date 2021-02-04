@@ -1,6 +1,6 @@
 player
--1 -1 8    -1 1 8    0 1 8      ;
-1 1 1    1 1 1    1 1 1         ;
+; // no model for now
+; // no model for now
 0 0 4
 0 0 4    0 0 -1    0 1 0    -5 5 -5 5 2 10
 triangle

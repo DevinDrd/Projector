@@ -41,7 +41,7 @@ public class Model {
     }
 
     public float[] getColors() {
-        float[] colors = new float[cols.length*cols[0].length * 3];
+        float[] colors = new float[cols.length*3*3]; // 3 vertices per triangle, 3 coordinates per vertex
 
         int mark = 0;
 
