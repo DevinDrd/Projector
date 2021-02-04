@@ -2,9 +2,6 @@ import java.util.ArrayList;
 
 import java.io.IOException;
 
-import Math.*;
-import Entity.*;
-
 public class Window {
 
     private int width = 600;

@@ -36,6 +36,18 @@ public class Camera extends Entity {
         f = far;
     }
 
+    public Vector getDirectionForward() {
+        return d;
+    }
+
+    public Vector getDirectionRight() {
+        return Vector.cross(d, u);
+    }
+
+    public Vector getDirectionUp() {
+        return u;
+    }
+
     public Matrix getPerspective() {
         Matrix frustum = Matrix.frustum(l, r, b, t, n, f);
         Matrix lookat = Matrix.lookAt(position, d, u);

@@ -3,8 +3,6 @@ import java.util.NoSuchElementException;
 
 import java.io.FileNotFoundException;
 
-import Entity.*;
-
 public class Game {
 
 	private Window window;
@@ -18,8 +16,6 @@ public class Game {
 
 	private Level level;
 	private String mapPath;
-
-	private Player player;
 
     public Game() {
 		window = new Window();

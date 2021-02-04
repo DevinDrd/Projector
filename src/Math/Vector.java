@@ -36,6 +36,42 @@ public class Vector {
         return new Vector(n);
     }
 
+    public static Vector add(Vector v, float f) {
+        float[] sum = new float[v.length];
+
+        for (int i = 0; i < sum.length; i++) 
+            sum[i] = v.vec[i] + f;
+
+        return new Vector(sum);
+    }
+
+    public static Vector subtract(Vector v, float f) {
+        float[] diff = new float[v.length];
+
+        for (int i = 0; i < diff.length; i++) 
+            diff[i] = v.vec[i] - f;
+
+        return new Vector(diff);
+    }
+
+    public static Vector multiply(Vector v, float f) {
+        float[] product = new float[v.length];
+
+        for (int i = 0; i < product.length; i++) 
+            product[i] = v.vec[i] * f;
+
+        return new Vector(product);
+    }
+
+    public static Vector divide(Vector v, float f) {
+        float[] quotient = new float[v.length];
+
+        for (int i = 0; i < quotient.length; i++) 
+            quotient[i] = v.vec[i] / f;
+
+        return new Vector(quotient);
+    }
+
     public static Vector add(Vector v1, Vector v2) {
         if (v1.length != v2.length) throw new ArithmeticException();
 
