@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class Shader {
+
+	// TODO:Error Handling
 	
 	private String type;
 	private String shaderCode;

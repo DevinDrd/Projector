@@ -94,9 +94,14 @@ public class Vector {
         return new Vector(diff);
     }
 
-    // TODO: IMPLEMENT, TEST
+    // TODO: TEST
     public static float dot(Vector v1, Vector v2) {
-        return -1;
+        double dot = 0;
+
+        for (int i = 0; i < v1.length; i++)
+            dot = Math.pow(v1.vec[i], 2) + Math.pow(v2.vec[i], 2);
+        
+        return (float) Math.sqrt(dot);
     }
 
     public static Vector cross(Vector v1, Vector v2) {

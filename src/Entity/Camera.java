@@ -23,8 +23,12 @@ public class Camera extends Entity {
     public Camera(Tuple position, Vector direction, Vector up, float left, float right, float bottom, float top, float near, float far) {
         super(position);
 
+        // TODO if (Vector.dot(d, u) != 0) throw new IllegalArgumentException();
+
         d = Vector.normalize(direction);
         u = Vector.normalize(up);
+
+
 
         l = left;
         r = right;
