@@ -86,8 +86,14 @@ public class Matrix {
     }
     
     public static Matrix lookAt(Tuple e, Vector d, Vector u) {
+        d = Vector.normalize(d);
+        u = Vector.normalize(u);
+
         Vector r = Vector.cross(d, u);
+        r = Vector.normalize(r);
+
         Vector w = Vector.cross(r, d);
+        w = Vector.normalize(w);
 
         float[][] look = new float[][] {
             {r.get(0), r.get(1), r.get(2), -e.get(0)*r.get(0) - e.get(1)*r.get(1) - e.get(2)*r.get(2)},
@@ -97,6 +103,10 @@ public class Matrix {
         };
 
         return new Matrix(look);
+    }
+
+    public static Matrix rotate() {
+        return null;
     }
 
     public String toString() {

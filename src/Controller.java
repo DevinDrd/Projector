@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import static org.lwjgl.glfw.GLFW.*;
 
 import Entity.*;
+import Math.*;
 
 public class Controller {
 
@@ -52,9 +53,33 @@ public class Controller {
 
             else if (key == GLFW_KEY_RIGHT);
 
+            else if (key == GLFW_KEY_LEFT_CONTROL)
+                player.setForce(0.5f);
+
         }
         else if (event.action == GLFW_REPEAT) {
+            if (key == GLFW_KEY_W);
 
+            else if (key == GLFW_KEY_A);
+
+            else if (key == GLFW_KEY_S);
+
+            else if (key == GLFW_KEY_D);
+
+            else if (key == GLFW_KEY_SPACE);
+
+            else if (key == GLFW_KEY_LEFT_SHIFT);
+
+            else if (key == GLFW_KEY_UP);
+
+            else if (key == GLFW_KEY_DOWN);
+
+            else if (key == GLFW_KEY_LEFT);
+
+            else if (key == GLFW_KEY_RIGHT);
+
+            else if (key == GLFW_KEY_LEFT_CONTROL);
+                
         }
         else if (event.action == GLFW_RELEASE) {
             if (key == GLFW_KEY_W) // stop movement
@@ -82,6 +107,9 @@ public class Controller {
             else if (key == GLFW_KEY_LEFT);
 
             else if (key == GLFW_KEY_RIGHT);
+
+            else if (key == GLFW_KEY_LEFT_CONTROL)
+                player.setForce(0.1f);
         }
     }
     

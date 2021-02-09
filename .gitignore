@@ -1,10 +1,13 @@
-# Binaries and libraries
+# Folders
 bin
 lib
+test
 
 # My scripts
 jcomp
 jrun
+tcomp
+trun
 
 #
 .*
