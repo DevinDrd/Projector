@@ -109,6 +109,7 @@ public class Matrix {
         return null;
     }
 
+    @Override
     public String toString() {
         String output = "";
 
@@ -123,6 +124,29 @@ public class Matrix {
         }
 
         return output.substring(0, output.length() - 1);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || this.getClass() != obj.getClass()) return false;
+        if (this == obj) return true;
+
+        Matrix object = (Matrix) obj;
+
+        if (this.rows != object.rows) return false;
+        if (this.cols != object.cols) return false;
+
+        for (int i = 0; i < this.rows; i++)
+            for (int j = 0; j < this.cols; j++)
+                if (this.matrix[i][j] != object.matrix[i][j])
+                    return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return (rows*cols)%10000;
     }
 
 }
