@@ -10,8 +10,6 @@ public class Model {
     protected Model(){};
 
     public Model(float[] vertices, float[] colors) {
-        for (int i = 0; i < vertices.length; i++) 
-            System.out.println(i+1 + ": " + vertices[i]);
         if (vertices.length % 9 != 0) throw new IllegalArgumentException();
         if (vertices.length != colors.length) throw new IllegalArgumentException();
 
