@@ -57,6 +57,7 @@ public class Game {
 			e.printStackTrace();
 			System.exit(0);
 		} catch (NullPointerException e) {
+			e.printStackTrace();
 			System.out.println("Illegal path: " + mapPath);
 			System.exit(0);
 		}

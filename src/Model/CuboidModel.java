@@ -5,22 +5,75 @@ import Math.*;
 public class CuboidModel extends Model {
 
     // one face at a time counterclockwise
-    public CuboidModel(float[] vertices, float[] colors) {
-        if (vertices.length != 24 || colors.length != 24) throw new IllegalArgumentException();
-		
-		tris = new Triangle[12];
-        cols = new Tuple[tris.length][3];
-        
-        for (int i = 0; i < tris.length; i++) {
-            tris[i] = new Triangle(
-                    new Tuple(vertices[0 + i*9], vertices[1 + i*9], vertices[2 + i*9]),
-                    new Tuple(vertices[3 + i*9], vertices[4 + i*9], vertices[5 + i*9]),
-                    new Tuple(vertices[6 + i*9], vertices[7 + i*9], vertices[8 + i*9]) );
+    public CuboidModel(Tuple pos, Tuple color, float width, float height, float length) {
+        float x = pos.get(0);
+        float y = pos.get(1);
+        float z = pos.get(2);
 
-            cols[i][0] = new Tuple(colors[0 + i*9], colors[1 + i*9], colors[2 + i*9]);
-            cols[i][1] = new Tuple(colors[3 + i*9], colors[4 + i*9], colors[5 + i*9]);
-            cols[i][2] = new Tuple(colors[6 + i*9], colors[7 + i*9], colors[8 + i*9]);
-        }
+        float w2 = width/2;
+        float h2 = height/2;
+        float l2 = length/2;
+
+        tris = new Triangle[12];
+        cols = new Tuple[tris.length][3];
+
+        tris[0] = new Triangle(new Tuple(x - w2, y + h2, z - l2),
+                               new Tuple(x + w2, y + h2, z - l2),
+                               new Tuple(x + w2, y + h2, z + l2)
+        );
+        tris[1] = new Triangle(new Tuple(x + w2, y + h2, z + l2),
+                               new Tuple(x - w2, y + h2, z + l2),
+                               new Tuple(x - w2, y + h2, z - l2)
+        );
+
+        tris[2] = new Triangle(new Tuple(x - w2, y - h2, z - l2),
+                               new Tuple(x + w2, y - h2, z - l2),
+                               new Tuple(x + w2, y - h2, z + l2)
+        );
+        tris[3] = new Triangle(new Tuple(x + w2, y - h2, z + l2),
+                               new Tuple(x - w2, y - h2, z + l2),
+                               new Tuple(x - w2, y - h2, z - l2)
+        );
+
+        tris[4] = new Triangle(new Tuple(x - w2, y - h2, z - l2),
+                               new Tuple(x - w2, y - h2, z + l2),
+                               new Tuple(x - w2, y + h2, z + l2)
+        );
+        tris[5] = new Triangle(new Tuple(x - w2, y + h2, z + l2),
+                               new Tuple(x - w2, y + h2, z - l2),
+                               new Tuple(x - w2, y - h2, z - l2)
+        );
+
+        tris[6] = new Triangle(new Tuple(x + w2, y - h2, z - l2),
+                               new Tuple(x + w2, y - h2, z + l2),
+                               new Tuple(x + w2, y + h2, z + l2)
+        );
+        tris[7] = new Triangle(new Tuple(x + w2, y + h2, z + l2),
+                               new Tuple(x + w2, y + h2, z - l2),
+                               new Tuple(x + w2, y - h2, z - l2)
+        );
+        
+        tris[8] = new Triangle(new Tuple(x - w2, y - h2, z + l2),
+                               new Tuple(x + w2, y - h2, z + l2),
+                               new Tuple(x + w2, y + h2, z + l2)
+        );
+        tris[9] = new Triangle(new Tuple(x + w2, y + h2, z + l2),
+                               new Tuple(x - w2, y + h2, z + l2),
+                               new Tuple(x - w2, y - h2, z + l2)
+        );
+
+        tris[10] = new Triangle(new Tuple(x - w2, y - h2, z - l2),
+                                new Tuple(x + w2, y - h2, z - l2),
+                                new Tuple(x + w2, y + h2, z - l2)
+        );
+        tris[11] = new Triangle(new Tuple(x + w2, y + h2, z - l2),
+                                new Tuple(x - w2, y + h2, z - l2),
+                                new Tuple(x - w2, y - h2, z - l2)
+        );
+
+        for (int i = 0; i < cols.length; i++)
+            for (int j = 0; j < cols[0].length; j++)
+                cols[i][j] = color;
     }
     
 }

@@ -59,6 +59,14 @@ public class Model {
         return colors;
     }
 
+    public Triangle[] getTris() {
+        return tris;
+    }
+
+    public Tuple[][] getCols() {
+        return cols;
+    }
+
     public String toString() {
         String output = "Model:\n";
 

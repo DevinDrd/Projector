@@ -51,12 +51,16 @@ public class Level {
                 loadTriangle(file);
             else if (type.equals("square"))
                 loadSquare(file);
+            else if (type.equals("cuboid"))
+                loadCuboid(file);
             else if (type.equals("end"))
                 break;
             else {
                 System.out.println("Unknown type of object \"" + type + "\" in map file " + path);
                 System.exit(0);
             }
+
+            if (file.hasNextLine()) file.nextLine();
         }
 
         file.close();
@@ -90,8 +94,6 @@ public class Level {
         Model model = new Model(verts, cols);
 
 
-
-
         Tuple pPosition = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
 
 
@@ -106,9 +108,6 @@ public class Level {
         float t = file.nextFloat();
         float n = file.nextFloat();
         float f = file.nextFloat();
-
-        if (file.hasNextLine()) file.nextLine();
-
 
         Camera cam = new Camera(cPosition, direction, up, l, r, b, t, n, f);
         Player p = new Player(pPosition, model, cam);
@@ -132,8 +131,6 @@ public class Level {
         for (int i = 0; i < vertices.length; i++)
             colors[i] = file.nextFloat();
 
-        if (file.hasNextLine()) file.nextLine();
-
         entitys.add(new Entity(0, 0, 0, new TriangleModel(vertices, colors)));
 
         vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
@@ -143,20 +140,50 @@ public class Level {
     private void loadSquare(Scanner file) {
         if (verbos) System.out.println("Map->Loading Square");
 
-        float[] vertices = new float[12];
-        float[] colors = new float[12];
+        String line = file.nextLine();
 
-        for (int i = 0; i < vertices.length; i++)
-            vertices[i] = file.nextFloat();
+        if (line.equals("array")) {
+            float[] vertices = new float[12];
+            float[] colors = new float[12];
+    
+            for (int i = 0; i < vertices.length; i++)
+                vertices[i] = file.nextFloat();
+    
+            file.nextLine();
+    
+            for (int i = 0; i < vertices.length; i++)
+                colors[i] = file.nextFloat();
+        
+            entitys.add(new Entity(0, 0, 0, new SquareModel(vertices, colors)));
+    
+            vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
+            colorCount += entitys.get(entitys.size() - 1).getModel().getColors().length;
+        }
+        else if (line.equals("dimensions")) {
+            Tuple pos = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
+            Tuple color = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
 
-        file.nextLine();
+            float width = file.nextFloat();
+            float height = file.nextFloat();
 
-        for (int i = 0; i < vertices.length; i++)
-            colors[i] = file.nextFloat();
+            entitys.add(new Entity(pos.get(0), pos.get(1), pos.get(2), new SquareModel(pos, color, width, height)));
 
-        if (file.hasNextLine()) file.nextLine();
+            vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
+            colorCount += entitys.get(entitys.size() - 1).getModel().getColors().length;
+        }
+    }
 
-        entitys.add(new Entity(0, 0, 0, new SquareModel(vertices, colors)));
+    private void loadCuboid(Scanner file) {
+        if (verbos) System.out.println("Map->Loading Cuboid");
+
+        Tuple pos = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
+        Tuple color = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
+
+        float width = file.nextFloat();
+        float height = file.nextFloat();
+        float length = file.nextFloat();
+
+        entitys.add(new Entity(pos.get(0), pos.get(1), pos.get(2), new CuboidModel(pos, color, width, height, length)));
 
         vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
         colorCount += entitys.get(entitys.size() - 1).getModel().getColors().length;
