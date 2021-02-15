@@ -36,6 +36,20 @@ public class Vector {
         return new Vector(n);
     }
 
+    public static Vector homogenize(Vector v) {
+        float[] f = new float[v.length + 1];
+        for (int i = 0; i < v.length; i++)
+            f[i] = v.vec[i];
+
+        f[f.length - 1] = 1;
+        return new Vector(f);
+    }
+
+    // TODO: IMPLEMENT
+    public static Vector perspectiveDivide(Vector v) {
+        return null;
+    }
+
     public static Vector add(Vector v, float f) {
         float[] sum = new float[v.length];
 
@@ -119,9 +133,8 @@ public class Vector {
         return new Tuple(vec);
     }
 
-    // TODO: TESTME
     public Matrix toMatrix() {
-        float[][] mat = new float[1][length];
+        float[][] mat = new float[length][1];
 
         for (int i = 0; i < length; i++)
             mat[i][0] = vec[i];

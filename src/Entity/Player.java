@@ -72,32 +72,32 @@ public class Player extends Entity {
     }
 
     // TODO:IMPLEMENT
-    public void lookUp(float radian) {
+    public void lookUp(float alpha) {
+        
+    }
+
+    // TODO:IMPLEMENT
+    public void lookDown(float alpha) {
         System.out.println("not implemented");
     }
 
     // TODO:IMPLEMENT
-    public void lookDown(float radian) {
+    public void lookLeft(float alpha) {
         System.out.println("not implemented");
     }
 
     // TODO:IMPLEMENT
-    public void lookLeft(float radian) {
+    public void lookRight(float alpha) {
         System.out.println("not implemented");
     }
 
     // TODO:IMPLEMENT
-    public void lookRight(float radian) {
+    public void spinCounterclockwise(float alpha) {
         System.out.println("not implemented");
     }
 
     // TODO:IMPLEMENT
-    public void spinCounterclockwise(float radian) {
-        System.out.println("not implemented");
-    }
-
-    // TODO:IMPLEMENT
-    public void spingClockwise() {
+    public void spingClockwise(float alpha) {
         System.out.println("not implemented");
     }
     

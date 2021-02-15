@@ -28,8 +28,6 @@ public class Camera extends Entity {
         d = Vector.normalize(direction);
         u = Vector.normalize(up);
 
-
-
         l = left;
         r = right;
         b = bottom;
@@ -60,6 +58,12 @@ public class Camera extends Entity {
         Matrix ortho = Matrix.ortho(l, r, b, t, n, f);
         Matrix lookat = Matrix.lookAt(position, d, u);
         return Matrix.multiply(ortho, lookat);
+    }
+
+    public void rotate(Vector axis, float alpha) {
+        Matrix rotation = Matrix.rotate(axis, alpha);
+        Vector dh = Vector.homogenize(d);
+        dh = Matrix.multiply(rotation, dh.toMatrix()).toVector();
     }
     
 }
