@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import static org.lwjgl.glfw.GLFW.*;
 
 import Entity.*;
-import Math.*;
 
 public class Controller {
 
@@ -45,14 +44,16 @@ public class Controller {
             else if (key == GLFW_KEY_LEFT_SHIFT)
                 player.downForce(player.getForce());
 
-            else if (key == GLFW_KEY_UP);
+            else if (key == GLFW_KEY_UP)
+                player.lookUp(15);
 
-            else if (key == GLFW_KEY_DOWN);
+            else if (key == GLFW_KEY_DOWN)
+                player.lookDown(15);
 
-            else if (key == GLFW_KEY_LEFT);
-
-            else if (key == GLFW_KEY_RIGHT);
-
+            else if (key == GLFW_KEY_LEFT)
+                player.lookLeft(15);
+            else if (key == GLFW_KEY_RIGHT)
+                player.lookRight(15);
             else if (key == GLFW_KEY_LEFT_CONTROL)
                 player.setForce(0.5f);
 

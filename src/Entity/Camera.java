@@ -14,16 +14,8 @@ public class Camera extends Entity {
     private float n; // near side of the camera
     private float f; // far side of the camera
 
-
-    // usefull for testing map.txt
-    // Camera c = new Camera(new Tuple(0, 0, 4f), new Vector(0, 0, -1), new Vector(0, 1, 0), -5, 5, -5, 5, 2, 10);          TODO:DELETE
-    // Camera o = new Camera(new Tuple(0, 0, 0), new Vector(0, 0, -1), new Vector(0, 1, 0), -10, 10, -10, 10, -10, 10);     TODO:DELETE
-
-
     public Camera(Tuple position, Vector direction, Vector up, float left, float right, float bottom, float top, float near, float far) {
         super(position);
-
-        // TODO if (Vector.dot(d, u) != 0) throw new IllegalArgumentException();
 
         d = Vector.normalize(direction);
         u = Vector.normalize(up);
@@ -41,7 +33,7 @@ public class Camera extends Entity {
     }
 
     public Vector getDirectionRight() {
-        return Vector.cross(d, u);
+        return Vector.normalize(Vector.cross(d, u));
     }
 
     public Vector getDirectionUp() {
@@ -61,9 +53,25 @@ public class Camera extends Entity {
     }
 
     public void rotate(Vector axis, float alpha) {
-        Matrix rotation = Matrix.rotate(axis, alpha);
-        Vector dh = Vector.homogenize(d);
+        Matrix rotation;
+        Vector dh;
+
+        rotation = Matrix.rotate(axis, alpha);
+        dh = d.homogenize();
         dh = Matrix.multiply(rotation, dh.toMatrix()).toVector();
+        dh = dh.perspectiveDivide();
+        dh = Vector.normalize(dh);
+
+        if (dh.equals(u)) {
+            rotation = Matrix.rotate(axis, alpha+.001f);
+            dh = d.homogenize();
+            dh = Matrix.multiply(rotation, dh.toMatrix()).toVector();
+            dh = dh.perspectiveDivide();
+            dh = Vector.normalize(dh);
+        }
+
+        d = dh;
+        System.out.println(d);
     }
     
 }

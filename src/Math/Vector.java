@@ -36,18 +36,21 @@ public class Vector {
         return new Vector(n);
     }
 
-    public static Vector homogenize(Vector v) {
-        float[] f = new float[v.length + 1];
-        for (int i = 0; i < v.length; i++)
-            f[i] = v.vec[i];
+    public  Vector homogenize() {
+        float[] f = new float[vec.length + 1];
+        for (int i = 0; i < vec.length; i++)
+            f[i] = vec[i];
 
         f[f.length - 1] = 1;
         return new Vector(f);
     }
 
-    // TODO: IMPLEMENT
-    public static Vector perspectiveDivide(Vector v) {
-        return null;
+    public  Vector perspectiveDivide() {
+        float[] f = new float[vec.length - 1];
+        for (int i = 0; i < f.length; i++)
+            f[i] = vec[i] / vec[vec.length - 1];
+
+        return new Vector(f);
     }
 
     public static Vector add(Vector v, float f) {
@@ -151,5 +154,28 @@ public class Vector {
         output += ">";
 
         return output;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || this.getClass() != obj.getClass()) return false;
+        if (this == obj) return true;
+
+        Vector object = (Vector) obj;
+
+        if (this.length != object.length) return false;
+
+        for (int i = 0; i < length; i++)
+            if (Math.abs(this.vec[i] - object.vec[i]) > .000001f) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int sum = 0;
+        for (float f:vec)
+            sum += (int) f;
+        return (length * sum) % 100000;
     }
 }

@@ -71,24 +71,20 @@ public class Player extends Entity {
         subtractVelocity(Vector.multiply(camera.getDirectionUp(), f));
     }
 
-    // TODO:IMPLEMENT
     public void lookUp(float alpha) {
-        
+        camera.rotate(camera.getDirectionRight(), alpha);
     }
 
-    // TODO:IMPLEMENT
     public void lookDown(float alpha) {
-        System.out.println("not implemented");
+        camera.rotate(camera.getDirectionRight(), -alpha);
     }
 
-    // TODO:IMPLEMENT
     public void lookLeft(float alpha) {
-        System.out.println("not implemented");
+        camera.rotate(camera.getDirectionUp(), alpha);
     }
 
-    // TODO:IMPLEMENT
     public void lookRight(float alpha) {
-        System.out.println("not implemented");
+        camera.rotate(camera.getDirectionUp(), -alpha);
     }
 
     // TODO:IMPLEMENT

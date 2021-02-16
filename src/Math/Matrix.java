@@ -108,15 +108,17 @@ public class Matrix {
     public static Matrix rotate(Vector axis, float alpha) {
         if (axis.getLength() != 3) throw new IllegalArgumentException();
 
+        axis = Vector.normalize(axis);
+
         float x = axis.get(0);
         float y = axis.get(1);
         float z = axis.get(2);
 
-        float c = (float) Math.cos(alpha);
-        float s = (float) Math.sin(alpha);
+        float c = (float) Math.cos(Math.toRadians(alpha));
+        float s = (float) Math.sin(Math.toRadians(alpha));
 
         float[][] rotate = new float[][] {
-            {x*x*(1-c) + c, x*y*(1-c) - z*s, x*z*(1-c) + y*s, 0},
+            {(x*x)*(1-c) + c, x*y*(1-c) - z*s, x*z*(1-c) + y*s, 0},
             {y*x*(1-c) + z*s, y*y*(1-c) + c, y*z*(1-c) - x*s, 0},
             {z*x*(1-c) - y*s, z*y*(1-c) + x*s, z*z*(1-c) + c, 0},
             {0, 0, 0, 1}
