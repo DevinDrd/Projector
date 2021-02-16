@@ -52,10 +52,18 @@ public class Controller {
 
             else if (key == GLFW_KEY_LEFT)
                 player.lookLeft(15);
+
             else if (key == GLFW_KEY_RIGHT)
                 player.lookRight(15);
+
             else if (key == GLFW_KEY_LEFT_CONTROL)
                 player.setForce(0.5f);
+
+            else if (key == GLFW_KEY_COMMA)
+                player.spinCounterclockwise(15);
+
+            else if (key == GLFW_KEY_PERIOD)
+                player.spingClockwise(15);
 
         }
         else if (event.action == GLFW_REPEAT) {

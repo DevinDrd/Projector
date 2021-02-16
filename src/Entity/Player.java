@@ -87,14 +87,12 @@ public class Player extends Entity {
         camera.rotate(camera.getDirectionUp(), -alpha);
     }
 
-    // TODO:IMPLEMENT
     public void spinCounterclockwise(float alpha) {
-        System.out.println("not implemented");
+        camera.rotate(camera.getDirectionForward(), -alpha);
     }
 
-    // TODO:IMPLEMENT
     public void spingClockwise(float alpha) {
-        System.out.println("not implemented");
+        camera.rotate(camera.getDirectionForward(), alpha);
     }
     
     public void setVelocity(Vector vec) {
