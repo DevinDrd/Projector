@@ -1,28 +1,27 @@
 package Game.Entity;
 
 import Game.Math.*;
-import Game.Model.CuboidModel;
-import Game.Physics.*;
+import Game.Model.ClownBoxModel;
+import Game.Physics.RigidBody;
 
 import java.util.Scanner;
 
 import java.io.FileNotFoundException;
 
-public class Cuboid extends Entity {
+public class ClownBox extends Entity {
 
     private RigidBody body;
 
-    public Cuboid(Tuple pos, Tuple color, float width, float height, float length) {
+    public ClownBox(Tuple pos, float width, float height, float length) {
         position = pos;
         velocity = new Vector(0, 0, 0);
 
-        model = new CuboidModel(position, color, width, height, length);
+        model = new ClownBoxModel(position, width, height, length);
     }
 
-    // syntax: position    color    width    height    length
-    public Cuboid(Scanner source) throws FileNotFoundException {
+    // syntax: position    width    height    length
+    public ClownBox(Scanner source) throws FileNotFoundException {
         Tuple pos = new Tuple(source.nextFloat(), source.nextFloat(), source.nextFloat());
-        Tuple color = new Tuple(source.nextFloat(), source.nextFloat(), source.nextFloat());
 
         float width = source.nextFloat();
         float height = source.nextFloat();
@@ -31,7 +30,7 @@ public class Cuboid extends Entity {
         position = new Tuple(pos.get(0), pos.get(1), pos.get(2));
         velocity = new Vector(0, 0, 0);
 
-        model = new CuboidModel(pos, color, width, height, length);
+        model = new ClownBoxModel(pos, width, height, length);
     }
     
 }

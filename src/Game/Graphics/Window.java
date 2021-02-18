@@ -14,7 +14,7 @@ public class Window {
 
     private String title = "Game";
 
-    private float[] clearColor = new float[] {.01f, .01f, .1f, 1.0f};
+    private float[] clearColor = new float[] {.05f, .05f, .2f, 1.0f};
 
     private Shader vertexShader;
     private Shader fragmentShader;

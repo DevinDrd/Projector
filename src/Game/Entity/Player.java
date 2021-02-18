@@ -3,11 +3,15 @@ package Game.Entity;
 import Game.Math.*;
 import Game.Model.*;
 
+import Game.Physics.RigidBody;
+
 public class Player extends Entity {
 
     private Camera camera;
 
-    private float force = .5f; // force value that acts on player
+    private RigidBody body;
+
+    private float force = 2f; // force value that acts on player
 
     public Player(float x, float y, float z, Camera camera) {
         super(x, y, z);
@@ -80,11 +84,11 @@ public class Player extends Entity {
     }
 
     public void spinCounterclockwise(float alpha) {
-        camera.rotate(camera.getDirectionForward(), alpha);
+        camera.rotate(camera.getDirectionForward(), -alpha);
     }
 
     public void spingClockwise(float alpha) {
-        camera.rotate(camera.getDirectionForward(), -alpha);
+        camera.rotate(camera.getDirectionForward(), alpha);
     }
     
     public void setVelocity(Vector vec) {

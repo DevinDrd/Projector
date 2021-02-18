@@ -6,6 +6,10 @@ public class ClownBoxModel extends Model {
 
     // one face at a time counterclockwise
     public ClownBoxModel(Tuple pos, float width, float height, float length) {
+        build(pos, width, height, length);
+    }
+
+    private void build(Tuple pos, float width, float height, float length) {
         float x = pos.get(0);
         float y = pos.get(1);
         float z = pos.get(2);
@@ -108,7 +112,6 @@ public class ClownBoxModel extends Model {
             cols[10][i] = colors[5];
             cols[11][i] = colors[5];
         }
-
     }
-    
+   
 }

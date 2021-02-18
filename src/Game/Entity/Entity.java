@@ -10,6 +10,8 @@ public class Entity {
 
     protected Model model;
 
+    public Entity(){};
+
     public Entity(float x, float y, float z) {
         position = new Tuple(x, y, z);
         velocity = new Vector(0, 0, 0);

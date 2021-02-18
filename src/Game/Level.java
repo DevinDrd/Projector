@@ -49,10 +49,6 @@ public class Level {
 
             if (type.equals("player"))
                 loadPlayer(file);
-            else if (type.equals("triangle"))
-                loadTriangle(file);
-            else if (type.equals("square"))
-                loadSquare(file);
             else if (type.equals("cuboid"))
                 loadCuboid(file);
             else if (type.equals("clownbox"))
@@ -121,88 +117,19 @@ public class Level {
         colorCount += players.get(players.size() - 1).getModel().getColors().length;
     }
 
-    private void loadTriangle(Scanner file) {
-        if (verbos) System.out.println("Map->Loading Triangle");
-
-        float[] vertices = new float[9];
-        float[] colors = new float[9];
-
-        for (int i = 0; i < vertices.length; i++)
-            vertices[i] = file.nextFloat();
-
-        file.nextLine();
-
-        for (int i = 0; i < vertices.length; i++)
-            colors[i] = file.nextFloat();
-
-        entitys.add(new Entity(0, 0, 0, new TriangleModel(vertices, colors)));
-
-        vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
-        colorCount += entitys.get(entitys.size() - 1).getModel().getColors().length;
-    }
-
-    private void loadSquare(Scanner file) {
-        if (verbos) System.out.println("Map->Loading Square");
-
-        String line = file.nextLine();
-
-        if (line.equals("array")) {
-            float[] vertices = new float[12];
-            float[] colors = new float[12];
-    
-            for (int i = 0; i < vertices.length; i++)
-                vertices[i] = file.nextFloat();
-    
-            file.nextLine();
-    
-            for (int i = 0; i < vertices.length; i++)
-                colors[i] = file.nextFloat();
-        
-            entitys.add(new Entity(0, 0, 0, new SquareModel(vertices, colors)));
-    
-            vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
-            colorCount += entitys.get(entitys.size() - 1).getModel().getColors().length;
-        }
-        else if (line.equals("dimensions")) {
-            Tuple pos = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
-            Tuple color = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
-
-            float width = file.nextFloat();
-            float height = file.nextFloat();
-
-            entitys.add(new Entity(pos.get(0), pos.get(1), pos.get(2), new SquareModel(pos, color, width, height)));
-
-            vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
-            colorCount += entitys.get(entitys.size() - 1).getModel().getColors().length;
-        }
-    }
-
-    private void loadCuboid(Scanner file) {
+    private void loadCuboid(Scanner file) throws FileNotFoundException {
         if (verbos) System.out.println("Map->Loading Cuboid");
 
-        Tuple pos = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
-        Tuple color = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
-
-        float width = file.nextFloat();
-        float height = file.nextFloat();
-        float length = file.nextFloat();
-
-        entitys.add(new Entity(pos.get(0), pos.get(1), pos.get(2), new CuboidModel(pos, color, width, height, length)));
+        entitys.add(new Cuboid(file));
 
         vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
         colorCount += entitys.get(entitys.size() - 1).getModel().getColors().length;
     }
 
-    private void loadClownBox(Scanner file) {
+    private void loadClownBox(Scanner file) throws FileNotFoundException {
         if (verbos) System.out.println("Map->Loading ClownBox");
 
-        Tuple pos = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
-
-        float width = file.nextFloat();
-        float height = file.nextFloat();
-        float length = file.nextFloat();
-
-        entitys.add(new Entity(pos.get(0), pos.get(1), pos.get(2), new ClownBoxModel(pos, width, height, length)));
+        entitys.add(new ClownBox(file));
 
         vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
         colorCount += entitys.get(entitys.size() - 1).getModel().getColors().length;
