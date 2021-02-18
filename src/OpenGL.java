@@ -37,7 +37,7 @@ public class OpenGL {
 
     private String title;
 
-	private int maxTris = 25;
+	private int maxTris = 50;
 	
 	private ArrayList<KeyEvent> keys;
 

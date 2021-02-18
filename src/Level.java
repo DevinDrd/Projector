@@ -53,6 +53,8 @@ public class Level {
                 loadSquare(file);
             else if (type.equals("cuboid"))
                 loadCuboid(file);
+            else if (type.equals("clownbox"))
+                loadClownBox(file);
             else if (type.equals("end"))
                 break;
             else {
@@ -184,6 +186,21 @@ public class Level {
         float length = file.nextFloat();
 
         entitys.add(new Entity(pos.get(0), pos.get(1), pos.get(2), new CuboidModel(pos, color, width, height, length)));
+
+        vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
+        colorCount += entitys.get(entitys.size() - 1).getModel().getColors().length;
+    }
+
+    private void loadClownBox(Scanner file) {
+        if (verbos) System.out.println("Map->Loading ClownBox");
+
+        Tuple pos = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
+
+        float width = file.nextFloat();
+        float height = file.nextFloat();
+        float length = file.nextFloat();
+
+        entitys.add(new Entity(pos.get(0), pos.get(1), pos.get(2), new ClownBoxModel(pos, width, height, length)));
 
         vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
         colorCount += entitys.get(entitys.size() - 1).getModel().getColors().length;

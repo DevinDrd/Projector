@@ -7,38 +7,30 @@ public class Player extends Entity {
 
     private Camera camera;
 
-    private float force; // force value that acts on player
+    private float force = .5f; // force value that acts on player
 
     public Player(float x, float y, float z, Camera camera) {
         super(x, y, z);
 
         this.camera = camera;
-
-        force = .1f;
     }
 
     public Player(Tuple position, Camera camera) {
         super(position);
 
         this.camera = camera;
-
-        force = .1f;
     }
 
     public Player(float x, float y, float z, Model model, Camera camera) {
         super(x, y, z, model);
 
         this.camera = camera;
-
-        force = .1f;
     }
 
     public Player(Tuple position, Model model, Camera camera) {
         super(position, model);
 
         this.camera = camera;
-
-        force = .1f;
     }
 
     public void update() {

@@ -57,7 +57,7 @@ public class Controller {
                 player.lookRight(15);
 
             else if (key == GLFW_KEY_LEFT_CONTROL)
-                player.setForce(0.5f);
+                player.setForce(1f);
 
             else if (key == GLFW_KEY_COMMA)
                 player.spinCounterclockwise(15);
@@ -129,7 +129,7 @@ public class Controller {
             else if (key == GLFW_KEY_RIGHT);
 
             else if (key == GLFW_KEY_LEFT_CONTROL)
-                player.setForce(0.1f);
+                player.setForce(0.5f);
         }
     }
     
