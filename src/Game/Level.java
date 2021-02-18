@@ -1,12 +1,14 @@
+package Game;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import Entity.*;
-import Math.*;
-import Model.*;
+import Game.Entity.*;
+import Game.Math.*;
+import Game.Model.*;
 
 public class Level {
 

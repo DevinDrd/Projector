@@ -1,7 +1,7 @@
-package Entity;
+package Game.Entity;
 
-import Math.*;
-import Model.*;
+import Game.Math.*;
+import Game.Model.*;
 
 public class Player extends Entity {
 

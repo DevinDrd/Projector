@@ -1,4 +1,4 @@
-package Util;
+package Game.Util;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

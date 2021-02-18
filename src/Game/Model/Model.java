@@ -1,6 +1,6 @@
-package Model;
+package Game.Model;
 
-import Math.*;
+import Game.Math.*;
 
 public class Model {
 

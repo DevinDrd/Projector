@@ -1,6 +1,6 @@
-package Entity;
+package Game.Entity;
 
-import Math.*;
+import Game.Math.*;
 
 public class Camera extends Entity {
 

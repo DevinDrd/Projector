@@ -1,8 +1,10 @@
+package Game.Input;
+
 import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-import Entity.*;
+import Game.Entity.*;
 
 public class Controller {
 

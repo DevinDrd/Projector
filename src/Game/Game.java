@@ -1,7 +1,12 @@
+package Game;
+
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
 import java.io.FileNotFoundException;
+
+import Game.Graphics.Window;
+import Game.Input.*;
 
 public class Game {
 

@@ -1,6 +1,11 @@
+package Game.Graphics;
+
 import java.util.ArrayList;
 
 import java.io.IOException;
+
+import Game.Level;
+import Game.Input.KeyEvent;
 
 public class Window {
 

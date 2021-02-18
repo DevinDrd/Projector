@@ -1,4 +1,4 @@
-package Model;
+package Game.Model;
 
 public class TriangleModel extends Model {
 

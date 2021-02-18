@@ -1,3 +1,5 @@
+package Game.Graphics;
+
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
@@ -12,9 +14,9 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-import Util.FloatBufferUtil;
-
-import Math.*;
+import Game.Util.FloatBufferUtil;
+import Game.Math.*;
+import Game.Input.KeyEvent;
 
 public class OpenGL {
 

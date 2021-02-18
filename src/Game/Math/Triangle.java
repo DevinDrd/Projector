@@ -1,4 +1,4 @@
-package Math;
+package Game.Math;
 
 public class Triangle {
 

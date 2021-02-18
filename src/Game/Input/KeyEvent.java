@@ -1,3 +1,5 @@
+package Game.Input;
+
 public class KeyEvent {
 
     public final int key;
