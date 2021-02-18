@@ -7,3 +7,7 @@ Compile:
 
 Run:
     java -cp ./bin:./lib/lwjgl/lwjgl.jar:./lib/lwjgl/lwjgl-glfw.jar:./lib/lwjgl/lwjgl-glfw-natives-linux.jar:./lib/lwjgl/lwjgl-natives-linux.jar:./lib/lwjgl/lwjgl-opengl.jar:./lib/lwjgl/lwjgl-opengl-natives-linux.jar -Djava.library.path=./lib/lwjgl Game
+
+Note:
+    Make sure to provide the correct native path based on os. E.g.lwjgl-natives-macos.jar.
+    Also, on macos, you may need to use the XstartOnFirstThread flag when running with the java command.

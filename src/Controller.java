@@ -79,15 +79,26 @@ public class Controller {
 
             else if (key == GLFW_KEY_LEFT_SHIFT);
 
-            else if (key == GLFW_KEY_UP);
+            else if (key == GLFW_KEY_UP)
+                player.lookUp(15);
 
-            else if (key == GLFW_KEY_DOWN);
+            else if (key == GLFW_KEY_DOWN)
+                player.lookDown(15);
 
-            else if (key == GLFW_KEY_LEFT);
+            else if (key == GLFW_KEY_LEFT)
+                player.lookLeft(15);
 
-            else if (key == GLFW_KEY_RIGHT);
+            else if (key == GLFW_KEY_RIGHT)
+                player.lookRight(15);
 
-            else if (key == GLFW_KEY_LEFT_CONTROL);
+            else if (key == GLFW_KEY_LEFT_CONTROL)
+                player.setForce(0.5f);
+
+            else if (key == GLFW_KEY_COMMA)
+                player.spinCounterclockwise(15);
+
+            else if (key == GLFW_KEY_PERIOD)
+                player.spingClockwise(15);
                 
         }
         else if (event.action == GLFW_RELEASE) {

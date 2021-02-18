@@ -88,11 +88,11 @@ public class Player extends Entity {
     }
 
     public void spinCounterclockwise(float alpha) {
-        camera.rotate(camera.getDirectionForward(), -alpha);
+        camera.rotate(camera.getDirectionForward(), alpha);
     }
 
     public void spingClockwise(float alpha) {
-        camera.rotate(camera.getDirectionForward(), alpha);
+        camera.rotate(camera.getDirectionForward(), -alpha);
     }
     
     public void setVelocity(Vector vec) {
