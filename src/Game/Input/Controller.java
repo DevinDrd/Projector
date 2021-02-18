@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-import Game.Entity.*;
+import Game.Entity.Hard.Player;
 
 public class Controller {
 

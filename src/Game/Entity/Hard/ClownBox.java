@@ -1,16 +1,13 @@
-package Game.Entity;
+package Game.Entity.Hard;
 
 import Game.Math.*;
 import Game.Model.ClownBoxModel;
-import Game.Physics.RigidBody;
 
 import java.util.Scanner;
 
 import java.io.FileNotFoundException;
 
-public class ClownBox extends Entity {
-
-    private RigidBody body;
+public class ClownBox extends HardEntity {
 
     public ClownBox(Tuple pos, float width, float height, float length) {
         position = pos;

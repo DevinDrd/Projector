@@ -1,16 +1,13 @@
-package Game.Entity;
+package Game.Entity.Hard;
 
 import Game.Math.*;
 import Game.Model.CuboidModel;
-import Game.Physics.*;
 
 import java.util.Scanner;
 
 import java.io.FileNotFoundException;
 
-public class Cuboid extends Entity {
-
-    private RigidBody body;
+public class Cuboid extends HardEntity {
 
     public Cuboid(Tuple pos, Tuple color, float width, float height, float length) {
         position = pos;

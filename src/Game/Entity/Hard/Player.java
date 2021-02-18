@@ -1,15 +1,12 @@
-package Game.Entity;
+package Game.Entity.Hard;
 
+import Game.Entity.Camera;
 import Game.Math.*;
 import Game.Model.*;
 
-import Game.Physics.RigidBody;
-
-public class Player extends Entity {
+public class Player extends HardEntity {
 
     private Camera camera;
-
-    private RigidBody body;
 
     private float force = 2f; // force value that acts on player
 

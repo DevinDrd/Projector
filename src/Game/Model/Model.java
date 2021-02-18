@@ -2,12 +2,6 @@ package Game.Model;
 
 import Game.Math.*;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-
 public class Model {
 
     protected Triangle[] tris;
@@ -36,15 +30,6 @@ public class Model {
             cols[i][1] = new Tuple(colors[3 + i*9], colors[4 + i*9], colors[5 + i*9]);
             cols[i][2] = new Tuple(colors[6 + i*9], colors[7 + i*9], colors[8 + i*9]);
         }
-    }
-
-    public void loadModel(File source) throws FileNotFoundException {
-        // TODO: IMPLEMENT
-        Scanner sIn = new Scanner(source);
-
-        ArrayList<Float> vertices = new ArrayList<Float>();
-        ArrayList<Float> colors = new ArrayList<Float>();
-
     }
 
     public float[] getVertices() {

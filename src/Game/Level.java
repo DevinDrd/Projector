@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import Game.Entity.*;
+import Game.Entity.Hard.*;
 import Game.Math.*;
 import Game.Model.*;
 
