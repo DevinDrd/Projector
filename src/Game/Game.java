@@ -7,12 +7,15 @@ import java.io.FileNotFoundException;
 
 import Game.Graphics.Window;
 import Game.Input.*;
+import Game.Physics.PhysicsEngine;
 
 public class Game {
 
 	private Window window;
 	
 	private Controller controller;
+
+	private PhysicsEngine physicsEngine;
 
     private int ups;    // updates per second
     private int fps;    // frames per second
@@ -23,30 +26,25 @@ public class Game {
 	private String mapPath;
 
     public Game() {
-		window = new Window();
-
-        ups = 60;
-		fps = 60;
-		
 		mapPath = "./res/maps/map.txt";
 
 		init();
-		run();
 	}
 	
-	public Game(String path) {
-		window = new Window();
-
-        ups = 60;
-		fps = 60;
-		
+	public Game(String path) {		
 		mapPath = path;
 
 		init();
-		run();
     }
 
     private void init() {
+		window = new Window();
+
+		physicsEngine = new PhysicsEngine();
+
+        ups = 60;
+		fps = 60;
+
 		try {
 			level = new Level(mapPath);
 		} catch (FileNotFoundException e) {
@@ -112,6 +110,7 @@ public class Game {
 	private void update() {
 		window.update(); // updates window events
 		controller.update(window.getEvents());
+		physicsEngine.update(level.getHardEntities());
 		level.update();
 	}
 	
@@ -120,7 +119,7 @@ public class Game {
 	}
 
     public static void main(String[] args) {
-		new Game("./res/maps/map.txt");
+		new Game("./res/maps/map.txt").run();
     }
 
 }

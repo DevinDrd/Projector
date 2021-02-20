@@ -10,11 +10,11 @@ import Game.Entity.*;
 import Game.Entity.Hard.*;
 import Game.Math.*;
 import Game.Model.*;
+import Game.Physics.RigidBody;
 
 public class Level {
 
-    private ArrayList<Entity> entitys;
-    private ArrayList<Player> players;
+    private ArrayList<Entity> entities;
 
     private int vertexCount;
     private int colorCount;
@@ -22,28 +22,25 @@ public class Level {
     private static boolean verbos = true;
 
     public Level() {
-        entitys = new ArrayList<Entity>();
-        players = new ArrayList<Player>();
-
-        vertexCount = 0;
-        colorCount = 0;
+        init();
     }
 
     public Level(String pth) throws FileNotFoundException {
-        entitys = new ArrayList<Entity>();
-        players = new ArrayList<Player>();
-
-        vertexCount = 0;
-        colorCount = 0;
-        
+        init();
         loadMap(pth);
     }
 
+    private void init() {
+        entities = new ArrayList<Entity>();
+
+        vertexCount = 0;
+        colorCount = 0;
+    }
+ 
     public void loadMap(String path) throws FileNotFoundException {
         Scanner file = new Scanner(new File(path));
 
-        entitys = new ArrayList<Entity>();
-        players = new ArrayList<Player>();
+        entities = new ArrayList<Entity>();
 
         while(file.hasNextLine()) {
             String type = file.nextLine();
@@ -60,6 +57,9 @@ public class Level {
                 System.out.println("Unknown type of object \"" + type + "\" in map file " + path);
                 System.exit(0);
             }
+
+            vertexCount += entities.get(entities.size() - 1).getModel().getVertices().length;
+            colorCount += entities.get(entities.size() - 1).getModel().getColors().length;
 
             if (file.hasNextLine()) file.nextLine();
         }
@@ -111,41 +111,58 @@ public class Level {
         float f = file.nextFloat();
 
         Camera cam = new Camera(cPosition, direction, up, l, r, b, t, n, f);
-        Player p = new Player(pPosition, model, cam);
-        players.add(p);
 
-        vertexCount += players.get(players.size() - 1).getModel().getVertices().length;
-        colorCount += players.get(players.size() - 1).getModel().getColors().length;
+        // TODO: FIXME
+        ArrayList<Vector> list = new ArrayList<Vector>();
+        list.add(new Vector(0, -25, 10));
+        list.add(new Vector(-2, -21, 12));
+        list.add(new Vector(2, -21, 12));
+        list.add(new Vector(2, -21, 8));
+        list.add(new Vector(-2, -21, 8));
+        RigidBody pBody = new RigidBody(list);
+
+
+        Player p = new Player(pPosition, model, cam, pBody);
+        entities.add(p);
     }
 
     private void loadCuboid(Scanner file) throws FileNotFoundException {
         if (verbos) System.out.println("Map->Loading Cuboid");
 
-        entitys.add(new Cuboid(file));
-
-        vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
-        colorCount += entitys.get(entitys.size() - 1).getModel().getColors().length;
+        entities.add(new Cuboid(file));
     }
 
     private void loadClownBox(Scanner file) throws FileNotFoundException {
         if (verbos) System.out.println("Map->Loading ClownBox");
 
-        entitys.add(new ClownBox(file));
-
-        vertexCount += entitys.get(entitys.size() - 1).getModel().getVertices().length;
-        colorCount += entitys.get(entitys.size() - 1).getModel().getColors().length;
+        entities.add(new ClownBox(file));
     }
 
     public void update() {
-        for (Entity o:entitys) o.update();
-        for (Player p:players) p.update();
+        for (Entity o:entities) o.update();
     }
 
     public ArrayList<Entity> getEntities() {
-        return entitys;
+        return entities;
+    }
+
+    public ArrayList<HardEntity> getHardEntities() {
+        ArrayList<HardEntity> hardEntities = new ArrayList<HardEntity>();
+
+        for (Entity entity: entities)
+            if (entity instanceof HardEntity)
+                hardEntities.add((HardEntity) entity);
+
+        return hardEntities;
     }
 
     public ArrayList<Player> getPlayers() {
+        ArrayList<Player> players = new ArrayList<Player>();
+
+        for (Entity entity: entities)
+            if (entity instanceof Player)
+                players.add((Player) entity);
+
         return players;
     }
 
@@ -154,17 +171,8 @@ public class Level {
 
         int mark = 0;
 
-        for (int i = 0; i < players.size(); i++) {
-            float[] f = players.get(i).getModel().getVertices();
-
-            for (int j = 0; j < f.length; j++)
-                vertices[j + mark] = f[j];
-
-            mark += f.length;
-        }
-
-        for (int i = 0; i < entitys.size(); i++) {
-            float[] f = entitys.get(i).getModel().getVertices();
+        for (int i = 0; i < entities.size(); i++) {
+            float[] f = entities.get(i).getModel().getVertices();
 
             for (int j = 0; j < f.length; j++)
                 vertices[j + mark] = f[j];
@@ -180,17 +188,8 @@ public class Level {
 
         int mark = 0;
 
-        for (int i = 0; i < players.size(); i++) {
-            float[] f = players.get(i).getModel().getColors();
-
-            for (int j = 0; j < f.length; j++)
-                colors[j + mark] = f[j];
-
-            mark += f.length;
-        }
-
-        for (int i = 0; i < entitys.size(); i++) {
-            float[] f = entitys.get(i).getModel().getColors();
+        for (int i = 0; i < entities.size(); i++) {
+            float[] f = entities.get(i).getModel().getColors();
 
             for (int j = 0; j < f.length; j++)
                 colors[j + mark] = f[j];

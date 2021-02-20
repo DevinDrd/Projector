@@ -29,5 +29,10 @@ public class RigidBody {
 
         return maxPoint;
     }
+
+    public void addVector(Vector displacement) {
+        for (int i = 0; i < vertices.size(); i++)
+            vertices.set(i, Vector.add(vertices.get(i), displacement));
+    }
     
 }

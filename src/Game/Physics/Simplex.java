@@ -6,13 +6,16 @@ import Game.Math.Vector;
 public class Simplex {
 
     private Vector[] list;
+    private int length;
 
     public Simplex() {
         list = new Vector[] {null, null, null, null};
+        length = 0;
     }
 
     public void pushFront(Vector point) {
         list = new Vector[]{point, list[0], list[1], list[2]};
+        length++;
     }
 
     public Vector get(int i) {
@@ -20,7 +23,7 @@ public class Simplex {
     }
 
     public int length() {
-        return list.length;
+        return length;
     }
     
 }

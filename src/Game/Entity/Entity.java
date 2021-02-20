@@ -46,7 +46,7 @@ public class Entity {
     }
 
     protected void updateModel() {
-        
+        model.addToPosition(velocity);
     }
 
     public Model getModel() {
@@ -66,7 +66,7 @@ public class Entity {
     }
 
     public String toString() {
-        String output = "Object:\n";
+        String output = "Entity:\n";
         output += "position: " + position + "\n";
         output += "velocity: " + velocity + "\n";
         output += model;

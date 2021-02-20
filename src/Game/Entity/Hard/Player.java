@@ -3,6 +3,7 @@ package Game.Entity.Hard;
 import Game.Entity.Camera;
 import Game.Math.*;
 import Game.Model.*;
+import Game.Physics.RigidBody;
 
 public class Player extends HardEntity {
 
@@ -10,26 +11,26 @@ public class Player extends HardEntity {
 
     private float force = 2f; // force value that acts on player
 
-    public Player(float x, float y, float z, Camera camera) {
-        super(x, y, z);
+    public Player(float x, float y, float z, Camera camera, RigidBody rigidBody) {
+        super(x, y, z, rigidBody);
 
         this.camera = camera;
     }
 
-    public Player(Tuple position, Camera camera) {
-        super(position);
+    public Player(Tuple position, Camera camera, RigidBody rigidBody) {
+        super(position, rigidBody);
 
         this.camera = camera;
     }
 
-    public Player(float x, float y, float z, Model model, Camera camera) {
-        super(x, y, z, model);
+    public Player(float x, float y, float z, Model model, Camera camera, RigidBody rigidBody) {
+        super(x, y, z, model, rigidBody);
 
         this.camera = camera;
     }
 
-    public Player(Tuple position, Model model, Camera camera) {
-        super(position, model);
+    public Player(Tuple position, Model model, Camera camera, RigidBody rigidBody) {
+        super(position, model, rigidBody);
 
         this.camera = camera;
     }
@@ -38,6 +39,7 @@ public class Player extends HardEntity {
         position = Tuple.add(position, velocity.toTuple());
         camera.update();
         updateModel();
+        updateBody();
     }
 
     public void forwardForce(float f) {

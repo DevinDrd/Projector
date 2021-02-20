@@ -24,10 +24,14 @@ public class Triangle {
         vertices[2] = c;
     }
 
-    public Triangle(Tuple[] verts) {
+    public Triangle(Tuple... verts) {
         if (verts.length != 3) throw new IllegalArgumentException();
         
         vertices = verts;
+    }
+
+    public Tuple get(int index) {
+        return vertices[index];
     }
 
     public float[] getVertices() {

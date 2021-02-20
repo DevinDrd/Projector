@@ -111,14 +111,15 @@ public class Vector {
         return new Vector(diff);
     }
 
-    // TODO: TEST
     public static float dot(Vector v1, Vector v2) {
+        if (v1.length != v2.length) throw new ArithmeticException();
+
         double dot = 0;
 
         for (int i = 0; i < v1.length; i++)
-            dot = Math.pow(v1.vec[i], 2) + Math.pow(v2.vec[i], 2);
+            dot += v1.vec[i]*v2.vec[i];
         
-        return (float) Math.sqrt(dot);
+        return (float) dot;
     }
 
     public static Vector cross(Vector v1, Vector v2) {
