@@ -37,16 +37,21 @@ public class HardEntity extends Entity {
 
     public void update() {
         position = Tuple.add(position, velocity.toTuple());
-        updateModel();
-        updateBody();
-    }
-
-    protected void updateBody() {
-        body.addVector(velocity);
+        model.addToPosition(velocity);
+        body.addToPosition(velocity);
     }
 
     public RigidBody getBody() {
         return body;
+    }
+
+    public String toString() {
+        String output = "Entity:\n";
+        output += "position: " + position + "\n";
+        output += "velocity: " + velocity + "\n";
+        output += model + "\n";
+        output += body;
+        return output;
     }
     
 }

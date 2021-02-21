@@ -65,15 +65,13 @@ public class Model {
 
     public void addToPosition(Vector v) {
         Tuple vt = v.toTuple();
-
+        
         for (int i = 0; i < tris.length; i++) {
-            for (int j = 0; j < Triangle.LENGTH; j++) {
-                Tuple v1 = tris[i].get(0);
-                Tuple v2 = tris[i].get(1);
-                Tuple v3 = tris[i].get(2);
+            Tuple v1 = tris[i].get(0);
+            Tuple v2 = tris[i].get(1);
+            Tuple v3 = tris[i].get(2);
 
-                tris[i] = new Triangle(Tuple.add(v1, vt), Tuple.add(v2, vt), Tuple.add(v3, vt));
-            }
+            tris[i] = new Triangle(Tuple.add(v1, vt), Tuple.add(v2, vt), Tuple.add(v3, vt));
         }
     }
 

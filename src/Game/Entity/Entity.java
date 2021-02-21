@@ -42,10 +42,6 @@ public class Entity {
 
     public void update() {
         position = Tuple.add(position, velocity.toTuple());
-        updateModel();
-    }
-
-    protected void updateModel() {
         model.addToPosition(velocity);
     }
 
@@ -59,6 +55,15 @@ public class Entity {
 
     public Vector getVelocity() {
         return velocity;
+    }
+
+    public void addToPosition(Vector d) {
+        position = Tuple.add(position, d.toTuple());
+        model.addToPosition(d);
+    }
+
+    public void setPosition(Tuple p) {
+        position = p;
     }
 
     public void setVelocity(Vector vel) {

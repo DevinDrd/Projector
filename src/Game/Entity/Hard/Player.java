@@ -37,9 +37,9 @@ public class Player extends HardEntity {
 
     public void update() {
         position = Tuple.add(position, velocity.toTuple());
-        camera.update();
-        updateModel();
-        updateBody();
+        camera.addToPosition(velocity);
+        model.addToPosition(velocity);
+        body.addToPosition(velocity);
     }
 
     public void forwardForce(float f) {

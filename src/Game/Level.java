@@ -208,4 +208,22 @@ public class Level {
         return colorCount;
     }
     
+    public float[] getHardVertices() {
+        float[] vertices = new float[vertexCount];
+
+        int mark = 0;
+
+        ArrayList<HardEntity> hard = getHardEntities();
+
+        for (int i = 0; i < hard.size(); i++) {
+            float[] f = hard.get(i).getBody().getVertices();
+
+            for (int j = 0; j < f.length; j++)
+                vertices[j + mark] = f[j];
+
+            mark += f.length;
+        }
+
+        return vertices;
+    }
 }

@@ -27,8 +27,11 @@ public class PhysicsEngine {
     }
 
     private void collide(HardEntity a, HardEntity b) {
-        System.out.println("Collision!!!");
+        System.out.println("collision!");
+        a.addToPosition(Vector.multiply(a.getVelocity(), -1));
         a.setVelocity(new Vector(0, 0, 0));
+
+        b.addToPosition(Vector.multiply(b.getVelocity(), -1));
         b.setVelocity(new Vector(0, 0, 0));
     }
 
@@ -48,12 +51,8 @@ public class PhysicsEngine {
 
             points.pushFront(support);
 
-            if (points.length() == 2)
-                return line();
-            else if(points.length() == 3)
-                return triangle();
-            else if (points.length() == 4)
-                return tetrahedron();
+            if (nextSimplex())
+                return true;
         }
     }
 
@@ -63,6 +62,18 @@ public class PhysicsEngine {
 
     private boolean sameDirection(Vector direction, Vector a) {
         return Vector.dot(direction, a) > 0;
+    }
+
+    private boolean nextSimplex() {
+        if (points.length() == 2)
+            return line();
+        else if(points.length() == 3)
+            return triangle();
+        else if (points.length() == 4)
+            return tetrahedron();
+
+        // never here
+        return false;
     }
 
     private boolean line() {
