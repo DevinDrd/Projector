@@ -11,3 +11,4 @@ Run:
 Note:
     Make sure to provide the correct native path based on os. E.g.lwjgl-natives-macos.jar.
     Also, on macos, you may need to use the-XstartOnFirstThread flag when running with the java command.
+
