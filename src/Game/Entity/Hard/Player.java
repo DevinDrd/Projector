@@ -87,10 +87,10 @@ public class Player extends HardEntity {
 
         // TODO: FIXME: Changes based on the orientation of the camera
         ArrayList<Vector> list = new ArrayList<Vector>();
-        list.add(new Vector(cP.get(0) + l, cP.get(1) + n, cP.get(2) + t));
-        list.add(new Vector(cP.get(0) + r, cP.get(1) + n, cP.get(2) + t));
-        list.add(new Vector(cP.get(0) + r, cP.get(1) + n, cP.get(2) + b));
-        list.add(new Vector(cP.get(0) + l, cP.get(1) + n, cP.get(2) + b));
+        list.add(new Vector(cP.get(0) + l, cP.get(1) + n + 1, cP.get(2) + t));
+        list.add(new Vector(cP.get(0) + r, cP.get(1) + n + 1, cP.get(2) + t));
+        list.add(new Vector(cP.get(0) + r, cP.get(1) + n + 1, cP.get(2) + b));
+        list.add(new Vector(cP.get(0) + l, cP.get(1) + n + 1, cP.get(2) + b));
         list.add(new Vector(cP.get(0), cP.get(1), cP.get(2)));
         body = new RigidBody(list);
 

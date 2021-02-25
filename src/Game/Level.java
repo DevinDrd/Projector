@@ -27,7 +27,7 @@ public class Level {
 
     public Level(String pth) throws FileNotFoundException {
         init();
-        loadMap(pth);
+        loadLevel(pth);
     }
 
     private void init() {
@@ -37,7 +37,7 @@ public class Level {
         colorCount = 0;
     }
  
-    public void loadMap(String path) throws FileNotFoundException {
+    public void loadLevel(String path) throws FileNotFoundException {
         Scanner file = new Scanner(new File(path));
 
         entities = new ArrayList<Entity>();
@@ -153,24 +153,5 @@ public class Level {
 
     public int getColorCount() {
         return colorCount;
-    }
-    
-    public float[] getHardVertices() {
-        float[] vertices = new float[vertexCount];
-
-        int mark = 0;
-
-        ArrayList<HardEntity> hard = getHardEntities();
-
-        for (int i = 0; i < hard.size(); i++) {
-            float[] f = hard.get(i).getBody().getVertices();
-
-            for (int j = 0; j < f.length; j++)
-                vertices[j + mark] = f[j];
-
-            mark += f.length;
-        }
-
-        return vertices;
     }
 }

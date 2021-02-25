@@ -20,12 +20,20 @@ public class Vector {
 
     public Vector normalize() {
         float[] n = new float[length];
-        float mag = magnitude(this);
+        float mag = magnitude();
 
         for (int i = 0; i < n.length; i++)
             n[i] = vec[i]/mag;
  
         return new Vector(n);
+    }
+
+    public float magnitude() {
+        float mag = 0;
+        for (float f: vec)
+            mag += Math.pow(f, 2);
+
+        return (float) Math.sqrt(mag);
     }
 
     public static float magnitude(Vector v) {
