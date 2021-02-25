@@ -9,8 +9,8 @@ import Game.Input.KeyEvent;
 
 public class Window {
 
-    private int width = 600;
-    private int height = 600;
+    private int width = 800;
+    private int height = 800;
 
     private String title = "Game";
 

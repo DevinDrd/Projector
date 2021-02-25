@@ -5,6 +5,11 @@ import Game.Math.*;
 import Game.Model.*;
 import Game.Physics.RigidBody;
 
+import java.io.FileNotFoundException;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Player extends HardEntity {
 
     private Camera camera;
@@ -33,6 +38,63 @@ public class Player extends HardEntity {
         super(position, model, rigidBody);
 
         this.camera = camera;
+    }
+
+    public Player(Scanner file) throws FileNotFoundException {
+        ArrayList<Float> v = new ArrayList<Float>();
+        ArrayList<Float> c = new ArrayList<Float>();
+
+        while (file.hasNextFloat())
+            v.add(file.nextFloat());
+
+        file.nextLine();
+
+        while (file.hasNextFloat())
+            c.add(file.nextFloat());
+
+        file.nextLine();
+
+
+        float[] verts = new float[v.size()];
+        for (int i = 0; i < verts.length; i++)
+            verts[i] = v.get(i);
+
+        float[] cols = new float[c.size()];
+        for (int i = 0; i < verts.length; i++)
+            cols[i] = c.get(i);
+
+        model = new Model(verts, cols);
+
+
+        position = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
+        velocity = new Vector(0, 0, 0);
+
+
+        file.nextLine();
+
+        Tuple cP = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
+        Vector direction = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
+        Vector up = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
+
+        float l = file.nextFloat();
+        float r = file.nextFloat();
+        float b = file.nextFloat();
+        float t = file.nextFloat();
+        float n = file.nextFloat();
+        float f = file.nextFloat();
+
+        camera = new Camera(cP, direction, up, l, r, b, t, n, f);
+
+        // TODO: FIXME: Changes based on the orientation of the camera
+        ArrayList<Vector> list = new ArrayList<Vector>();
+        list.add(new Vector(cP.get(0) + l, cP.get(1) + n, cP.get(2) + t));
+        list.add(new Vector(cP.get(0) + r, cP.get(1) + n, cP.get(2) + t));
+        list.add(new Vector(cP.get(0) + r, cP.get(1) + n, cP.get(2) + b));
+        list.add(new Vector(cP.get(0) + l, cP.get(1) + n, cP.get(2) + b));
+        list.add(new Vector(cP.get(0), cP.get(1), cP.get(2)));
+        body = new RigidBody(list);
+
+        System.out.println(body);
     }
 
     public void update() {

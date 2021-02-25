@@ -67,63 +67,10 @@ public class Level {
         file.close();
     }
 
-    private void loadPlayer(Scanner file) {
+    private void loadPlayer(Scanner file) throws FileNotFoundException {
         if (verbos) System.out.println("Map->Loading Player");
 
-        ArrayList<Float> v = new ArrayList<Float>();
-        ArrayList<Float> c = new ArrayList<Float>();
-
-        while (file.hasNextFloat())
-            v.add(file.nextFloat());
-
-        file.nextLine();
-
-        while (file.hasNextFloat())
-            c.add(file.nextFloat());
-
-        file.nextLine();
-
-
-        float[] verts = new float[v.size()];
-        for (int i = 0; i < verts.length; i++)
-            verts[i] = v.get(i);
-
-        float[] cols = new float[c.size()];
-        for (int i = 0; i < verts.length; i++)
-            cols[i] = c.get(i);
-
-        Model model = new Model(verts, cols);
-
-
-        Tuple pPosition = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
-
-
-        file.nextLine();
-
-        Tuple cPosition = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
-        Vector direction = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
-        Vector up = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
-        float l = file.nextFloat();
-        float r = file.nextFloat();
-        float b = file.nextFloat();
-        float t = file.nextFloat();
-        float n = file.nextFloat();
-        float f = file.nextFloat();
-
-        Camera cam = new Camera(cPosition, direction, up, l, r, b, t, n, f);
-
-        // TODO: FIXME
-        ArrayList<Vector> list = new ArrayList<Vector>();
-        list.add(new Vector(0, -25, 10));
-        list.add(new Vector(-2, -21, 12));
-        list.add(new Vector(2, -21, 12));
-        list.add(new Vector(2, -21, 8));
-        list.add(new Vector(-2, -21, 8));
-        RigidBody pBody = new RigidBody(list);
-
-
-        Player p = new Player(pPosition, model, cam, pBody);
-        entities.add(p);
+        entities.add(new Player(file));
     }
 
     private void loadCuboid(Scanner file) throws FileNotFoundException {

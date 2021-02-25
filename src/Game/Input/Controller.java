@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import static org.lwjgl.glfw.GLFW.*;
 
 import Game.Entity.Hard.Player;
+import Game.Math.Vector;
 
 public class Controller {
 
@@ -58,8 +59,8 @@ public class Controller {
             else if (key == GLFW_KEY_RIGHT)
                 player.lookRight(15);
 
-            else if (key == GLFW_KEY_LEFT_CONTROL)
-                player.setForce(player.getForce()*2);
+            else if (key == GLFW_KEY_LEFT_CONTROL) // FIXME
+                player.setVelocity(Vector.multiply(player.getVelocity(), 2));
 
             else if (key == GLFW_KEY_COMMA)
                 player.spinCounterclockwise(15);
@@ -130,7 +131,7 @@ public class Controller {
             else if (key == GLFW_KEY_RIGHT);
 
             else if (key == GLFW_KEY_LEFT_CONTROL)
-                player.setForce(player.getForce()*.5f);
+                player.setVelocity(Vector.multiply(player.getVelocity(), .5f));
         }
     }
     

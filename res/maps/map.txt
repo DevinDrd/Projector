@@ -1,9 +1,9 @@
 player
  ;model vertices
  ;model colors
-0 0 30
-0 -75 10    0 1 0    0 0 1    -2 2 -2 2 4 500
+0 -75 10      ; position
+0 -75 10    0 1 0    0 0 1    -2 2 -2 2 4 500   ; camera: position    direction    up    l r b t n f
 clownbox
-0 0 -2    0 0 0    100 100 4
+0 0 -2    0 0 0    100 100 4    ; position velocity lenght, width, height
 clownbox
 0 0 30    0 0 -.2    10 10 10
