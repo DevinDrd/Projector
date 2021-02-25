@@ -2,6 +2,7 @@ package Game.Entity.Hard;
 
 import Game.Entity.Entity;
 import Game.Math.Tuple;
+import Game.Math.Vector;
 import Game.Model.Model;
 import Game.Physics.RigidBody;
 
@@ -39,6 +40,17 @@ public class HardEntity extends Entity {
         position = Tuple.add(position, velocity.toTuple());
         model.addToPosition(velocity);
         body.addToPosition(velocity);
+    }
+
+    public void addToPosition(Vector d) {
+        position = Tuple.add(position, d.toTuple());
+        model.addToPosition(d);
+        body.addToPosition(d);
+    }
+
+    // TODO: FIXME: update model and rigid body as well
+    public void setPosition(Tuple p) {
+        position = p;
     }
 
     public RigidBody getBody() {

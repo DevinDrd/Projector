@@ -18,6 +18,16 @@ public class Vector {
         return vec[index];
     }
 
+    public Vector normalize() {
+        float[] n = new float[length];
+        float mag = magnitude(this);
+
+        for (int i = 0; i < n.length; i++)
+            n[i] = vec[i]/mag;
+ 
+        return new Vector(n);
+    }
+
     public static float magnitude(Vector v) {
         float mag = 0;
         for (float f: v.vec)

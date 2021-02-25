@@ -36,10 +36,14 @@ public class Player extends HardEntity {
     }
 
     public void update() {
-        position = Tuple.add(position, velocity.toTuple());
-        camera.addToPosition(velocity);
-        model.addToPosition(velocity);
-        body.addToPosition(velocity);
+        addToPosition(velocity);
+    }
+
+    public void addToPosition(Vector d) {
+        position = Tuple.add(position, d.toTuple());
+        camera.addToPosition(d);
+        model.addToPosition(d);
+        body.addToPosition(d);
     }
 
     public void forwardForce(float f) {
@@ -67,27 +71,45 @@ public class Player extends HardEntity {
     }
 
     public void lookUp(float alpha) {
-        camera.rotate(camera.getDirectionRight(), alpha);
+        Matrix rotation = Matrix.rotate(camera.getDirectionRight(), alpha);
+
+        velocity = Matrix.rotate(rotation, velocity);
+        camera.rotate(rotation);
     }
 
     public void lookDown(float alpha) {
-        camera.rotate(camera.getDirectionRight(), -alpha);
+        Matrix rotation = Matrix.rotate(camera.getDirectionRight(), -alpha);
+
+        velocity = Matrix.rotate(rotation, velocity);
+        camera.rotate(rotation);
     }
 
     public void lookLeft(float alpha) {
-        camera.rotate(camera.getDirectionUp(), alpha);
+        Matrix rotation = Matrix.rotate(camera.getDirectionUp(), alpha);
+
+        velocity = Matrix.rotate(rotation, velocity);
+        camera.rotate(rotation);
     }
 
     public void lookRight(float alpha) {
-        camera.rotate(camera.getDirectionUp(), -alpha);
+        Matrix rotation = Matrix.rotate(camera.getDirectionUp(), -alpha);
+
+        velocity = Matrix.rotate(rotation, velocity);
+        camera.rotate(rotation);
     }
 
     public void spinCounterclockwise(float alpha) {
-        camera.rotate(camera.getDirectionForward(), -alpha);
+        Matrix rotation = Matrix.rotate(camera.getDirectionForward(), -alpha);
+
+        velocity = Matrix.rotate(rotation, velocity);
+        camera.rotate(rotation);
     }
 
     public void spingClockwise(float alpha) {
-        camera.rotate(camera.getDirectionForward(), alpha);
+        Matrix rotation = Matrix.rotate(camera.getDirectionForward(), alpha);
+
+        velocity = Matrix.rotate(rotation, velocity);
+        camera.rotate(rotation);
     }
     
     public void setVelocity(Vector vec) {

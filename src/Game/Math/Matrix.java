@@ -127,6 +127,16 @@ public class Matrix {
         return new Matrix(rotate);
     }
 
+    public static Vector rotate(Matrix rotation, Vector vec) {
+        if (vec.getLength() != 3) throw new ArithmeticException();
+
+        vec = vec.homogenize();
+        rotation = multiply(rotation, vec.toMatrix());
+        vec = rotation.toVector().perspectiveDivide();
+
+        return vec;
+    }
+
     public Vector toVector() {
         if (cols != 1) throw new ArithmeticException();
 

@@ -28,11 +28,15 @@ public class PhysicsEngine {
 
     private void collide(HardEntity a, HardEntity b) {
         System.out.println("collision!");
+        System.out.println("Velocity" + a.getVelocity());
+        System.out.println("Position Before" + a.getPosition());
         a.addToPosition(Vector.multiply(a.getVelocity(), -1));
         a.setVelocity(new Vector(0, 0, 0));
 
         b.addToPosition(Vector.multiply(b.getVelocity(), -1));
         b.setVelocity(new Vector(0, 0, 0));
+        System.out.println("Position After" + a.getPosition());
+        System.out.println("Velocity After" + a.getVelocity());
     }
 
     private boolean gjk(RigidBody a, RigidBody b) {

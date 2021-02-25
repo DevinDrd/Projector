@@ -62,6 +62,7 @@ public class Entity {
         model.addToPosition(d);
     }
 
+    // TODO: FIXME: update model as well
     public void setPosition(Tuple p) {
         position = p;
     }

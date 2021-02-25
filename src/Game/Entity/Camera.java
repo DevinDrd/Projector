@@ -55,18 +55,13 @@ public class Camera extends Entity {
     public void rotate(Vector axis, float alpha) {
         Matrix rotation = Matrix.rotate(axis, alpha);
 
-        Vector dh = d.homogenize();
-        dh = Matrix.multiply(rotation, dh.toMatrix()).toVector();
-        dh = dh.perspectiveDivide();
-        dh = Vector.normalize(dh);
+        d = Matrix.rotate(rotation, d).normalize();
+        u = Matrix.rotate(rotation, u).normalize();
+    }
 
-        Vector uh = u.homogenize();
-        uh = Matrix.multiply(rotation, uh.toMatrix()).toVector();
-        uh = uh.perspectiveDivide();
-        uh = Vector.normalize(uh);
-
-        d = dh;
-        u = uh;
+    public void rotate(Matrix rotation) {
+        d = Matrix.rotate(rotation, d).normalize();
+        u = Matrix.rotate(rotation, u).normalize();
     }
     
 }
