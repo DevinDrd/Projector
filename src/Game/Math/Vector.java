@@ -158,6 +158,17 @@ public class Vector {
         return new Vector(diff);
     }
 
+    public float dot(Vector v) {
+        if (length != v.length) throw new ArithmeticException();
+
+        double dot = 0;
+
+        for (int i = 0; i < v.length; i++)
+            dot += vec[i]*v.vec[i];
+        
+        return (float) dot;
+    }
+
     public static float dot(Vector v1, Vector v2) {
         if (v1.length != v2.length) throw new ArithmeticException();
 
@@ -178,6 +189,16 @@ public class Vector {
         product[2] = (v1.vec[0]*v2.vec[1]) - (v2.vec[0]*v1.vec[1]);
 
         return new Vector(product);
+    }
+
+    // project v onto this vector
+    public Vector project(Vector v) {
+        if (length != v.length) throw new ArithmeticException();
+
+        float vDot = dot(v);
+        float magSqr = dot(this);
+
+        return multiply(vDot/magSqr);
     }
 
     public Tuple toTuple() {
@@ -226,4 +247,5 @@ public class Vector {
             sum += (int) f;
         return (length * sum) % 100000;
     }
+
 }
