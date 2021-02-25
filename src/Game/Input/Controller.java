@@ -1,11 +1,12 @@
 package Game.Input;
 
+import Game.Entity.Hard.Player;
+import Game.Math.Motion;
+import Game.Math.Vector;
+
 import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.*;
-
-import Game.Entity.Hard.Player;
-import Game.Math.Vector;
 
 public class Controller {
 
@@ -30,43 +31,43 @@ public class Controller {
         if (event.action == GLFW_PRESS) {
 
             if (key == GLFW_KEY_W) // move in direction of the camera
-                player.forwardForce(player.getForce());
+                player.move(Motion.FORWARD);
 
             else if (key == GLFW_KEY_A) // move in the direction to the right from the camera's perspective
-                player.leftForce(player.getForce());
+                player.move(Motion.LEFT);
 
             else if (key == GLFW_KEY_S) // move in opposite direction of the camera
-                player.backwardForce(player.getForce());
+                player.move(Motion.BACKWARD);
 
             else if (key == GLFW_KEY_D) // move in the direction to the left from the camera's perspective
-                player.rightForce(player.getForce());
+                player.move(Motion.RIGHT);
 
             else if (key == GLFW_KEY_SPACE)
-                player.upForce(player.getForce());
+                player.move(Motion.UP);
 
             else if (key == GLFW_KEY_LEFT_SHIFT)
-                player.downForce(player.getForce());
+                player.move(Motion.DOWN);
 
             else if (key == GLFW_KEY_UP)
-                player.lookUp(15);
+                player.rotate(Motion.SPINUP);
 
             else if (key == GLFW_KEY_DOWN)
-                player.lookDown(15);
+                player.rotate(Motion.SPINDOWN);
 
             else if (key == GLFW_KEY_LEFT)
-                player.lookLeft(15);
+                player.rotate(Motion.SPINLEFT);
 
             else if (key == GLFW_KEY_RIGHT)
-                player.lookRight(15);
+                player.rotate(Motion.SPINRIGHT);
+
+            else if (key == GLFW_KEY_COMMA)
+                player.rotate(Motion.COUNTERCLOCKWISE);
+
+            else if (key == GLFW_KEY_PERIOD)
+                player.rotate(Motion.CLOCKWISE);
 
             else if (key == GLFW_KEY_LEFT_CONTROL) // FIXME
                 player.setVelocity(Vector.multiply(player.getVelocity(), 2));
-
-            else if (key == GLFW_KEY_COMMA)
-                player.spinCounterclockwise(15);
-
-            else if (key == GLFW_KEY_PERIOD)
-                player.spingClockwise(15);
 
         }
         else if (event.action == GLFW_REPEAT) {
@@ -83,44 +84,45 @@ public class Controller {
             else if (key == GLFW_KEY_LEFT_SHIFT);
 
             else if (key == GLFW_KEY_UP)
-                player.lookUp(15);
+                player.rotate(Motion.SPINUP);
 
             else if (key == GLFW_KEY_DOWN)
-                player.lookDown(15);
+                player.rotate(Motion.SPINDOWN);
 
             else if (key == GLFW_KEY_LEFT)
-                player.lookLeft(15);
+                player.rotate(Motion.SPINLEFT);
 
             else if (key == GLFW_KEY_RIGHT)
-                player.lookRight(15);
+                player.rotate(Motion.SPINRIGHT);
+
+            else if (key == GLFW_KEY_COMMA)
+                player.rotate(Motion.COUNTERCLOCKWISE);
+
+            else if (key == GLFW_KEY_PERIOD)
+                player.rotate(Motion.CLOCKWISE);
 
             else if (key == GLFW_KEY_LEFT_CONTROL);
 
-            else if (key == GLFW_KEY_COMMA)
-                player.spinCounterclockwise(15);
-
-            else if (key == GLFW_KEY_PERIOD)
-                player.spingClockwise(15);
                 
         }
         else if (event.action == GLFW_RELEASE) {
             if (key == GLFW_KEY_W) // stop movement
-                player.forwardForce(-player.getForce());
+                player.stopMove(Motion.FORWARD);
 
             else if (key == GLFW_KEY_A) // stop movement
-                player.leftForce(-player.getForce());
+                player.stopMove(Motion.LEFT);
 
             else if (key == GLFW_KEY_S) // stop movement
-                player.backwardForce(-player.getForce());
+                player.stopMove(Motion.BACKWARD);
 
             else if (key == GLFW_KEY_D) // stop movement
-                player.rightForce(-player.getForce());
+                player.stopMove(Motion.RIGHT);
 
-            else if (key == GLFW_KEY_SPACE) // stop movement
-                player.upForce(-player.getForce());
+            else if (key == GLFW_KEY_SPACE)
+                player.stopMove(Motion.UP);
 
-            else if (key == GLFW_KEY_LEFT_SHIFT) // stop movement
-                player.downForce(-player.getForce());
+            else if (key == GLFW_KEY_LEFT_SHIFT)
+                player.stopMove(Motion.DOWN);
 
             else if (key == GLFW_KEY_UP);
 

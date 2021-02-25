@@ -28,16 +28,21 @@ public class Camera extends Entity {
         f = far;
     }
 
-    public Vector getDirectionForward() {
-        return d;
-    }
-
-    public Vector getDirectionRight() {
-        return Vector.normalize(Vector.cross(d, u));
-    }
-
-    public Vector getDirectionUp() {
-        return u;
+    public Vector getDirection(Motion direction) {
+        if (direction == Motion.FORWARD)
+            return d;
+        else if (direction == Motion.BACKWARD)
+            return d.multiply(-1);
+        else if (direction == Motion.LEFT)
+            return Vector.normalize(Vector.cross(d, u)).multiply(-1);
+        else if (direction == Motion.RIGHT)
+             return Vector.normalize(Vector.cross(d, u));
+        else if (direction == Motion.UP)
+            return u;
+        else if (direction == Motion.DOWN)
+            return u.multiply(-1);
+        else
+            throw new IllegalArgumentException();
     }
 
     public Matrix getPerspective() {

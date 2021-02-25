@@ -14,30 +14,38 @@ public class Player extends HardEntity {
 
     private Camera camera;
 
-    private float force = 2f; // force value that acts on player
+    private Vector motion;
+    private boolean moving = false;
+
+    private float speed = 2f; // how quickly player moves
+    private float alpha = 15; // rotation speed in degrees
 
     public Player(float x, float y, float z, Camera camera, RigidBody rigidBody) {
         super(x, y, z, rigidBody);
 
         this.camera = camera;
+        motion = new Vector(0, 0, 0);
     }
 
     public Player(Tuple position, Camera camera, RigidBody rigidBody) {
         super(position, rigidBody);
 
         this.camera = camera;
+        motion = new Vector(0, 0, 0);
     }
 
     public Player(float x, float y, float z, Model model, Camera camera, RigidBody rigidBody) {
         super(x, y, z, model, rigidBody);
 
         this.camera = camera;
+        motion = new Vector(0, 0, 0);
     }
 
     public Player(Tuple position, Model model, Camera camera, RigidBody rigidBody) {
         super(position, model, rigidBody);
 
         this.camera = camera;
+        motion = new Vector(0, 0, 0);
     }
 
     public Player(Scanner file) throws FileNotFoundException {
@@ -68,6 +76,7 @@ public class Player extends HardEntity {
 
         position = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
         velocity = new Vector(0, 0, 0);
+        motion = new Vector(0, 0, 0);
 
 
         file.nextLine();
@@ -99,6 +108,73 @@ public class Player extends HardEntity {
 
     public void update() {
         addToPosition(velocity);
+        if (!collision) addToPosition(motion);
+    }
+
+    public void move(Motion m) {
+        moving = true;
+
+        if (m == Motion.FORWARD) {
+            motion = motion.add(camera.getDirection(Motion.FORWARD).multiply(speed));
+        }
+        else if (m == Motion.BACKWARD)
+            motion = motion.add(camera.getDirection(Motion.BACKWARD).multiply(speed));
+        else if (m == Motion.LEFT)
+            motion = motion.add(camera.getDirection(Motion.LEFT).multiply(speed));
+        else if (m == Motion.RIGHT)
+            motion = motion.add(camera.getDirection(Motion.RIGHT).multiply(speed));
+        else if (m == Motion.UP)
+            motion = motion.add(camera.getDirection(Motion.UP).multiply(speed));
+        else if (m == Motion.DOWN)
+            motion = motion.add(camera.getDirection(Motion.DOWN).multiply(speed));
+        else
+            throw new IllegalArgumentException();
+
+        System.out.println(position);
+        System.out.println(body);
+    }
+
+    public void stopMove(Motion m) {
+        if (moving) {
+            if (m == Motion.FORWARD)
+                motion = motion.subtract(camera.getDirection(Motion.FORWARD).multiply(speed));
+            else if (m == Motion.BACKWARD)
+                motion = motion.subtract(camera.getDirection(Motion.BACKWARD).multiply(speed));
+            else if (m == Motion.LEFT)
+                motion = motion.subtract(camera.getDirection(Motion.LEFT).multiply(speed));
+            else if (m == Motion.RIGHT)
+                motion = motion.subtract(camera.getDirection(Motion.RIGHT).multiply(speed));
+            else if (m == Motion.UP)
+                motion = motion.subtract(camera.getDirection(Motion.UP).multiply(speed));
+            else if (m == Motion.DOWN)
+                motion = motion.subtract(camera.getDirection(Motion.DOWN).multiply(speed));
+            else
+                throw new IllegalArgumentException();
+        }
+    }
+
+    public void rotate(Motion m) {
+        Matrix rotation;
+
+        System.out.println(m);
+
+        if (m == Motion.SPINUP)
+            rotation = Matrix.rotate(camera.getDirection(Motion.RIGHT), alpha);
+        else if (m == Motion.SPINDOWN)
+            rotation = Matrix.rotate(camera.getDirection(Motion.LEFT), alpha);
+        else if (m == Motion.SPINLEFT)
+            rotation = Matrix.rotate(camera.getDirection(Motion.UP), alpha);
+        else if (m == Motion.SPINRIGHT)
+            rotation = Matrix.rotate(camera.getDirection(Motion.DOWN), alpha);
+        else if (m == Motion.COUNTERCLOCKWISE)
+            rotation = Matrix.rotate(camera.getDirection(Motion.FORWARD), alpha);
+        else if (m == Motion.CLOCKWISE)
+            rotation = Matrix.rotate(camera.getDirection(Motion.BACKWARD), alpha);
+        else
+            throw new IllegalArgumentException();
+
+        velocity = Matrix.rotate(rotation, velocity);
+        camera.rotate(rotation);
     }
 
     public void addToPosition(Vector d) {
@@ -108,70 +184,12 @@ public class Player extends HardEntity {
         body.addToPosition(d);
     }
 
-    public void forwardForce(float f) {
-        addVelocity(Vector.multiply(camera.getDirectionForward(), f));
+    public void setMotion(Vector v) {
+        motion = v;
     }
 
-    public void backwardForce(float f) {
-        subtractVelocity(Vector.multiply(camera.getDirectionForward(), f));
-    }
-    
-    public void leftForce(float f) {
-        subtractVelocity(Vector.multiply(camera.getDirectionRight(), f));
-    }
-
-    public void rightForce(float f) {
-        addVelocity(Vector.multiply(camera.getDirectionRight(), f));
-    }
-
-    public void upForce(float f) {
-        addVelocity(Vector.multiply(camera.getDirectionUp(), f));
-    }
-
-    public void downForce(float f) {
-        subtractVelocity(Vector.multiply(camera.getDirectionUp(), f));
-    }
-
-    public void lookUp(float alpha) {
-        Matrix rotation = Matrix.rotate(camera.getDirectionRight(), alpha);
-
-        velocity = Matrix.rotate(rotation, velocity);
-        camera.rotate(rotation);
-    }
-
-    public void lookDown(float alpha) {
-        Matrix rotation = Matrix.rotate(camera.getDirectionRight(), -alpha);
-
-        velocity = Matrix.rotate(rotation, velocity);
-        camera.rotate(rotation);
-    }
-
-    public void lookLeft(float alpha) {
-        Matrix rotation = Matrix.rotate(camera.getDirectionUp(), alpha);
-
-        velocity = Matrix.rotate(rotation, velocity);
-        camera.rotate(rotation);
-    }
-
-    public void lookRight(float alpha) {
-        Matrix rotation = Matrix.rotate(camera.getDirectionUp(), -alpha);
-
-        velocity = Matrix.rotate(rotation, velocity);
-        camera.rotate(rotation);
-    }
-
-    public void spinCounterclockwise(float alpha) {
-        Matrix rotation = Matrix.rotate(camera.getDirectionForward(), -alpha);
-
-        velocity = Matrix.rotate(rotation, velocity);
-        camera.rotate(rotation);
-    }
-
-    public void spingClockwise(float alpha) {
-        Matrix rotation = Matrix.rotate(camera.getDirectionForward(), alpha);
-
-        velocity = Matrix.rotate(rotation, velocity);
-        camera.rotate(rotation);
+    public void force(Vector f) {
+        addVelocity(f);
     }
     
     public void setVelocity(Vector vec) {
@@ -184,21 +202,8 @@ public class Player extends HardEntity {
         camera.setVelocity(velocity);
     }
 
-    public void subtractVelocity(Vector vec) {
-        velocity = Vector.subtract(velocity, vec);
-        camera.setVelocity(velocity);
-    }
-
-    public void setForce(float f) {
-        force = f;
-    }
-
     public Camera getCamera() {
         return camera;
     }
 
-    public float getForce() {
-        return force;
-    }
-    
 }

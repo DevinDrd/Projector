@@ -10,6 +10,8 @@ public class Entity {
 
     protected Model model;
 
+    protected boolean collision = false;
+
     public Entity(){};
 
     public Entity(float x, float y, float z) {
@@ -69,6 +71,14 @@ public class Entity {
 
     public void setVelocity(Vector vel) {
         velocity = vel;
+    }
+
+    public boolean getCollision() {
+        return collision;
+    }
+
+    public void setCollition(boolean c) {
+        collision = c;
     }
 
     public String toString() {

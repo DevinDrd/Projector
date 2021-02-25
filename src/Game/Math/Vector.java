@@ -89,6 +89,15 @@ public class Vector {
         return new Vector(diff);
     }
 
+    public Vector multiply(float factor) {
+        float[] product = new float[length];
+
+        for (int i = 0; i < product.length; i++) 
+            product[i] = vec[i] * factor;
+
+        return new Vector(product);
+    }
+
     public static Vector multiply(Vector v, float f) {
         float[] product = new float[v.length];
 
@@ -107,6 +116,15 @@ public class Vector {
         return new Vector(quotient);
     }
 
+    public Vector add(Vector v) {
+        float[] sum = new float[length];
+
+        for (int i = 0; i < sum.length; i++) 
+            sum[i] = vec[i] + v.vec[i];
+
+        return new Vector(sum);
+    }
+
     public static Vector add(Vector v1, Vector v2) {
         if (v1.length != v2.length) throw new ArithmeticException();
 
@@ -116,6 +134,17 @@ public class Vector {
             sum[i] = v1.vec[i] + v2.vec[i];
 
         return new Vector(sum);
+    }
+
+    public  Vector subtract(Vector v) {
+        if (length != v.length) throw new ArithmeticException();
+
+        float[] diff = new float[v.length];
+
+        for (int i = 0; i < diff.length; i++)
+            diff[i] = vec[i] - v.vec[i];
+
+        return new Vector(diff);
     }
 
     public static Vector subtract(Vector v1, Vector v2) {
