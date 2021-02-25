@@ -1,11 +1,12 @@
 package Game.Graphics;
 
+import Game.Level;
+import Game.Input.KeyEvent;
+import Game.Math.Projection;
+
 import java.util.ArrayList;
 
 import java.io.IOException;
-
-import Game.Level;
-import Game.Input.KeyEvent;
 
 public class Window {
 
@@ -48,7 +49,7 @@ public class Window {
     }
 
     public void render(Level level) {
-        openGL.setUniMat4(projUni, level.getPlayers().get(0).getCamera().getPerspective());
+        openGL.setUniMat4(projUni, level.getPlayers().get(0).getCamera().getProjection(Projection.PERSPECTIVE));
         openGL.render(level.getVertices(), level.getColors());
     }
 

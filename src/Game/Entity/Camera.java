@@ -45,16 +45,18 @@ public class Camera extends Entity {
             throw new IllegalArgumentException();
     }
 
-    public Matrix getPerspective() {
-        Matrix frustum = Matrix.frustum(l, r, b, t, n, f);
-        Matrix lookat = Matrix.lookAt(position, d, u);
-        return Matrix.multiply(frustum, lookat);
-    }
+    public Matrix getProjection(Projection p) {
+        Matrix matrix = null;
+        Matrix lookAt = Matrix.lookAt(position, d, u);
 
-    public Matrix getOrthogonal() {
-        Matrix ortho = Matrix.ortho(l, r, b, t, n, f);
-        Matrix lookat = Matrix.lookAt(position, d, u);
-        return Matrix.multiply(ortho, lookat);
+        if (p == Projection.PERSPECTIVE)
+            matrix = Matrix.frustum(l, r, b, t, n, f);
+        else if (p == Projection.ORTHOGONAL)
+            Matrix.ortho(l, r, b, t, n, f);
+        else
+            throw new IllegalArgumentException();
+
+        return Matrix.multiply(matrix, lookAt);
     }
 
     public void rotate(Vector axis, float alpha) {
