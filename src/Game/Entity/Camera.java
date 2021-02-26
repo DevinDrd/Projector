@@ -26,6 +26,8 @@ public class Camera extends Entity {
         t = top;
         n = near;
         f = far;
+
+        rotation = new Vector(0, 0, 0);
     }
 
     public void level() {
@@ -63,6 +65,11 @@ public class Camera extends Entity {
             throw new IllegalArgumentException();
 
         return Matrix.multiply(matrix, lookAt);
+    }
+
+    protected void rotate() {
+        model.rotate(rotation, rotation.magnitude());
+        rotate(rotation, rotation.magnitude());
     }
 
     public void rotate(Vector axis, float alpha) {

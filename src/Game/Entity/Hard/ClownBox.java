@@ -15,6 +15,8 @@ public class ClownBox extends HardEntity {
         position = pos;
         velocity = new Vector(0, 0, 0);
 
+        rotation = new Vector(0, 0, 0);
+
         model = new ClownBoxModel(position, width, height, length);
 
         buildRigidBody(width, height, length);
@@ -31,6 +33,8 @@ public class ClownBox extends HardEntity {
 
         position = pos;
         velocity = vel;
+
+        rotation = new Vector(0, 0, 0);
 
         model = new ClownBoxModel(pos, width, height, length);
 
@@ -57,7 +61,7 @@ public class ClownBox extends HardEntity {
         points.add(new Vector(x+w2, y-h2, z+l2));
         points.add(new Vector(x-w2, y-h2, z+l2));
 
-        body = new RigidBody(points);
+        body = new RigidBody(position.toVector(), points);
     }
     
 }

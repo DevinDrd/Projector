@@ -5,8 +5,10 @@ import Game.Math.*;
 public class SquareModel extends Model {
 
     // 4 vertices and 4 colors, specify counterclockwise
-    public SquareModel(float[] vertices, float[] colors) {
+    public SquareModel(Tuple p, float[] vertices, float[] colors) {
         if (vertices.length != 12 || colors.length != 12) throw new IllegalArgumentException();
+
+        position = p;
 		
 		tris = new Triangle[2];
         cols = new Tuple[2][3];
@@ -36,6 +38,7 @@ public class SquareModel extends Model {
         if (width <= 0) throw new IllegalArgumentException();
         if (height <= 0) throw new IllegalArgumentException();
 
+        this.position = position;
         tris = new Triangle[2];
         cols = new Tuple[tris.length][3];
 

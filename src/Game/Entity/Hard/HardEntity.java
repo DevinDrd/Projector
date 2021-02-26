@@ -36,10 +36,16 @@ public class HardEntity extends Entity {
         body = rigidBody;
     }
 
-    public void update() {
+    protected void translate() {
         position = Tuple.add(position, velocity.toTuple());
         model.addToPosition(velocity);
         body.addToPosition(velocity);
+    }
+
+    protected void rotate() {
+        // rotate player --- don't need to do anything
+        model.rotate(rotation, rotation.magnitude());
+        body.rotate(rotation, rotation.magnitude());
     }
 
     public void addToPosition(Vector d) {
@@ -48,9 +54,10 @@ public class HardEntity extends Entity {
         body.addToPosition(d);
     }
 
-    // TODO: FIXME: update model and rigid body as well
+    // FIXME: update model and rigid body as well
     public void setPosition(Tuple p) {
-        position = p;
+        throw new RuntimeException("This method has no implementation");
+        // position = p;
     }
 
     public RigidBody getBody() {

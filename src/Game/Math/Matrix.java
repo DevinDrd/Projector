@@ -107,6 +107,7 @@ public class Matrix {
 
     public static Matrix rotate(Vector axis, float alpha) {
         if (axis.getLength() != 3) throw new IllegalArgumentException();
+        if (axis.magnitude() - 0.000001f < 0) throw new ArithmeticException();
 
         axis = Vector.normalize(axis);
 

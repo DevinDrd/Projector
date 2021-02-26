@@ -14,8 +14,8 @@ public class Player extends HardEntity {
 
     private Camera camera;
 
-    private float speed = 2f; // how quickly player moves
-    private float alpha = 15; // rotation speed in degrees
+    private float speed = 2f; // how quickly player moves from user input
+    private float angularSpeed = 15f; // how quickly player rotates from user input in degrees
 
     public Player(float x, float y, float z, Camera camera, RigidBody rigidBody) {
         super(x, y, z, rigidBody);
@@ -64,11 +64,13 @@ public class Player extends HardEntity {
         for (int i = 0; i < verts.length; i++)
             cols[i] = c.get(i);
 
-        model = new Model(verts, cols);
+        model = new Model(position, verts, cols);
 
 
         position = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
         velocity = new Vector(0, 0, 0);
+
+        rotation = new Vector(0, 0, 0);
 
         file.nextLine();
 
@@ -85,18 +87,14 @@ public class Player extends HardEntity {
 
         camera = new Camera(cP, direction, up, l, r, b, t, n, f);
 
-        // TODO: FIXME: Changes based on the orientation of the camera
+        // FIXME: Changes based on the orientation of the camera
         ArrayList<Vector> list = new ArrayList<Vector>();
         list.add(new Vector(cP.get(0) + l, cP.get(1) + n + 1, cP.get(2) + t));
         list.add(new Vector(cP.get(0) + r, cP.get(1) + n + 1, cP.get(2) + t));
         list.add(new Vector(cP.get(0) + r, cP.get(1) + n + 1, cP.get(2) + b));
         list.add(new Vector(cP.get(0) + l, cP.get(1) + n + 1, cP.get(2) + b));
         list.add(new Vector(cP.get(0), cP.get(1), cP.get(2)));
-        body = new RigidBody(list);
-    }
-
-    public void update() {
-        addToPosition(velocity);
+        body = new RigidBody(position.toVector(), list);
     }
 
     public void move(Motion m) {
@@ -117,7 +115,7 @@ public class Player extends HardEntity {
         else
             throw new IllegalArgumentException();
 
-        velocity = velocity.add(go);
+        setVelocity(velocity.add(go));
     }
 
     public void stopMove(Motion m) {
@@ -138,29 +136,37 @@ public class Player extends HardEntity {
         else
             throw new IllegalArgumentException();
 
-        velocity = velocity.subtract(slow);
+        setVelocity(velocity.subtract(slow));
     }
 
     public void rotate(Motion m) {
         Matrix rotation;
 
         if (m == Motion.SPINUP)
-            rotation = Matrix.rotate(camera.getDirection(Motion.RIGHT), alpha);
+            rotation = Matrix.rotate(camera.getDirection(Motion.RIGHT), angularSpeed);
         else if (m == Motion.SPINDOWN)
-            rotation = Matrix.rotate(camera.getDirection(Motion.LEFT), alpha);
+            rotation = Matrix.rotate(camera.getDirection(Motion.LEFT), angularSpeed);
         else if (m == Motion.SPINLEFT)
-            rotation = Matrix.rotate(camera.getDirection(Motion.UP), alpha);
+            rotation = Matrix.rotate(camera.getDirection(Motion.UP), angularSpeed);
         else if (m == Motion.SPINRIGHT)
-            rotation = Matrix.rotate(camera.getDirection(Motion.DOWN), alpha);
+            rotation = Matrix.rotate(camera.getDirection(Motion.DOWN), angularSpeed);
         else if (m == Motion.COUNTERCLOCKWISE)
-            rotation = Matrix.rotate(camera.getDirection(Motion.FORWARD), alpha);
+            rotation = Matrix.rotate(camera.getDirection(Motion.FORWARD), angularSpeed);
         else if (m == Motion.CLOCKWISE)
-            rotation = Matrix.rotate(camera.getDirection(Motion.BACKWARD), alpha);
+            rotation = Matrix.rotate(camera.getDirection(Motion.BACKWARD), angularSpeed);
         else
             throw new IllegalArgumentException();
 
-        velocity = Matrix.rotate(rotation, velocity);
+        setVelocity(Matrix.rotate(rotation, velocity));
         camera.rotate(rotation);
+    }
+
+    public void update() {
+        translate();
+        if (rotation.magnitude() - 0.000001f > 0)
+            rotate();
+
+        camera.update();
     }
 
     public void addToPosition(Vector d) {
@@ -175,6 +181,7 @@ public class Player extends HardEntity {
     }
     
     public void setVelocity(Vector vec) {
+        System.out.println(vec);
         velocity = vec;
         camera.setVelocity(vec);
     }

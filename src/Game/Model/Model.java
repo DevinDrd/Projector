@@ -4,18 +4,22 @@ import Game.Math.*;
 
 public class Model {
 
+    protected Tuple position;
+
     protected Triangle[] tris;
     protected Tuple[][] cols; // [triangle][vertex]
 
     protected Model(){};
 
-    public Model(float[] vertices, float[] colors) {
-        loadModel(vertices, colors);
+    public Model(Tuple p, float[] vertices, float[] colors) {
+        loadModel(p, vertices, colors);
     }
 
-    private void loadModel(float[] vertices, float[] colors) {
+    private void loadModel(Tuple p, float[] vertices, float[] colors) {
         if (vertices.length % 9 != 0) throw new IllegalArgumentException();
         if (vertices.length != colors.length) throw new IllegalArgumentException();
+
+        position = p;
 
         tris = new Triangle[vertices.length / 9];
         cols = new Tuple[tris.length][3];
@@ -29,6 +33,18 @@ public class Model {
             cols[i][0] = new Tuple(colors[0 + i*9], colors[1 + i*9], colors[2 + i*9]);
             cols[i][1] = new Tuple(colors[3 + i*9], colors[4 + i*9], colors[5 + i*9]);
             cols[i][2] = new Tuple(colors[6 + i*9], colors[7 + i*9], colors[8 + i*9]);
+        }
+    }
+
+    public void rotate(Vector axis, float alpha) {
+        Matrix rotation = Matrix.rotate(axis, alpha);
+
+        for (int i = 0; i < tris.length; i++) {
+            Vector p1 = Matrix.rotate(rotation, tris[i].get(0).toVector());
+            Vector p2 = Matrix.rotate(rotation, tris[i].get(1).toVector());
+            Vector p3 = Matrix.rotate(rotation, tris[i].get(2).toVector());
+
+            tris[i] = new Triangle(p1.toTuple(), p2.toTuple(), p3.toTuple());
         }
     }
 
@@ -73,6 +89,10 @@ public class Model {
 
             tris[i] = new Triangle(Tuple.add(v1, vt), Tuple.add(v2, vt), Tuple.add(v3, vt));
         }
+    }
+
+    public Tuple getPosition() {
+        return position;
     }
 
     public Triangle[] getTris() {

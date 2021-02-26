@@ -1,16 +1,20 @@
 package Game.Physics;
 
+import Game.Math.Matrix;
 import Game.Math.Vector;
 
 import java.util.ArrayList;
 
 public class RigidBody {
 
+    private Vector position;
+
     private ArrayList<Vector> vertices;
 
-    public RigidBody(ArrayList<Vector> vertices) {
+    public RigidBody(Vector pos, ArrayList<Vector> vertices) {
         if (vertices.size() < 1) throw new IllegalArgumentException();
 
+        position = pos;
         this. vertices = vertices;
     }
 
@@ -33,6 +37,13 @@ public class RigidBody {
     public void addToPosition(Vector displacement) {
         for (int i = 0; i < vertices.size(); i++)
             vertices.set(i, Vector.add(vertices.get(i), displacement));
+    }
+
+    public void rotate(Vector axis, float alpha) {
+        Matrix rotation = Matrix.rotate(axis, alpha);
+
+        for (int i = 0; i < vertices.size(); i++)
+            vertices.set(i, Matrix.rotate(rotation, vertices.get(i)));
     }
 
     public float[] getVertices() {

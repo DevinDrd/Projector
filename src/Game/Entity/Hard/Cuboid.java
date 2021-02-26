@@ -15,6 +15,8 @@ public class Cuboid extends HardEntity {
         position = pos;
         velocity = new Vector(0, 0, 0);
 
+        rotation = new Vector(0, 0, 0);
+
         model = new CuboidModel(position, color, width, height, length);
 
         buildRigidBody(width, height, length);
@@ -32,6 +34,8 @@ public class Cuboid extends HardEntity {
 
         position = pos;
         velocity = vel;
+
+        rotation = new Vector(0, 0, 0);
 
         model = new CuboidModel(pos, color, width, height, length);
 
@@ -58,7 +62,7 @@ public class Cuboid extends HardEntity {
         points.add(new Vector(x+w2, y-h2, z+l2));
         points.add(new Vector(x-w2, y-h2, z+l2));
 
-        body = new RigidBody(points);
+        body = new RigidBody(position.toVector(), points);
     }
     
 }

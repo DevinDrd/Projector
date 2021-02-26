@@ -14,6 +14,7 @@ public class CuboidModel extends Model {
         float h2 = height/2;
         float l2 = length/2;
 
+        position = pos;
         tris = new Triangle[12];
         cols = new Tuple[tris.length][3];
 
