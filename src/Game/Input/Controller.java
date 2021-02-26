@@ -66,6 +66,9 @@ public class Controller {
             else if (key == GLFW_KEY_PERIOD)
                 player.rotate(Motion.CLOCKWISE);
 
+            else if (key == GLFW_KEY_ENTER)
+                player.getCamera().level();
+
             else if (key == GLFW_KEY_LEFT_CONTROL) // FIXME
                 player.setVelocity(Vector.multiply(player.getVelocity(), 2));
 

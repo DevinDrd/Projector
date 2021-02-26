@@ -28,6 +28,12 @@ public class Camera extends Entity {
         f = far;
     }
 
+    public void level() {
+        d = new Vector(d.get(0), d.get(1), 0).normalize();
+        u = new Vector(0, 0, 1);
+        System.out.println(d.dot(u));
+    }
+
     public Vector getDirection(Motion direction) {
         if (direction == Motion.FORWARD)
             return d;
