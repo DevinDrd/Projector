@@ -29,9 +29,11 @@ public class PhysicsEngine {
     private void collide(HardEntity a, HardEntity b) {
         a.addToPosition(Vector.multiply(a.getVelocity(), -1));
         a.setVelocity(new Vector(0, 0, 0));
+        // a.setRotation(new Vector(0, 0, 0));
 
         b.addToPosition(Vector.multiply(b.getVelocity(), -1));
         b.setVelocity(new Vector(0, 0, 0));
+        // b.setRotation(new Vector(0, 0, 0));
     }
 
     private boolean gjk(RigidBody a, RigidBody b) {

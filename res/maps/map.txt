@@ -6,6 +6,6 @@ player
 clownbox
 0 0 -2    0 0 0    0 0 0    300 300 4    ; position velocity rotation length, width, height
 clownbox
-0 0 40    0 0 -.2    0 0 1    10 10 10
+0 0 40    0 0 -.2    0 0 3.3    10 10 10
 clownbox
 -63 0 20    .6 0 0    0 0 0    5 5 5

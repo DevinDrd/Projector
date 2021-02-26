@@ -181,7 +181,6 @@ public class Player extends HardEntity {
     }
     
     public void setVelocity(Vector vec) {
-        System.out.println(vec);
         velocity = vec;
         camera.setVelocity(vec);
     }
