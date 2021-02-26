@@ -27,14 +27,14 @@ public class ClownBox extends HardEntity {
         Tuple pos = new Tuple(source.nextFloat(), source.nextFloat(), source.nextFloat());
         Vector vel = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
 
+        rotation = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
+
         float width = source.nextFloat();
         float height = source.nextFloat();
         float length = source.nextFloat();
 
         position = pos;
         velocity = vel;
-
-        rotation = new Vector(0, 0, 0);
 
         model = new ClownBoxModel(pos, width, height, length);
 
