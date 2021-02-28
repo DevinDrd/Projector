@@ -35,12 +35,13 @@ public class RigidBody {
     }
 
     public void addToPosition(Vector displacement) {
+        position = position.add(displacement);
         for (int i = 0; i < vertices.size(); i++)
             vertices.set(i, Vector.add(vertices.get(i), displacement));
     }
 
     public void rotate(Vector axis, float alpha) {
-        Matrix rotation = Matrix.rotate(axis, alpha);
+        Matrix rotation = Matrix.rotate(position, axis, alpha);
 
         for (int i = 0; i < vertices.size(); i++)
             vertices.set(i, Matrix.rotate(rotation, vertices.get(i)));
@@ -54,6 +55,10 @@ public class RigidBody {
                 f[i*3 + j] = vertices.get(i).get(j);
 
         return f;
+    }
+
+    public Vector getPosition() {
+        return position;
     }
 
     public String toString() {

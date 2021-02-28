@@ -37,7 +37,7 @@ public class Model {
     }
 
     public void rotate(Vector axis, float alpha) {
-        Matrix rotation = Matrix.rotate(axis, alpha);
+        Matrix rotation = Matrix.rotate(position.toVector(), axis, alpha);
 
         for (int i = 0; i < tris.length; i++) {
             Vector p1 = Matrix.rotate(rotation, tris[i].get(0).toVector());
@@ -80,6 +80,7 @@ public class Model {
     }
 
     public void addToPosition(Vector v) {
+        position = position.add(v.toTuple());
         Tuple vt = v.toTuple();
         
         for (int i = 0; i < tris.length; i++) {

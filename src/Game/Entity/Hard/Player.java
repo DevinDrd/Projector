@@ -55,7 +55,6 @@ public class Player extends HardEntity {
 
         file.nextLine();
 
-
         float[] verts = new float[v.size()];
         for (int i = 0; i < verts.length; i++)
             verts[i] = v.get(i);
@@ -64,13 +63,12 @@ public class Player extends HardEntity {
         for (int i = 0; i < verts.length; i++)
             cols[i] = c.get(i);
 
-        model = new Model(position, verts, cols);
-
-
         position = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
         velocity = new Vector(0, 0, 0);
 
-        rotation = new Vector(0, 0, 0);
+        rotationAxis = new Vector(0, 0, 0);
+
+        model = new Model(position, verts, cols);
 
         file.nextLine();
 
@@ -141,19 +139,20 @@ public class Player extends HardEntity {
 
     public void rotate(Motion m) {
         Matrix rotation;
+        Vector zero = new Vector(0, 0, 0);
 
         if (m == Motion.SPINUP)
-            rotation = Matrix.rotate(camera.getDirection(Motion.RIGHT), angularSpeed);
+            rotation = Matrix.rotate(zero, camera.getDirection(Motion.RIGHT), angularSpeed);
         else if (m == Motion.SPINDOWN)
-            rotation = Matrix.rotate(camera.getDirection(Motion.LEFT), angularSpeed);
+            rotation = Matrix.rotate(zero, camera.getDirection(Motion.LEFT), angularSpeed);
         else if (m == Motion.SPINLEFT)
-            rotation = Matrix.rotate(camera.getDirection(Motion.UP), angularSpeed);
+            rotation = Matrix.rotate(zero, camera.getDirection(Motion.UP), angularSpeed);
         else if (m == Motion.SPINRIGHT)
-            rotation = Matrix.rotate(camera.getDirection(Motion.DOWN), angularSpeed);
+            rotation = Matrix.rotate(zero, camera.getDirection(Motion.DOWN), angularSpeed);
         else if (m == Motion.COUNTERCLOCKWISE)
-            rotation = Matrix.rotate(camera.getDirection(Motion.FORWARD), angularSpeed);
+            rotation = Matrix.rotate(zero, camera.getDirection(Motion.FORWARD), angularSpeed);
         else if (m == Motion.CLOCKWISE)
-            rotation = Matrix.rotate(camera.getDirection(Motion.BACKWARD), angularSpeed);
+            rotation = Matrix.rotate(zero, camera.getDirection(Motion.BACKWARD), angularSpeed);
         else
             throw new IllegalArgumentException();
 
@@ -163,7 +162,7 @@ public class Player extends HardEntity {
 
     public void update() {
         translate();
-        if (rotation.magnitude() - 0.000001f > 0)
+        if (rotationAxis.magnitude() - 0.000001f > 0)
             rotate();
 
         camera.update();

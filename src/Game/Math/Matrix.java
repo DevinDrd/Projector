@@ -38,6 +38,19 @@ public class Matrix {
         return data;
     }
 
+    public Matrix multiply(Matrix m) {
+        if (cols != m.rows) throw new ArithmeticException();
+
+        float[][] product = new float[rows][m.cols];
+
+        for (int i = 0; i < product.length; i++)
+            for (int j = 0; j < product[i].length; j++)
+                for (int k = 0; k < cols; k++)
+                    product[i][j] += get(i, k)*m.get(k, j);
+
+        return new Matrix(product);
+    }
+
     public static Matrix multiply(Matrix m1, Matrix m2) {
         if (m1.cols != m2.rows) throw new ArithmeticException();
 
@@ -105,7 +118,20 @@ public class Matrix {
         return new Matrix(look);
     }
 
-    public static Matrix rotate(Vector axis, float alpha) {
+    public static Matrix translate(Vector v) {
+        if (v.getLength() != 3) throw new ArithmeticException();
+
+        float[][] matrix = new float[][] {
+            {1, 0, 0, v.get(0)},
+            {0, 1, 0, v.get(1)},
+            {0, 0, 1, v.get(2)},
+            {0, 0, 0, 1}
+        };
+        
+        return new Matrix(matrix);
+    }
+
+    public static Matrix rotate(Vector position, Vector axis, float alpha) {
         if (axis.getLength() != 3) throw new IllegalArgumentException();
         if (axis.magnitude() - 0.000001f < 0) throw new ArithmeticException();
 
@@ -124,8 +150,12 @@ public class Matrix {
             {z*x*(1-c) - y*s, z*y*(1-c) + x*s, z*z*(1-c) + c, 0},
             {0, 0, 0, 1}
         };
+
+        Matrix center = translate(position.multiply(-1));
+        Matrix rotation = new Matrix(rotate);
+        Matrix restore = translate(position);
         
-        return new Matrix(rotate);
+        return restore.multiply(rotation.multiply(center));
     }
 
     public static Vector rotate(Matrix rotation, Vector vec) {

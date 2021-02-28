@@ -27,6 +27,17 @@ public class Tuple {
         return new Vector(tuple);
     }
 
+    public Tuple add(Tuple t) {
+        if (length != t.length) throw new ArithmeticException();
+
+        float[] sum = new float[length];
+
+        for (int i = 0; i < sum.length; i++)
+            sum[i] = tuple[i] + t.tuple[i];
+
+        return new Tuple(sum);
+    }
+
     public static Tuple add(Tuple a, Tuple b) {
         if (a.length != b.length) throw new ArithmeticException();
 

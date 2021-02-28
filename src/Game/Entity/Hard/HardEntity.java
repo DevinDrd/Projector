@@ -44,8 +44,8 @@ public class HardEntity extends Entity {
 
     protected void rotate() {
         // rotate player --- don't need to do anything
-        model.rotate(rotation, rotation.magnitude());
-        body.rotate(rotation, rotation.magnitude());
+        model.rotate(rotationAxis, rotationAxis.magnitude());
+        body.rotate(rotationAxis, rotationAxis.magnitude());
     }
 
     public void addToPosition(Vector d) {

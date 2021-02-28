@@ -15,7 +15,7 @@ public class Cuboid extends HardEntity {
         position = pos;
         velocity = new Vector(0, 0, 0);
 
-        rotation = new Vector(0, 0, 0);
+        rotationAxis = new Vector(0, 0, 0);
 
         model = new CuboidModel(position, color, width, height, length);
 
@@ -35,7 +35,7 @@ public class Cuboid extends HardEntity {
         position = pos;
         velocity = vel;
 
-        rotation = new Vector(0, 0, 0);
+        rotationAxis = new Vector(0, 0, 0);
 
         model = new CuboidModel(pos, color, width, height, length);
 

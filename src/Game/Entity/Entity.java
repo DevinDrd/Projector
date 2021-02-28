@@ -10,7 +10,7 @@ public class Entity {
 
     // direction is axis of rotation, magnitude is angular velocity
     // in 60 degrees per second (depending on the update rate)
-    protected Vector rotation;
+    protected Vector rotationAxis;
 
     protected Model model;
 
@@ -19,7 +19,7 @@ public class Entity {
     public Entity(float x, float y, float z) {
         position = new Tuple(x, y, z);
         velocity = new Vector(0, 0, 0);
-        rotation = new Vector(0, 0, 0);
+        rotationAxis = new Vector(0, 0, 0);
 
         model = new Model(position, new float[] {}, new float[] {});
     }
@@ -27,7 +27,7 @@ public class Entity {
     public Entity(Tuple position) {
         this.position = position;
         velocity = new Vector(0, 0, 0);
-        rotation = new Vector(0, 0, 0);
+        rotationAxis = new Vector(0, 0, 0);
 
         model = new Model(position, new float[] {}, new float[] {});
     }
@@ -35,7 +35,7 @@ public class Entity {
     public Entity(float x, float y, float z, Model model) {
         position = new Tuple(x, y, z);
         velocity = new Vector(0, 0, 0);
-        rotation = new Vector(0, 0, 0);
+        rotationAxis = new Vector(0, 0, 0);
 
         this.model = model;
     }
@@ -43,14 +43,14 @@ public class Entity {
     public Entity(Tuple position, Model model) {
         this.position = position;
         velocity = new Vector(0, 0, 0);
-        rotation = new Vector(0, 0, 0);
+        rotationAxis = new Vector(0, 0, 0);
 
         this.model = model;
     }
 
     public void update() {
         translate();
-        if (rotation.magnitude() - 0.000001f > 0)
+        if (rotationAxis.magnitude() - 0.000001f > 0)
             rotate();
     }
     
@@ -61,7 +61,7 @@ public class Entity {
 
     protected void rotate() {
         // rotate player --- don't need to do anything
-        model.rotate(rotation, rotation.magnitude());
+        model.rotate(rotationAxis, rotationAxis.magnitude());
     }
 
     public Model getModel() {
@@ -82,7 +82,7 @@ public class Entity {
     }
 
     public Vector getRotation() {
-        return rotation;
+        return rotationAxis;
     }
 
     // FIXME: update model as well
@@ -96,7 +96,7 @@ public class Entity {
     }
 
     public void setRotation(Vector r) {
-        rotation = r;
+        rotationAxis = r;
     }
 
     public String toString() {

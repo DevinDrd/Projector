@@ -27,7 +27,7 @@ public class Camera extends Entity {
         n = near;
         f = far;
 
-        rotation = new Vector(0, 0, 0);
+        rotationAxis = new Vector(0, 0, 0);
     }
 
     public void level() {
@@ -67,12 +67,12 @@ public class Camera extends Entity {
     }
 
     protected void rotate() {
-        model.rotate(rotation, rotation.magnitude());
-        rotate(rotation, rotation.magnitude());
+        model.rotate(rotationAxis, rotationAxis.magnitude());
+        rotate(rotationAxis, rotationAxis.magnitude());
     }
 
     public void rotate(Vector axis, float alpha) {
-        Matrix rotation = Matrix.rotate(axis, alpha);
+        Matrix rotation = Matrix.rotate(new Vector(0, 0, 0), axis, alpha);
 
         d = Matrix.rotate(rotation, d).normalize();
         u = Matrix.rotate(rotation, u).normalize();
