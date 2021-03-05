@@ -1,6 +1,9 @@
 # Projector
 A basic 3D world sandbox type game.
 
+To Run from the Projector.jar file:
+java -jar Projector.jar
+
 Helpful Commands to compile and run on linux:
 Compile:
     javac -cp .:./src:./lib/lwjgl/lwjgl.jar:./lib/lwjgl/lwjgl-glfw.jar:./lib/lwjgl/lwjgl-opengl.jar -d ./bin src/Game/Game.java

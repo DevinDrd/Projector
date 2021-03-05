@@ -20,6 +20,8 @@ trun
 
 # Package Files #
 *.jar
+!Projector.jar
+
 *.war
 *.nar
 *.ear
