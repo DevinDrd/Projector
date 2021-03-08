@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 
 public class ClownBox extends HardEntity {
 
-    public ClownBox(Tuple pos, float width, float height, float length) {
+    public ClownBox(Vector pos, float width, float height, float length) {
         position = pos;
         velocity = new Vector(0, 0, 0);
 
@@ -24,7 +24,7 @@ public class ClownBox extends HardEntity {
 
     // syntax: position    velocity    width    height    length
     public ClownBox(Scanner source) throws FileNotFoundException {
-        Tuple pos = new Tuple(source.nextFloat(), source.nextFloat(), source.nextFloat());
+        Vector pos = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
         Vector vel = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
 
         rotationAxis = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
@@ -61,7 +61,7 @@ public class ClownBox extends HardEntity {
         points.add(new Vector(x+w2, y-h2, z+l2));
         points.add(new Vector(x-w2, y-h2, z+l2));
 
-        body = new RigidBody(position.toVector(), points);
+        body = new RigidBody(position, points);
     }
     
 }

@@ -2,7 +2,6 @@ package Game.Input;
 
 import Game.Entity.Hard.Player;
 import Game.Math.Motion;
-import Game.Math.Vector;
 
 import java.util.ArrayList;
 
@@ -70,7 +69,7 @@ public class Controller {
                 player.getCamera().level();
 
             else if (key == GLFW_KEY_LEFT_CONTROL) // FIXME
-                player.setVelocity(Vector.multiply(player.getVelocity(), 2));
+                player.setVelocity(player.getVelocity().multiply(2));
 
         }
         else if (event.action == GLFW_REPEAT) {
@@ -136,7 +135,7 @@ public class Controller {
             else if (key == GLFW_KEY_RIGHT);
 
             else if (key == GLFW_KEY_LEFT_CONTROL)
-                player.setVelocity(Vector.multiply(player.getVelocity(), .5f));
+                player.setVelocity(player.getVelocity().multiply(.5f));
         }
     }
     

@@ -23,7 +23,7 @@ public class Player extends HardEntity {
         this.camera = camera;
     }
 
-    public Player(Tuple position, Camera camera, RigidBody rigidBody) {
+    public Player(Vector position, Camera camera, RigidBody rigidBody) {
         super(position, rigidBody);
 
         this.camera = camera;
@@ -35,7 +35,7 @@ public class Player extends HardEntity {
         this.camera = camera;
     }
 
-    public Player(Tuple position, Model model, Camera camera, RigidBody rigidBody) {
+    public Player(Vector position, Model model, Camera camera, RigidBody rigidBody) {
         super(position, model, rigidBody);
 
         this.camera = camera;
@@ -63,7 +63,7 @@ public class Player extends HardEntity {
         for (int i = 0; i < verts.length; i++)
             cols[i] = c.get(i);
 
-        position = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
+        position = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
         velocity = new Vector(0, 0, 0);
 
         rotationAxis = new Vector(0, 0, 0);
@@ -72,7 +72,7 @@ public class Player extends HardEntity {
 
         file.nextLine();
 
-        Tuple cP = new Tuple(file.nextFloat(), file.nextFloat(), file.nextFloat());
+        Vector cP = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
         Vector direction = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
         Vector up = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
 
@@ -92,7 +92,7 @@ public class Player extends HardEntity {
         list.add(new Vector(cP.get(0) + r, cP.get(1) + n + 1, cP.get(2) + b));
         list.add(new Vector(cP.get(0) + l, cP.get(1) + n + 1, cP.get(2) + b));
         list.add(new Vector(cP.get(0), cP.get(1), cP.get(2)));
-        body = new RigidBody(position.toVector(), list);
+        body = new RigidBody(position, list);
     }
 
     public void move(Motion m) {
@@ -169,7 +169,7 @@ public class Player extends HardEntity {
     }
 
     public void addToPosition(Vector d) {
-        position = Tuple.add(position, d.toTuple());
+        position = position.add(d);
         camera.addToPosition(d);
         model.addToPosition(d);
         body.addToPosition(d);
@@ -185,7 +185,7 @@ public class Player extends HardEntity {
     }
 
     public void addVelocity(Vector vec) {
-        velocity = Vector.add(velocity, vec);
+        velocity = velocity.add(vec);
         camera.setVelocity(velocity);
     }
 

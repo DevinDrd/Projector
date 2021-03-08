@@ -1,7 +1,6 @@
 package Game.Entity.Hard;
 
 import Game.Entity.Entity;
-import Game.Math.Tuple;
 import Game.Math.Vector;
 import Game.Model.Model;
 import Game.Physics.RigidBody;
@@ -18,7 +17,7 @@ public class HardEntity extends Entity {
         body = rigidBody;
     }
 
-    public HardEntity(Tuple position, RigidBody rigidBody) {
+    public HardEntity(Vector position, RigidBody rigidBody) {
         super(position);
 
         body = rigidBody;
@@ -30,14 +29,14 @@ public class HardEntity extends Entity {
         body = rigidBody;
     }
 
-    public HardEntity(Tuple position, Model model, RigidBody rigidBody) {
+    public HardEntity(Vector position, Model model, RigidBody rigidBody) {
         super(position, model);
 
         body = rigidBody;
     }
 
     protected void translate() {
-        position = Tuple.add(position, velocity.toTuple());
+        position = position.add(velocity);
         model.addToPosition(velocity);
         body.addToPosition(velocity);
     }
@@ -49,13 +48,13 @@ public class HardEntity extends Entity {
     }
 
     public void addToPosition(Vector d) {
-        position = Tuple.add(position, d.toTuple());
+        position = position.add(d);
         model.addToPosition(d);
         body.addToPosition(d);
     }
 
     // FIXME: update model and rigid body as well
-    public void setPosition(Tuple p) {
+    public void setPosition(Vector p) {
         throw new RuntimeException("This method has no implementation");
         // position = p;
     }

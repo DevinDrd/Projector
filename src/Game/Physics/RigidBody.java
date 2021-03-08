@@ -23,7 +23,7 @@ public class RigidBody {
         double maxDistance = Double.NEGATIVE_INFINITY;
 
         for (Vector vertex: vertices) {
-            double distance = Vector.dot(vertex, direction);
+            double distance = vertex.dot(direction);
 
             if (distance > maxDistance) {
                 maxDistance = distance;
@@ -37,7 +37,7 @@ public class RigidBody {
     public void addToPosition(Vector displacement) {
         position = position.add(displacement);
         for (int i = 0; i < vertices.size(); i++)
-            vertices.set(i, Vector.add(vertices.get(i), displacement));
+            vertices.set(i, vertices.get(i).add(displacement));
     }
 
     public void rotate(Vector axis, float alpha) {

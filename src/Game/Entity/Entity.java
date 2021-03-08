@@ -5,7 +5,7 @@ import Game.Model.*;
 
 public class Entity {
 
-    protected Tuple position;
+    protected Vector position;
     protected Vector velocity;
 
     // direction is axis of rotation, magnitude is angular velocity
@@ -17,14 +17,14 @@ public class Entity {
     public Entity(){};
 
     public Entity(float x, float y, float z) {
-        position = new Tuple(x, y, z);
+        position = new Vector(x, y, z);
         velocity = new Vector(0, 0, 0);
         rotationAxis = new Vector(0, 0, 0);
 
         model = new Model(position, new float[] {}, new float[] {});
     }
 
-    public Entity(Tuple position) {
+    public Entity(Vector position) {
         this.position = position;
         velocity = new Vector(0, 0, 0);
         rotationAxis = new Vector(0, 0, 0);
@@ -33,14 +33,14 @@ public class Entity {
     }
 
     public Entity(float x, float y, float z, Model model) {
-        position = new Tuple(x, y, z);
+        position = new Vector(x, y, z);
         velocity = new Vector(0, 0, 0);
         rotationAxis = new Vector(0, 0, 0);
 
         this.model = model;
     }
 
-    public Entity(Tuple position, Model model) {
+    public Entity(Vector position, Model model) {
         this.position = position;
         velocity = new Vector(0, 0, 0);
         rotationAxis = new Vector(0, 0, 0);
@@ -55,7 +55,7 @@ public class Entity {
     }
     
     protected void translate() {
-        position = Tuple.add(position, velocity.toTuple());
+        position = position.add(velocity);
         model.addToPosition(velocity);
     }
 
@@ -68,12 +68,12 @@ public class Entity {
         return model;
     }
 
-    public Tuple getPosition() {
+    public Vector getPosition() {
         return position;
     }
 
     public void addToPosition(Vector d) {
-        position = Tuple.add(position, d.toTuple());
+        position = position.add(d);
         model.addToPosition(d);
     }
 
@@ -86,7 +86,7 @@ public class Entity {
     }
 
     // FIXME: update model as well
-    public void setPosition(Tuple p) {
+    public void setPosition(Vector p) {
         throw new RuntimeException("This method has no implementation");
         // position = p;
     }

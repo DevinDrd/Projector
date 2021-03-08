@@ -14,11 +14,11 @@ public class Camera extends Entity {
     private float n; // near side of the camera
     private float f; // far side of the camera
 
-    public Camera(Tuple position, Vector direction, Vector up, float left, float right, float bottom, float top, float near, float far) {
+    public Camera(Vector position, Vector direction, Vector up, float left, float right, float bottom, float top, float near, float far) {
         super(position);
 
-        d = Vector.normalize(direction);
-        u = Vector.normalize(up);
+        d = direction.normalize();
+        u = up.normalize();
 
         l = left;
         r = right;
@@ -41,9 +41,9 @@ public class Camera extends Entity {
         else if (direction == Motion.BACKWARD)
             return d.multiply(-1);
         else if (direction == Motion.LEFT)
-            return Vector.normalize(Vector.cross(d, u)).multiply(-1);
+            return d.cross(u).normalize().multiply(-1);
         else if (direction == Motion.RIGHT)
-             return Vector.normalize(Vector.cross(d, u));
+             return d.cross(u).normalize();
         else if (direction == Motion.UP)
             return u;
         else if (direction == Motion.DOWN)
@@ -63,7 +63,7 @@ public class Camera extends Entity {
         else
             throw new IllegalArgumentException();
 
-        return Matrix.multiply(matrix, lookAt);
+        return matrix.multiply(lookAt);
     }
 
     protected void rotate() {

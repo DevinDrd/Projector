@@ -2,35 +2,35 @@ package Game.Math;
 
 public class Triangle {
 
-    private final Tuple[] vertices;
+    private final Vector[] vertices;
 
     public final static int LENGTH = 3;
     
     public Triangle(float[] vertices) {
         if (vertices.length != 9) throw new IllegalArgumentException();
 
-        this.vertices = new Tuple[3];
+        this.vertices = new Vector[3];
 
-        this.vertices[0] = new Tuple(vertices[0], vertices[1], vertices[2]);
-        this.vertices[1] = new Tuple(vertices[3], vertices[4], vertices[5]);
-        this.vertices[2] = new Tuple(vertices[6], vertices[7], vertices[8]);
+        this.vertices[0] = new Vector(vertices[0], vertices[1], vertices[2]);
+        this.vertices[1] = new Vector(vertices[3], vertices[4], vertices[5]);
+        this.vertices[2] = new Vector(vertices[6], vertices[7], vertices[8]);
     }
 
-    public Triangle(Tuple a, Tuple b, Tuple c) {
-        vertices = new Tuple[3];
+    public Triangle(Vector a, Vector b, Vector c) {
+        vertices = new Vector[3];
 
         vertices[0] = a;
         vertices[1] = b;
         vertices[2] = c;
     }
 
-    public Triangle(Tuple... verts) {
+    public Triangle(Vector... verts) {
         if (verts.length != 3) throw new IllegalArgumentException();
         
         vertices = verts;
     }
 
-    public Tuple get(int index) {
+    public Vector get(int index) {
         return vertices[index];
     }
 
@@ -46,7 +46,7 @@ public class Triangle {
 
     public String toString() {
         String output = "Triangle: ";
-        for (Tuple t:vertices) output += t + ", ";
+        for (Vector t:vertices) output += t + ", ";
         return output.substring(0, output.length() - 2);
     }
     

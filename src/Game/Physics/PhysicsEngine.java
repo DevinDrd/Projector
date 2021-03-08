@@ -27,11 +27,11 @@ public class PhysicsEngine {
     }
 
     private void collide(HardEntity a, HardEntity b) {
-        a.addToPosition(Vector.multiply(a.getVelocity(), -1));
+        a.addToPosition(a.getVelocity().multiply(-1));
         a.setVelocity(new Vector(0, 0, 0));
         a.setRotation(new Vector(0, 0, 0));
 
-        b.addToPosition(Vector.multiply(b.getVelocity(), -1));
+        b.addToPosition(b.getVelocity().multiply(-1));
         b.setVelocity(new Vector(0, 0, 0));
         b.setRotation(new Vector(0, 0, 0));
     }
@@ -42,12 +42,12 @@ public class PhysicsEngine {
         points = new Simplex();
         points.pushFront(support);
 
-        direction = Vector.multiply(support, -1);
+        direction = support.multiply(-1);
 
         while (true) {
             support = support(a, b, direction);
 
-            if (Vector.dot(support, direction) <= 0)
+            if (support.dot(direction) <= 0)
                 return false;
 
             points.pushFront(support);
@@ -58,11 +58,11 @@ public class PhysicsEngine {
     }
 
     private Vector support(RigidBody a, RigidBody b, Vector direction) {
-        return Vector.subtract(a.findFurthestPoint(direction), b.findFurthestPoint(Vector.multiply(direction, -1)));
+        return a.findFurthestPoint(direction).subtract(b.findFurthestPoint(direction.multiply(-1)));
     }
 
     private boolean sameDirection(Vector direction, Vector a) {
-        return Vector.dot(direction, a) > 0;
+        return direction.dot(a) > 0;
     }
 
     private boolean nextSimplex() {
@@ -81,11 +81,11 @@ public class PhysicsEngine {
         Vector a = points.get(0);
         Vector b = points.get(1);
 
-        Vector ab = Vector.subtract(b, a);
-        Vector ao = Vector.multiply(a, -1);
+        Vector ab = b.subtract(a);
+        Vector ao = a.multiply(-1);
 
         if (sameDirection(ab, ao))
-            direction = Vector.cross(Vector.cross(ab, ao), ab);
+            direction = ab.cross(ao).cross(ab);
         else {
             points = new Simplex();
             points.pushFront(a);
@@ -100,19 +100,19 @@ public class PhysicsEngine {
         Vector b = points.get(1);
         Vector c = points.get(2);
 
-        Vector ab = Vector.subtract(b, a);
-        Vector ac = Vector.subtract(c, a);
-        Vector ao = Vector.multiply(a, -1);
+        Vector ab = b.subtract(a);
+        Vector ac = c.subtract(a);
+        Vector ao = a.multiply(-1);
 
-        Vector abc = Vector.cross(ab, ac);
+        Vector abc = ab.cross(ac);
 
-        if (sameDirection(Vector.cross(abc, ac), ao)) {
+        if (sameDirection(abc.cross(ac), ao)) {
             if (sameDirection(ac, ao)) {
                 points = new Simplex();
                 points.pushFront(c);
                 points.pushFront(a);
 
-                direction = Vector.cross(Vector.cross(ac, ao), ac);
+                direction = ac.cross(ao).cross(ac);
             }
             else {
                 points = new Simplex();
@@ -123,7 +123,7 @@ public class PhysicsEngine {
             }
         }
         else {
-            if (sameDirection(Vector.cross(ab, abc), ao)) {
+            if (sameDirection(ab.cross(abc), ao)) {
                 points = new Simplex();
                 points.pushFront(b);
                 points.pushFront(a);
@@ -140,7 +140,7 @@ public class PhysicsEngine {
                     points.pushFront(c);
                     points.pushFront(a);
 
-                    direction = Vector.multiply(abc, -1);
+                    direction = abc.multiply(-1);
                 }
             }
         }
@@ -154,14 +154,14 @@ public class PhysicsEngine {
         Vector c = points.get(2);
         Vector d = points.get(3);
 
-        Vector ab = Vector.subtract(b, a);
-        Vector ac = Vector.subtract(c, a);
-        Vector ad = Vector.subtract(d, a);
-        Vector ao = Vector.multiply(a, -1);
+        Vector ab = b.subtract(a);
+        Vector ac = c.subtract(a);
+        Vector ad = d.subtract(a);
+        Vector ao = a.multiply(-1);
 
-        Vector abc = Vector.cross(ab, ac);
-        Vector acd = Vector.cross(ac, ad);
-        Vector adb = Vector.cross(ad, ab);
+        Vector abc = ab.cross(ac);
+        Vector acd = ac.cross(ad);
+        Vector adb = ad.cross(ab);
 
         if (sameDirection(abc, ao)) {
             points = new Simplex();

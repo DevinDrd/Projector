@@ -51,19 +51,6 @@ public class Matrix {
         return new Matrix(product);
     }
 
-    public static Matrix multiply(Matrix m1, Matrix m2) {
-        if (m1.cols != m2.rows) throw new ArithmeticException();
-
-        float[][] product = new float[m1.rows][m2.cols];
-
-        for (int i = 0; i < product.length; i++)
-            for (int j = 0; j < product[i].length; j++)
-                for (int k = 0; k < m1.cols; k++)
-                    product[i][j] += m1.get(i, k)*m2.get(k, j);
-
-        return new Matrix(product);
-    }
-
     public static Matrix identity(int dimension) {
         if (dimension == 0) throw new IllegalArgumentException();
 
@@ -98,15 +85,15 @@ public class Matrix {
 		return ortho;
     }
     
-    public static Matrix lookAt(Tuple e, Vector d, Vector u) {
-        d = Vector.normalize(d);
-        u = Vector.normalize(u);
+    public static Matrix lookAt(Vector e, Vector d, Vector u) {
+        d = d.normalize();
+        u = u.normalize();
 
-        Vector r = Vector.cross(d, u);
-        r = Vector.normalize(r);
+        Vector r = d.cross(u);
+        r = r.normalize();
 
-        Vector w = Vector.cross(r, d);
-        w = Vector.normalize(w);
+        Vector w = r.cross(d);
+        w = w.normalize();
 
         float[][] look = new float[][] {
             {r.get(0), r.get(1), r.get(2), -e.get(0)*r.get(0) - e.get(1)*r.get(1) - e.get(2)*r.get(2)},
@@ -135,7 +122,7 @@ public class Matrix {
         if (axis.getLength() != 3) throw new IllegalArgumentException();
         if (axis.magnitude() - 0.000001f < 0) throw new ArithmeticException();
 
-        axis = Vector.normalize(axis);
+        axis = axis.normalize();
 
         float x = axis.get(0);
         float y = axis.get(1);
@@ -162,7 +149,7 @@ public class Matrix {
         if (vec.getLength() != 3) throw new ArithmeticException();
 
         vec = vec.homogenize();
-        rotation = multiply(rotation, vec.toMatrix());
+        rotation = rotation.multiply(vec.toMatrix());
         vec = rotation.toVector().perspectiveDivide();
 
         return vec;

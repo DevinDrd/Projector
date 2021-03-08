@@ -36,25 +36,7 @@ public class Vector {
         return (float) Math.sqrt(mag);
     }
 
-    public static float magnitude(Vector v) {
-        float mag = 0;
-        for (float f: v.vec)
-            mag += Math.pow(f, 2);
-
-        return (float) Math.sqrt(mag);
-    }
-
-    public static Vector normalize(Vector v) {
-        float[] n = new float[v.length];
-        float mag = magnitude(v);
-
-        for (int i = 0; i < n.length; i++)
-            n[i] = v.vec[i]/mag;
- 
-        return new Vector(n);
-    }
-
-    public  Vector homogenize() {
+    public Vector homogenize() {
         float[] f = new float[vec.length + 1];
         for (int i = 0; i < vec.length; i++)
             f[i] = vec[i];
@@ -63,7 +45,7 @@ public class Vector {
         return new Vector(f);
     }
 
-    public  Vector perspectiveDivide() {
+    public Vector perspectiveDivide() {
         float[] f = new float[vec.length - 1];
         for (int i = 0; i < f.length; i++)
             f[i] = vec[i] / vec[vec.length - 1];
@@ -71,20 +53,20 @@ public class Vector {
         return new Vector(f);
     }
 
-    public static Vector add(Vector v, float f) {
-        float[] sum = new float[v.length];
+    public Vector add(float f) {
+        float[] sum = new float[length];
 
         for (int i = 0; i < sum.length; i++) 
-            sum[i] = v.vec[i] + f;
+            sum[i] = vec[i] + f;
 
         return new Vector(sum);
     }
 
-    public static Vector subtract(Vector v, float f) {
-        float[] diff = new float[v.length];
+    public Vector subtract(float f) {
+        float[] diff = new float[length];
 
         for (int i = 0; i < diff.length; i++) 
-            diff[i] = v.vec[i] - f;
+            diff[i] = vec[i] - f;
 
         return new Vector(diff);
     }
@@ -98,20 +80,11 @@ public class Vector {
         return new Vector(product);
     }
 
-    public static Vector multiply(Vector v, float f) {
-        float[] product = new float[v.length];
-
-        for (int i = 0; i < product.length; i++) 
-            product[i] = v.vec[i] * f;
-
-        return new Vector(product);
-    }
-
-    public static Vector divide(Vector v, float f) {
-        float[] quotient = new float[v.length];
+    public Vector divide(float f) {
+        float[] quotient = new float[length];
 
         for (int i = 0; i < quotient.length; i++) 
-            quotient[i] = v.vec[i] / f;
+            quotient[i] = vec[i] / f;
 
         return new Vector(quotient);
     }
@@ -121,17 +94,6 @@ public class Vector {
 
         for (int i = 0; i < sum.length; i++) 
             sum[i] = vec[i] + v.vec[i];
-
-        return new Vector(sum);
-    }
-
-    public static Vector add(Vector v1, Vector v2) {
-        if (v1.length != v2.length) throw new ArithmeticException();
-
-        float[] sum = new float[v2.length];
-
-        for (int i = 0; i < sum.length; i++)
-            sum[i] = v1.vec[i] + v2.vec[i];
 
         return new Vector(sum);
     }
@@ -147,17 +109,6 @@ public class Vector {
         return new Vector(diff);
     }
 
-    public static Vector subtract(Vector v1, Vector v2) {
-        if (v1.length != v2.length) throw new ArithmeticException();
-
-        float[] diff = new float[v2.length];
-
-        for (int i = 0; i < diff.length; i++)
-            diff[i] = v1.vec[i] - v2.vec[i];
-
-        return new Vector(diff);
-    }
-
     public float dot(Vector v) {
         if (length != v.length) throw new ArithmeticException();
 
@@ -169,24 +120,13 @@ public class Vector {
         return (float) dot;
     }
 
-    public static float dot(Vector v1, Vector v2) {
-        if (v1.length != v2.length) throw new ArithmeticException();
-
-        double dot = 0;
-
-        for (int i = 0; i < v1.length; i++)
-            dot += v1.vec[i]*v2.vec[i];
-        
-        return (float) dot;
-    }
-
-    public static Vector cross(Vector v1, Vector v2) {
-        if (v1.length != 3 || v2.length != 3) throw new ArithmeticException();
+    public Vector cross(Vector v) {
+        if (length != 3 || v.length != 3) throw new ArithmeticException();
 
         float[] product = new float[3];
-        product[0] = (v1.vec[1]*v2.vec[2]) - (v2.vec[1]*v1.vec[2]);
-        product[1] = (v2.vec[0]*v1.vec[2]) - (v1.vec[0]*v2.vec[2]);
-        product[2] = (v1.vec[0]*v2.vec[1]) - (v2.vec[0]*v1.vec[1]);
+        product[0] = (vec[1]*v.vec[2]) - (v.vec[1]*vec[2]);
+        product[1] = (v.vec[0]*vec[2]) - (vec[0]*v.vec[2]);
+        product[2] = (vec[0]*v.vec[1]) - (v.vec[0]*vec[1]);
 
         return new Vector(product);
     }
@@ -201,10 +141,6 @@ public class Vector {
         return multiply(vDot/magSqr);
     }
 
-    public Tuple toTuple() {
-        return new Tuple(vec);
-    }
-
     public Matrix toMatrix() {
         float[][] mat = new float[length][1];
 
@@ -212,6 +148,15 @@ public class Vector {
             mat[i][0] = vec[i];
 
         return new Matrix(mat);
+    }
+
+    public float[] getFloats() {
+        float[] f = new float[3];
+
+        for (int i = 0; i < f.length; i++)
+            f[i] = get(i);
+
+        return f;
     }
 
     public String toString() {

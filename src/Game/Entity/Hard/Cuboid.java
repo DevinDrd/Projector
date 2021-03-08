@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 
 public class Cuboid extends HardEntity {
 
-    public Cuboid(Tuple pos, Tuple color, float width, float height, float length) {
+    public Cuboid(Vector pos, Vector color, float width, float height, float length) {
         position = pos;
         velocity = new Vector(0, 0, 0);
 
@@ -24,9 +24,9 @@ public class Cuboid extends HardEntity {
 
     // syntax: position    velocity    color    width    height    length
     public Cuboid(Scanner source) throws FileNotFoundException {
-        Tuple pos = new Tuple(source.nextFloat(), source.nextFloat(), source.nextFloat());
+        Vector pos = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
         Vector vel = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
-        Tuple color = new Tuple(source.nextFloat(), source.nextFloat(), source.nextFloat());
+        Vector color = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
 
         float width = source.nextFloat();
         float height = source.nextFloat();
@@ -62,7 +62,7 @@ public class Cuboid extends HardEntity {
         points.add(new Vector(x+w2, y-h2, z+l2));
         points.add(new Vector(x-w2, y-h2, z+l2));
 
-        body = new RigidBody(position.toVector(), points);
+        body = new RigidBody(position, points);
     }
     
 }
