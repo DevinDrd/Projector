@@ -68,8 +68,12 @@ public class BufferUtil {
 	}
 
 	public static byte[] intToByte(int[] data) {
-		// FIXME
-		return new byte[0];
+		byte[] bytes = new byte[data.length];
+
+		for (int i = 0; i < bytes.length; i++)
+			bytes[i] = (byte) data[i];
+
+		return bytes;
 	}
 
 	public static void printFloats(float[] array) {
