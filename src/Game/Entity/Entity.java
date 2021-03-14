@@ -87,12 +87,6 @@ public class Entity {
         return rotationAxis;
     }
 
-    // FIXME: update model as well
-    public void setPosition(Vector p) {
-        throw new RuntimeException("This method has no implementation");
-        // position = p;
-    }
-
     public void setVelocity(Vector vel) {
         velocity = vel;
     }

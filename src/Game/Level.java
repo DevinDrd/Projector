@@ -1,39 +1,31 @@
 package Game;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import Game.Entity.*;
+import Game.Entity.Hard.*;
+
+import Game.Math.Vector;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import Game.Entity.*;
-import Game.Entity.Hard.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Level {
 
     private ArrayList<Entity> entities;
 
-    private int vertexCount;
-    private int colorCount;
-
     private static boolean verbos = true;
 
     public Level() {
-        init();
+        entities = new ArrayList<Entity>();
     }
 
     public Level(String pth) throws FileNotFoundException {
-        init();
+        entities = new ArrayList<Entity>();
         loadLevel(pth);
     }
 
-    private void init() {
-        entities = new ArrayList<Entity>();
-
-        vertexCount = 0;
-        colorCount = 0;
-    }
- 
     public void loadLevel(String path) throws FileNotFoundException {
         Scanner file = new Scanner(new File(path));
 
@@ -42,12 +34,18 @@ public class Level {
         while(file.hasNextLine()) {
             String type = file.nextLine();
 
-            if (type.equals("player"))
-                loadPlayer(file);
-            else if (type.equals("cuboid"))
-                loadCuboid(file);
-            else if (type.equals("clownbox"))
-                loadClownBox(file);
+            if (type.equals("player")) {
+                if (verbos) System.out.println("Map->Loading Player");
+                entities.add(new Player(file));
+            }
+            else if (type.equals("cuboid")) {
+                if (verbos) System.out.println("Map->Loading Cuboid");
+                entities.add(new Cuboid(file));
+            }
+            else if (type.equals("clownbox")) {
+                if (verbos) System.out.println("Map->Loading ClownBox");
+                entities.add(new ClownBox(file));
+            }
             else if (type.equals("end"))
                 break;
             else {
@@ -55,31 +53,10 @@ public class Level {
                 System.exit(0);
             }
 
-            vertexCount += entities.get(entities.size() - 1).getModel().getVertices().length;
-            colorCount += entities.get(entities.size() - 1).getModel().getColors().length;
-
             if (file.hasNextLine()) file.nextLine();
         }
 
         file.close();
-    }
-
-    private void loadPlayer(Scanner file) throws FileNotFoundException {
-        if (verbos) System.out.println("Map->Loading Player");
-
-        entities.add(new Player(file));
-    }
-
-    private void loadCuboid(Scanner file) throws FileNotFoundException {
-        if (verbos) System.out.println("Map->Loading Cuboid");
-
-        entities.add(new Cuboid(file));
-    }
-
-    private void loadClownBox(Scanner file) throws FileNotFoundException {
-        if (verbos) System.out.println("Map->Loading ClownBox");
-
-        entities.add(new ClownBox(file));
     }
 
     public void update() {
@@ -110,45 +87,36 @@ public class Level {
         return players;
     }
 
-    public float[] getVertices() {
-        float[] vertices = new float[vertexCount];
+    public ArrayList<Float> getVertices() {
+        ArrayList<Float> verts = new ArrayList<Float>();
 
-        int mark = 0;
-
-        for (int i = 0; i < entities.size(); i++) {
-            float[] f = entities.get(i).getModel().getVertices();
-
-            for (int j = 0; j < f.length; j++)
-                vertices[j + mark] = f[j];
-
-            mark += f.length;
-        }
-
-        return vertices;
-    }
-
-    public float[] getColors() {
-        float[] colors = new float[colorCount];
-
-        int mark = 0;
-
-        for (int i = 0; i < entities.size(); i++) {
-            float[] f = entities.get(i).getModel().getColors();
-
-            for (int j = 0; j < f.length; j++)
-                colors[j + mark] = f[j];
+        for (Entity e:entities) {
+            ArrayList<Vector> points = e.getModel().vertices();
             
-            mark += f.length;
+            for (Vector v: points) {
+                verts.add(v.get(0));
+                verts.add(v.get(1));
+                verts.add(v.get(2));
+            }
         }
 
-        return colors;
+        return verts;
     }
 
-    public int getVertexCount() {
-        return vertexCount;
+    public ArrayList<Float> getColors() {
+        ArrayList<Float> cols = new ArrayList<Float>();
+
+        for (Entity e:entities) {
+            ArrayList<Vector> colors = e.getModel().colors();
+            
+            for (Vector v: colors) {
+                cols.add(v.get(0));
+                cols.add(v.get(1));
+                cols.add(v.get(2));
+            }
+        }
+
+        return cols;
     }
 
-    public int getColorCount() {
-        return colorCount;
-    }
 }

@@ -30,26 +30,6 @@ public class Model {
             vertices.set(i, Matrix.rotate(rotation, vertices.get(i)));
     }
 
-    public float[] getVertices() {
-        float[] verts = new float[vertices.size()*3];
-
-        for (int i = 0; i < vertices.size(); i++)
-            for (int j = 0; j < 3; j++)
-                verts[i*3 + j] = vertices.get(i).get(j);
-
-        return verts;
-    }
-
-    public float[] getColors() {
-        float[] cols = new float[colors.size()*3];
-
-        for (int i = 0; i < colors.size(); i++)
-            for (int j = 0; j < 3; j++)
-                cols[i*3 + j] = colors.get(i).get(j);
-
-        return cols;
-    }
-
     public void addToPosition(Vector v) {
         position = position.add(v);
         

@@ -1,5 +1,7 @@
 package Game.Util;
 
+import java.util.ArrayList;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -33,6 +35,24 @@ public class FloatBufferUtil {
 		fb.rewind();
 		
 		return fb;
+	}
+
+	public static FloatBuffer arraylistToBuffer(ArrayList<Float> array) {
+		float[] floats = new float[array.size()];
+
+		for (int i = 0; i < floats.length; i++)
+			floats[i] = array.get(i);
+
+		return arrayToBuffer(floats);
+	}
+
+	public static float[] toFloats(ArrayList<Float> array) {
+		float[] floats = new float[array.size()];
+
+		for (int i = 0; i < floats.length; i++)
+			floats[i] = array.get(i);
+
+		return floats;
 	}
 	
 	public static void sendArrayToBuffer(float[] array, FloatBuffer buffer) {
