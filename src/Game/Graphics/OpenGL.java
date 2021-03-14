@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-import Game.Util.FloatBufferUtil;
+import Game.Util.BufferUtil;
 import Game.Math.*;
 import Game.Input.KeyEvent;
 
@@ -143,8 +143,8 @@ public class OpenGL {
 		positionHandler = GL15.glGenBuffers();
 		colorHandler = GL15.glGenBuffers();
 		
-		positionsBuffer = FloatBufferUtil.createFloatBuffer(maxTris * 3 * 3);// triangles * coordinates * vertices
-		colorsBuffer = FloatBufferUtil.createFloatBuffer(maxTris * 3 * 3); // triangles * rgb * vertices
+		positionsBuffer = BufferUtil.createFloatBuffer(maxTris * 3 * 3);// triangles * coordinates * vertices
+		colorsBuffer = BufferUtil.createFloatBuffer(maxTris * 3 * 3); // triangles * rgb * vertices
 		
 		
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -164,8 +164,8 @@ public class OpenGL {
         if (vertices.length % 3 != 0) throw new IllegalArgumentException();
         if (vertices.length != colors.length) throw new IllegalArgumentException();
         
-		FloatBufferUtil.putArray(vertices, positionsBuffer);
-		FloatBufferUtil.putArray(colors, colorsBuffer);
+		BufferUtil.putArray(vertices, positionsBuffer);
+		BufferUtil.putArray(colors, colorsBuffer);
 
 		display();
 	}
@@ -242,7 +242,7 @@ public class OpenGL {
 
 		int uniformHandle = GL20.glGetUniformLocation(p, identifier);
 		if (uniformHandle != -1) 
-			GL20.glUniformMatrix4fv(uniformHandle, true,  FloatBufferUtil.arrayToBuffer(matrix.toArray()));
+			GL20.glUniformMatrix4fv(uniformHandle, true,  BufferUtil.arrayToBuffer(matrix.toArray()));
 		else
 			throw new IllegalArgumentException();
 	}

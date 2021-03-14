@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-public class FloatBufferUtil {
+public class BufferUtil {
 	
 	public static FloatBuffer createFloatBuffer(int num) {
 		// make byte buffer big enough to hold the entire bytes
@@ -65,6 +65,11 @@ public class FloatBufferUtil {
 	public static void putArray(float[] array, FloatBuffer buffer) {
 		for (int k = 0; k < array.length; k++)
 			buffer.put(array[k]);
+	}
+
+	public static byte[] intToByte(int[] data) {
+		// FIXME
+		return new byte[0];
 	}
 
 	public static void printFloats(float[] array) {

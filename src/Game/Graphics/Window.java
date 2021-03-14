@@ -3,7 +3,7 @@ package Game.Graphics;
 import Game.Level;
 import Game.Input.KeyEvent;
 import Game.Math.Projection;
-import Game.Util.FloatBufferUtil;
+import Game.Util.BufferUtil;
 
 import java.util.ArrayList;
 
@@ -51,7 +51,7 @@ public class Window {
 
     public void render(Level level) {
         openGL.setUniMat4(projUni, level.getPlayers().get(0).getCamera().getProjection(Projection.PERSPECTIVE));
-        openGL.render(FloatBufferUtil.toFloats(level.getVertices()), FloatBufferUtil.toFloats(level.getColors()));
+        openGL.render(BufferUtil.toFloats(level.getVertices()), BufferUtil.toFloats(level.getColors()));
     }
 
     public boolean isOpen() {
