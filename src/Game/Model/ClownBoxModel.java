@@ -70,7 +70,6 @@ public class ClownBoxModel extends Model {
         Random rand = new Random();
         Vector color;
 
-
         for (int i = 0; i < vertices.size() / 2; i++) {
             color = new Vector(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
             colors.add(color);
