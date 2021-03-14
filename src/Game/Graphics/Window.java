@@ -18,8 +18,10 @@ public class Window {
 
     private float[] clearColor = new float[] {.05f, .05f, .2f, 1.0f};
 
-    private Shader vertexShader;
-    private Shader fragmentShader;
+    private Shader colorVertShader;
+    private Shader colorFragShader;
+    private Shader textureVertShader;
+    private Shader textureFragShader;
 
     private String projUni = "MVP";
 
@@ -29,16 +31,19 @@ public class Window {
         openGL = new OpenGL(width, height, title, clearColor);
 
         try {
-			vertexShader = new Shader("./res/shaders/VertexShader.txt");
-			fragmentShader = new Shader("./res/shaders/FragmentShader.txt");
+			colorVertShader = new Shader("./res/shaders/colorVertShader.txt");
+			colorFragShader = new Shader("./res/shaders/colorFragShader.txt");
+            textureVertShader = new Shader("./res/shaders/textureVertShader.txt");
+			textureFragShader = new Shader("./res/shaders/textureFragShader.txt");
 		} catch (IOException e) {
             System.out.println("There was an error reading a shader.");
             System.exit(1);
         }
         
-        openGL.setShader(vertexShader);
-        openGL.setShader(fragmentShader);
-
+        // openGL.setShader(colorVertShader);
+        // openGL.setShader(colorFragShader);
+        openGL.setShader(textureVertShader);
+        openGL.setShader(textureFragShader);
     }
 
     public void update() {

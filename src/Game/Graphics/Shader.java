@@ -11,6 +11,8 @@ public class Shader {
 	
 	private String type;
 	private String shaderCode;
+
+	private int handle;
 	
 	public Shader(String sType, String code) {
 		type = sType;
@@ -50,5 +52,13 @@ public class Shader {
 	
 	public String getCode() {
 		return shaderCode;
+	}
+
+	public void setHandle(int handle) {
+		this.handle = handle;
+	}
+
+	public int getHandle() {
+		return handle;
 	}
 }
