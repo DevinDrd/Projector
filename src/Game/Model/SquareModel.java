@@ -51,5 +51,20 @@ public class SquareModel extends Model {
         for (int i = 0; i < vertices.size(); i++)
             colors.add(color);
     }
-    
+
+    public SquareModel(Vector position, float width, float height, ArrayList<Vector> texCoords) {
+        this.position = position;
+
+        vertices = new ArrayList<Vector>();
+
+        vertices.add(new Vector(position.get(0) - (width/2), position.get(1) - (height/2), position.get(2)));
+        vertices.add(new Vector(position.get(0) + (width/2), position.get(1) - (height/2), position.get(2)));
+        vertices.add(new Vector(position.get(0) + (width/2), position.get(1) + (height/2), position.get(2)));
+        vertices.add(new Vector(position.get(0) + (width/2), position.get(1) + (height/2), position.get(2)));
+        vertices.add(new Vector(position.get(0) - (width/2), position.get(1) + (height/2), position.get(2)));
+        vertices.add(new Vector(position.get(0) - (width/2), position.get(1) - (height/2), position.get(2)));
+
+        colors = texCoords;
+    }
+
 }

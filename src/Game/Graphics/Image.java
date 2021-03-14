@@ -31,21 +31,27 @@ public class Image {
             for (int c = 0; c < width; c++) {
                 int k = (height-1 - r )*width + c;
 
-                int rgb = colors[k];
+                byte[] color = intToByte(colors[k]);
     
-                byte red = (byte) ((rgb >> 16) & 0xFF);
-                byte green = (byte) ((rgb >> 8) & 0xFF);
-                byte blue = (byte) (rgb & 0xFF);
-                byte alpha = (byte) ((rgb >> 24) & 0xFF);
-    
-                data[r*width + c*4 + 0] = red;
-                data[r*width + c*4 + 1] = green;
-                data[r*width + c*4 + 2] = blue;
-                data[r*width + c*4 + 3] = alpha;
+                data[r*width + c*4 + 0] = color[0];
+                data[r*width + c*4 + 1] = color[1];
+                data[r*width + c*4 + 2] = color[2];
+                data[r*width + c*4 + 3] = color[3];
             }
         }
 
         return data;
+    }
+
+    private byte[] intToByte(int rgb) {
+        byte[] color = new byte[4];
+
+        color[0] = (byte) ((rgb >> 16) & 0xFF); // red
+        color[1] = (byte) ((rgb >> 8) & 0xFF); // green
+        color[2] = (byte) (rgb & 0xFF); // blue
+        color[3] = (byte) 255; // alpha
+
+        return color;
     }
 
     public byte[] getData() {

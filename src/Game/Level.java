@@ -3,11 +3,13 @@ package Game;
 import Game.Entity.*;
 import Game.Entity.Hard.*;
 
+import Game.Graphics.TextureMap;
+
 import Game.Math.Vector;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,18 +17,22 @@ public class Level {
 
     private ArrayList<Entity> entities;
 
+    private ArrayList<TextureMap> texMaps;
+
     private static boolean verbos = true;
 
     public Level() {
         entities = new ArrayList<Entity>();
+        texMaps = new ArrayList<TextureMap>();
     }
 
-    public Level(String pth) throws FileNotFoundException {
+    public Level(String pth) throws FileNotFoundException, IOException {
         entities = new ArrayList<Entity>();
+        texMaps = new ArrayList<TextureMap>();
         loadLevel(pth);
     }
 
-    public void loadLevel(String path) throws FileNotFoundException {
+    public void loadLevel(String path) throws FileNotFoundException, IOException {
         Scanner file = new Scanner(new File(path));
 
         entities = new ArrayList<Entity>();
@@ -34,7 +40,16 @@ public class Level {
         while(file.hasNextLine()) {
             String type = file.nextLine();
 
-            if (type.equals("player")) {
+            if (type.equals("texturemap")) {
+                if (verbos) System.out.println("Map->Texture Map");
+
+                String tex = file.nextLine();
+                int width = file.nextInt();
+                int height = file.nextInt();
+                
+                texMaps.add(new TextureMap(tex, width, height));
+            }
+            else if (type.equals("player")) {
                 if (verbos) System.out.println("Map->Loading Player");
                 entities.add(new Player(file));
             }
@@ -45,6 +60,10 @@ public class Level {
             else if (type.equals("clownbox")) {
                 if (verbos) System.out.println("Map->Loading ClownBox");
                 entities.add(new ClownBox(file));
+            }
+            else if (type.equals("square")) {
+                if (verbos) System.out.println("Map->Loading Square");
+                entities.add(new Square(file));
             }
             else if (type.equals("end"))
                 break;
@@ -87,6 +106,10 @@ public class Level {
         return players;
     }
 
+    public ArrayList<TextureMap> getTexMaps() {
+        return texMaps;
+    }
+
     public ArrayList<Float> getVertices() {
         ArrayList<Float> verts = new ArrayList<Float>();
 
@@ -112,7 +135,7 @@ public class Level {
             for (Vector v: colors) {
                 cols.add(v.get(0));
                 cols.add(v.get(1));
-                cols.add(v.get(2));
+                if (cols.size() == 3) cols.add(v.get(2)); // FIXME
             }
         }
 

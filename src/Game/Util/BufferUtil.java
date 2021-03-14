@@ -37,6 +37,17 @@ public class BufferUtil {
 		return fb;
 	}
 
+	public static ByteBuffer arrayToBuffer(byte[] array) {
+		ByteBuffer bb = ByteBuffer.allocateDirect(array.length);
+
+		bb.order(ByteOrder.nativeOrder());
+
+		bb.put(array);
+		bb.rewind();
+
+		return bb;
+	}
+
 	public static FloatBuffer arraylistToBuffer(ArrayList<Float> array) {
 		float[] floats = new float[array.size()];
 

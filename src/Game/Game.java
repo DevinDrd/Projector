@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import Game.Graphics.Window;
 import Game.Input.*;
@@ -50,6 +51,8 @@ public class Game {
 		} catch (FileNotFoundException e) {
 			System.out.println("Could not file: " + mapPath);
 			System.exit(0);
+		} catch(IOException e) {
+			System.out.println("Could not load texture");
 		} catch (InputMismatchException e) {
 			System.out.println("Unable to pars file: " + mapPath);
 			System.exit(0);
@@ -65,6 +68,7 @@ public class Game {
 			System.exit(0);
 		}
 
+		window.addTextures(level);
 		controller = new Controller(level.getPlayers().get(0));
     }
 
@@ -119,7 +123,7 @@ public class Game {
 	}
 
     public static void main(String[] args) {
-		new Game("./res/maps/map.txt").run();
+		new Game("./res/maps/textureLevel.txt").run();
     }
 
 }

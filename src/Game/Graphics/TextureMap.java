@@ -16,6 +16,11 @@ public class TextureMap {
     // arraylist of texture colors
     private final byte[] data;
 
+    private int id;
+    private int slot;
+
+    private static int COUNT = 0;
+
     // width and height are the dimensions of the textures
     // in the texturmap, not the dimensions of the texturemap
     // itself
@@ -27,6 +32,12 @@ public class TextureMap {
 
         this.tWidth = tWidth;
         this.tHeight = tHeight;
+
+        slot = -1;
+        id = -1;
+        COUNT++;
+
+        System.out.println(COUNT);
 
         data = image.getData();
     }
@@ -49,6 +60,22 @@ public class TextureMap {
 
     public int getHeight() {
         return height;
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public void setID(int id) {
+        this.id = id;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
     }
     
 }

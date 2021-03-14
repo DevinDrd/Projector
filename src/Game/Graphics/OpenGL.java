@@ -162,7 +162,6 @@ public class OpenGL {
 
 	public void render(float[] vertices, float[] colors) {
         if (vertices.length % 3 != 0) throw new IllegalArgumentException();
-        if (vertices.length != colors.length) throw new IllegalArgumentException();
         
 		BufferUtil.putArray(vertices, positionsBuffer);
 		BufferUtil.putArray(colors, colorsBuffer);
@@ -245,6 +244,28 @@ public class OpenGL {
 			GL20.glUniformMatrix4fv(uniformHandle, true,  BufferUtil.arrayToBuffer(matrix.toArray()));
 		else
 			throw new IllegalArgumentException();
+	}
+
+	public void setUniTex(String id, int value) {
+		int loc = GL20.glGetUniformLocation(p, id);
+		GL20.glUniform1i(loc, value);
+	}
+
+	public void addTexture(TextureMap texMap) {
+		GL13.glActiveTexture(GL13.GL_TEXTURE0 + texMap.getID());
+		texMap.setID(GL11.glGenTextures());
+		texMap.setSlot(0);
+
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texMap.getID());
+
+		GL11.glTexImage2D( GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, texMap.getWidth(),
+							texMap.getHeight(), 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE,
+							BufferUtil.arrayToBuffer(texMap.getData()));
+
+		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
+		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
+		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_CLAMP);
+		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_CLAMP);
 	}
 
 	public ArrayList<KeyEvent> pollEvents() {
