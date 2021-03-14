@@ -42,33 +42,25 @@ public class Player extends HardEntity {
     }
 
     public Player(Scanner file) throws FileNotFoundException {
-        ArrayList<Float> v = new ArrayList<Float>();
-        ArrayList<Float> c = new ArrayList<Float>();
+        ArrayList<Vector> verts = new ArrayList<Vector>();
+        ArrayList<Vector> colors = new ArrayList<Vector>();
 
         while (file.hasNextFloat())
-            v.add(file.nextFloat());
+            verts.add(new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat()));
 
         file.nextLine();
 
         while (file.hasNextFloat())
-            c.add(file.nextFloat());
+            colors.add(new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat()));
 
         file.nextLine();
-
-        float[] verts = new float[v.size()];
-        for (int i = 0; i < verts.length; i++)
-            verts[i] = v.get(i);
-
-        float[] cols = new float[c.size()];
-        for (int i = 0; i < verts.length; i++)
-            cols[i] = c.get(i);
 
         position = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
         velocity = new Vector(0, 0, 0);
 
         rotationAxis = new Vector(0, 0, 0);
 
-        model = new Model(position, verts, cols);
+        model = new Model(position, verts, colors);
 
         file.nextLine();
 

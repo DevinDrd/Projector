@@ -3,6 +3,8 @@ package Game.Entity;
 import Game.Math.*;
 import Game.Model.*;
 
+import java.util.ArrayList;
+
 public class Entity {
 
     protected Vector position;
@@ -21,7 +23,7 @@ public class Entity {
         velocity = new Vector(0, 0, 0);
         rotationAxis = new Vector(0, 0, 0);
 
-        model = new Model(position, new float[] {}, new float[] {});
+        model = new Model(position, new ArrayList<Vector>(), new ArrayList<Vector>());
     }
 
     public Entity(Vector position) {
@@ -29,7 +31,7 @@ public class Entity {
         velocity = new Vector(0, 0, 0);
         rotationAxis = new Vector(0, 0, 0);
 
-        model = new Model(position, new float[] {}, new float[] {});
+        model = new Model(position, new ArrayList<Vector>(), new ArrayList<Vector>());
     }
 
     public Entity(float x, float y, float z, Model model) {

@@ -22,7 +22,7 @@ public class ClownBox extends HardEntity {
         buildRigidBody(width, height, length);
     }
 
-    // syntax: position    velocity    width    height    length
+    // syntax: position    velocity    rotation    width    height    length
     public ClownBox(Scanner source) throws FileNotFoundException {
         Vector pos = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
         Vector vel = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());

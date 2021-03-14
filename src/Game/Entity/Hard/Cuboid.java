@@ -22,10 +22,11 @@ public class Cuboid extends HardEntity {
         buildRigidBody(width, height, length);
     }
 
-    // syntax: position    velocity    color    width    height    length
+    // syntax: position    velocity    rotation    color    width    height    length
     public Cuboid(Scanner source) throws FileNotFoundException {
         Vector pos = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
         Vector vel = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
+        rotationAxis = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
         Vector color = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
 
         float width = source.nextFloat();
