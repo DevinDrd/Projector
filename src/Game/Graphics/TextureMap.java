@@ -25,7 +25,7 @@ public class TextureMap {
     // in the texturmap, not the dimensions of the texturemap
     // itself
     public TextureMap(String source, int tWidth, int tHeight) throws IOException {
-        Pic image = new Pic(source, source);
+        Image image = new Image(source);
 
         this.width = image.getWidth();
         this.height = image.getHeight();
@@ -37,7 +37,7 @@ public class TextureMap {
         id = COUNT;
         COUNT++;
 
-        data = Game.Util.BufferUtil.toArray(image.getData());
+        data = image.getData();
     }
 
     public byte[] getData() {

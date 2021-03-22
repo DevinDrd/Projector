@@ -1,5 +1,5 @@
 texturemap
-res/textures/caviar
+res/textures/caviar.jpg
 32 32
 player
  ;model vertices

@@ -32,11 +32,13 @@ public class Image {
                 int k = (height-1 - r )*width + c;
 
                 byte[] color = intToByte(colors[k]);
+
+                int d = (r*width + c)*4;
     
-                data[r*width + c*4 + 0] = color[0];
-                data[r*width + c*4 + 1] = color[1];
-                data[r*width + c*4 + 2] = color[2];
-                data[r*width + c*4 + 3] = color[3];
+                data[d + 0] = color[0];
+                data[d + 1] = color[1];
+                data[d + 2] = color[2];
+                data[d + 3] = color[3];
             }
         }
 

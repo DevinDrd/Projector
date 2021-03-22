@@ -64,9 +64,6 @@ public class Window {
         openGL.setUniMat4(projUni, level.getPlayers().get(0).getCamera().getProjection(Projection.PERSPECTIVE));
         openGL.setUniTex(texUni, level.getTexMaps().get(0).getSlot() - 1);
         openGL.render(BufferUtil.toFloats(level.getVertices()), BufferUtil.toFloats(level.getColors()));
-
-        System.out.println(level.getVertices());
-        System.out.println(level.getColors());
     }
 
     public boolean isOpen() {
