@@ -10,7 +10,7 @@ public class Vector {
         length = vec.length;
     }
 
-    public int getLength() {
+    public int length() {
         return length;
     }
 

@@ -31,8 +31,8 @@ public class SquareModel extends Model {
     }
 
     public SquareModel(Vector position, Vector color, float width, float height) {
-        if (position.getLength() != 3) throw new IllegalArgumentException();
-        if (color.getLength() != 3) throw new IllegalArgumentException();
+        if (position.length() != 3) throw new IllegalArgumentException();
+        if (color.length() != 3) throw new IllegalArgumentException();
         if (width <= 0) throw new IllegalArgumentException();
         if (height <= 0) throw new IllegalArgumentException();
 

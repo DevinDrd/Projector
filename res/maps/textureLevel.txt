@@ -1,5 +1,5 @@
 texturemap
-res/textures/caviar.jpg
+res/textures/caviar
 32 32
 player
  ;model vertices
@@ -8,4 +8,4 @@ player
 0 -100 10    0 1 0    0 0 1    -2 2 -2 2 4 1000   ; camera: position    direction    up    l r b t n f
 square
 0 0 0    0 0 0    0 0 0    32 32    ; position, velocity, rotation, width, height
-0 0    0 0    1 0    1 1    0 1    ; texturemap pos, p1, p2, p3, p4
+0 0    0 0    1 0    1 1    0 1    ; texturemap, p1, p2, p3, p4

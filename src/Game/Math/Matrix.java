@@ -106,7 +106,7 @@ public class Matrix {
     }
 
     public static Matrix translate(Vector v) {
-        if (v.getLength() != 3) throw new ArithmeticException();
+        if (v.length() != 3) throw new ArithmeticException();
 
         float[][] matrix = new float[][] {
             {1, 0, 0, v.get(0)},
@@ -119,7 +119,7 @@ public class Matrix {
     }
 
     public static Matrix rotate(Vector position, Vector axis, float alpha) {
-        if (axis.getLength() != 3) throw new IllegalArgumentException();
+        if (axis.length() != 3) throw new IllegalArgumentException();
         if (axis.magnitude() - 0.000001f < 0) throw new ArithmeticException();
 
         axis = axis.normalize();
@@ -146,7 +146,7 @@ public class Matrix {
     }
 
     public static Vector rotate(Matrix rotation, Vector vec) {
-        if (vec.getLength() != 3) throw new ArithmeticException();
+        if (vec.length() != 3) throw new ArithmeticException();
 
         vec = vec.homogenize();
         rotation = rotation.multiply(vec.toMatrix());

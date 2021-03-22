@@ -135,7 +135,7 @@ public class Level {
             for (Vector v: colors) {
                 cols.add(v.get(0));
                 cols.add(v.get(1));
-                if (cols.size() == 3) cols.add(v.get(2)); // FIXME
+                if (v.length() == 3) cols.add(v.get(2));
             }
         }
 

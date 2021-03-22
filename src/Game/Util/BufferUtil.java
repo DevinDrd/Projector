@@ -48,6 +48,14 @@ public class BufferUtil {
 		return bb;
 	}
 
+	public static byte[] toArray(ByteBuffer bb) {
+		bb.rewind();
+		byte[] arr = new byte[bb.remaining()];
+		for (int i = 0; i < arr.length; i++)
+			arr[i] = bb.get();
+		return arr;
+	}
+
 	public static FloatBuffer arraylistToBuffer(ArrayList<Float> array) {
 		float[] floats = new float[array.size()];
 

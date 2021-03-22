@@ -186,7 +186,7 @@ public class OpenGL {
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, colorHandler);
 		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, colorsBuffer, GL15.GL_STATIC_DRAW);
 		GL20.glEnableVertexAttribArray(1);
-		GL20.glVertexAttribPointer(1, 3, GL11.GL_FLOAT, false, 0, 0);
+		GL20.glVertexAttribPointer(1, 2, GL11.GL_FLOAT, false, 0, 0);
 		
 		GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, marker/3); // should never round
 		
@@ -252,9 +252,8 @@ public class OpenGL {
 	}
 
 	public void addTexture(TextureMap texMap) {
-		GL13.glActiveTexture(GL13.GL_TEXTURE0 + texMap.getID());
+		GL13.glActiveTexture(GL13.GL_TEXTURE0 + texMap.getSlot());
 		texMap.setID(GL11.glGenTextures());
-		texMap.setSlot(0);
 
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texMap.getID());
 
