@@ -151,12 +151,7 @@ public class Vector {
     }
 
     public float[] getFloats() {
-        float[] f = new float[3];
-
-        for (int i = 0; i < f.length; i++)
-            f[i] = get(i);
-
-        return f;
+        return vec;
     }
 
     public String toString() {

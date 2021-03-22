@@ -116,11 +116,9 @@ public class Level {
         for (Entity e:entities) {
             ArrayList<Vector> points = e.getModel().vertices();
             
-            for (Vector v: points) {
-                verts.add(v.get(0));
-                verts.add(v.get(1));
-                verts.add(v.get(2));
-            }
+            for (Vector v: points)
+                for (float f: v.getFloats())
+                    verts.add(f);
         }
 
         return verts;
@@ -132,11 +130,9 @@ public class Level {
         for (Entity e:entities) {
             ArrayList<Vector> colors = e.getModel().colors();
             
-            for (Vector v: colors) {
-                cols.add(v.get(0));
-                cols.add(v.get(1));
-                if (v.length() == 3) cols.add(v.get(2));
-            }
+            for (Vector v: colors)
+                for (float f: v.getFloats())
+                    cols.add(f);
         }
 
         return cols;

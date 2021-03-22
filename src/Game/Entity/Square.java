@@ -1,5 +1,6 @@
 package Game.Entity;
 
+import Game.Graphics.Texture;
 import Game.Math.Vector;
 import Game.Model.SquareModel;
 
@@ -18,8 +19,8 @@ public class Square extends Entity{
 
         source.nextLine();
 
-        source.nextInt(); // for the texture
-        source.nextInt(); // for the texture
+        int textureX = source.nextInt(); // for the texture
+        int textureY = source.nextInt(); // for the texture
 
         ArrayList<Vector> texCoords = new ArrayList<Vector>();
 
