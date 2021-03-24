@@ -29,8 +29,6 @@ curl https://search.maven.org/search?q=g:junit%20AND%20a:junit --output junit.ja
 curl https://search.maven.org/artifact/org.hamcrest/hamcrest-core/1.3/jar --output hamcrest-core.jar
 
 cd ../..
-pwd
-ls
-ls lib
-ls lib/lwjgl
-ls lib/junit
+
+javac -cp .:./src:./test:./lib/lwjgl/lwjgl.jar:./lib/lwjgl/lwjgl-glfw.jar:./lib/lwjgl/lwjgl-opengl.jar:./lib/junit/junit.jar:./lib/junit/hamcrest-core.jar -d ./bin test/TestRunner.java
+java -cp ./bin:./lib/lwjgl/lwjgl.jar:./lib/lwjgl/lwjgl-glfw.jar:./lib/lwjgl/lwjgl-glfw-natives-linux.jar:./lib/lwjgl/lwjgl-natives-linux.jar:./lib/lwjgl/lwjgl-opengl.jar:./lib/lwjgl/lwjgl-opengl-natives-linux.jar:./lib/junit/junit.jar:./lib/junit/hamcrest-core.jar -Djava.library.path=./lib/lwjgl TestRunner
