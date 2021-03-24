@@ -6,8 +6,10 @@ public class TestRunner {
    public static void main(String[] args) {
 
       Result result = JUnitCore.runClasses(TestMatrix.class);
-      for (Failure failure : result.getFailures())
+      for (Failure failure : result.getFailures()) {
          System.out.println(failure.toString());
+         System.exit(1);
+      }
 
 
          
