@@ -19,7 +19,7 @@ public class TestMatrix {
 
 
         m = new Matrix(new float[][] {{1}});
-        assertEquals(2, m.dimensions()[0]);
+        assertEquals(1, m.dimensions()[0]);
         assertEquals(1, m.dimensions()[1]);
 
         m = new Matrix(new float[][] {{1, 2}});
