@@ -1,8 +1,5 @@
 #!/bin/bash
 
-sudo apt update
-sudo apt install unzip
-
 mkdir lib
 cd lib
 
