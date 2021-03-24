@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class CuboidModel extends Model {
 
     // one face at a time counterclockwise
-    public CuboidModel(Vector pos, Vector color, float width, float height, float length) {
+    public CuboidModel(Vector pos, float width, float height, float length) {
         float x = pos.get(0);
         float y = pos.get(1);
         float z = pos.get(2);
@@ -18,7 +18,6 @@ public class CuboidModel extends Model {
 
         position = pos;
         vertices = new ArrayList<Vector>();
-        colors = new ArrayList<Vector>();
 
         vertices.add(new Vector(x - w2, y + h2, z - l2));
         vertices.add(new Vector(x + w2, y + h2, z - l2));
@@ -61,9 +60,6 @@ public class CuboidModel extends Model {
         vertices.add(new Vector(x + w2, y + h2, z - l2));
         vertices.add(new Vector(x - w2, y + h2, z - l2));
         vertices.add(new Vector(x - w2, y - h2, z - l2));
-
-        for (int i = 0; i < vertices.size(); i++)
-            colors.add(color);
     }
     
 }

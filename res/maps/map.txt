@@ -1,19 +1,22 @@
+texturemap
+res/textures/test.jpg
+32 32
 player
- ;model vertices
- ;model colors
-0 -100 10      ; position
-0 -100 10    0 1 0    0 0 1    -2 2 -2 2 4 1000   ; camera: position    direction    up    l r b t n f
+0 -100 10    0 0 0    0 0 0      player: position    velocity    rotation
+0 1 0    0 0 1    -2 2 -2 2 4 1000   camera: direction    up    l r b t n f
+       model: vertices
+0 0    texture: x y    coords
+cuboid
+0 0 -2    0 0 0    0 0 0    300 300 4    0 0    clownbox: position    velocity    rotation    width height length    texture: x y
+cuboid
+0 0 40    0 0 -.2    0 0 3.3    10 10 10    0 0
+cuboid
+-63 0 20    .6 0 0    0 6.3 0    5 5 5    0 0
 clownbox
-0 0 -2    0 0 0    0 0 0    300 300 4    ; position velocity rotation length, width, height
+0 0 75    0 0 0    4 2 1    25 25 25    0 0
 clownbox
-0 0 40    0 0 -.2    0 0 3.3    10 10 10
+-125 0 30    1 0 0    3 0 0    25 25 25    0 0
 clownbox
--63 0 20    .6 0 0    0 6.3 0    5 5 5
+100 0 30    -1 0 0    3 3 0    25 25 25    0 0
 clownbox
-0 0 75    0 0 0    4 2 1    25 25 25
-clownbox
--125 0 30    1 0 0    3 0 0    25 25 25
-clownbox
-100 0 30    -1 0 0    3 3 0    25 25 25
-clownbox
-200 0 20    -2 0 0    3 3 3    15 15 15
+200 0 20    -2 0 0    3 3 3    15 15 15    0 0

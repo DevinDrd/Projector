@@ -1,9 +1,8 @@
 package Game.Entity;
 
+import Game.Graphics.Texture;
 import Game.Math.*;
 import Game.Model.*;
-
-import java.util.ArrayList;
 
 public class Entity {
 
@@ -15,39 +14,17 @@ public class Entity {
     protected Vector rotationAxis;
 
     protected Model model;
+    protected Texture texture;
 
     public Entity(){};
 
-    public Entity(float x, float y, float z) {
-        position = new Vector(x, y, z);
-        velocity = new Vector(0, 0, 0);
-        rotationAxis = new Vector(0, 0, 0);
-
-        model = new Model(position, new ArrayList<Vector>(), new ArrayList<Vector>());
-    }
-
-    public Entity(Vector position) {
-        this.position = position;
-        velocity = new Vector(0, 0, 0);
-        rotationAxis = new Vector(0, 0, 0);
-
-        model = new Model(position, new ArrayList<Vector>(), new ArrayList<Vector>());
-    }
-
-    public Entity(float x, float y, float z, Model model) {
-        position = new Vector(x, y, z);
-        velocity = new Vector(0, 0, 0);
-        rotationAxis = new Vector(0, 0, 0);
-
-        this.model = model;
-    }
-
-    public Entity(Vector position, Model model) {
+    public Entity(Vector position, Model model, Texture texture) {
         this.position = position;
         velocity = new Vector(0, 0, 0);
         rotationAxis = new Vector(0, 0, 0);
 
         this.model = model;
+        this.texture = texture;
     }
 
     public void update() {
@@ -62,12 +39,15 @@ public class Entity {
     }
 
     protected void rotate() {
-        // rotate player --- don't need to do anything
         model.rotate(rotationAxis, rotationAxis.magnitude());
     }
 
     public Model getModel() {
         return model;
+    }
+
+    public Texture getTexture() {
+        return texture;
     }
 
     public Vector getPosition() {

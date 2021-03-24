@@ -1,6 +1,7 @@
 package Game.Entity.Hard;
 
 import Game.Entity.Camera;
+import Game.Graphics.Texture;
 import Game.Math.*;
 import Game.Model.*;
 import Game.Physics.RigidBody;
@@ -17,54 +18,25 @@ public class Player extends HardEntity {
     private float speed = 2f; // how quickly player moves from user input
     private float angularSpeed = 15f; // how quickly player rotates from user input in degrees
 
-    public Player(float x, float y, float z, Camera camera, RigidBody rigidBody) {
-        super(x, y, z, rigidBody);
+    public Player(Vector position, Camera camera, Model model, Texture texture, RigidBody rigidBody) {
+        super(position, model, texture, rigidBody);
 
         this.camera = camera;
     }
 
-    public Player(Vector position, Camera camera, RigidBody rigidBody) {
-        super(position, rigidBody);
-
-        this.camera = camera;
-    }
-
-    public Player(float x, float y, float z, Model model, Camera camera, RigidBody rigidBody) {
-        super(x, y, z, model, rigidBody);
-
-        this.camera = camera;
-    }
-
-    public Player(Vector position, Model model, Camera camera, RigidBody rigidBody) {
-        super(position, model, rigidBody);
-
-        this.camera = camera;
-    }
-
+    // player: position    velocity    rotation
+    // camera: direction    up    l r b t n f
+    // model: coords
+    // texture: x y    coords     
     public Player(Scanner file) throws FileNotFoundException {
-        ArrayList<Vector> verts = new ArrayList<Vector>();
-        ArrayList<Vector> colors = new ArrayList<Vector>();
-
-        while (file.hasNextFloat())
-            verts.add(new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat()));
-
-        file.nextLine();
-
-        while (file.hasNextFloat())
-            colors.add(new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat()));
-
-        file.nextLine();
-
+        // player
         position = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
-        velocity = new Vector(0, 0, 0);
-
-        rotationAxis = new Vector(0, 0, 0);
-
-        model = new Model(position, verts, colors);
-
+        velocity = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
+        rotationAxis = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
         file.nextLine();
 
-        Vector cP = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
+
+        // camera
         Vector direction = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
         Vector up = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
 
@@ -74,16 +46,41 @@ public class Player extends HardEntity {
         float t = file.nextFloat();
         float n = file.nextFloat();
         float f = file.nextFloat();
+        file.nextLine();
 
-        camera = new Camera(cP, direction, up, l, r, b, t, n, f);
+        camera = new Camera(position, direction, up, l, r, b, t, n, f);
 
+
+        // model
+        ArrayList<Vector> verts = new ArrayList<Vector>();
+
+        while (file.hasNextFloat())
+            verts.add(new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat()));
+        file.nextLine();
+
+        model = new Model(position, verts);
+
+
+        // texture
+        ArrayList<Vector> coords = new ArrayList<Vector>();
+        int textX = file.nextInt();
+        int textY = file.nextInt();
+
+        while (file.hasNextFloat())
+            coords.add(new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat()));
+
+        texture = new Texture(coords, textX, textY);
+
+
+        // rigidbody
         // FIXME: Changes based on the orientation of the camera
         ArrayList<Vector> list = new ArrayList<Vector>();
-        list.add(new Vector(cP.get(0) + l, cP.get(1) + n + 1, cP.get(2) + t));
-        list.add(new Vector(cP.get(0) + r, cP.get(1) + n + 1, cP.get(2) + t));
-        list.add(new Vector(cP.get(0) + r, cP.get(1) + n + 1, cP.get(2) + b));
-        list.add(new Vector(cP.get(0) + l, cP.get(1) + n + 1, cP.get(2) + b));
-        list.add(new Vector(cP.get(0), cP.get(1), cP.get(2)));
+        list.add(new Vector(position.get(0) + l, position.get(1) + n + 1, position.get(2) + t));
+        list.add(new Vector(position.get(0) + r, position.get(1) + n + 1, position.get(2) + t));
+        list.add(new Vector(position.get(0) + r, position.get(1) + n + 1, position.get(2) + b));
+        list.add(new Vector(position.get(0) + l, position.get(1) + n + 1, position.get(2) + b));
+        list.add(new Vector(position.get(0), position.get(1), position.get(2)));
+
         body = new RigidBody(position, list);
     }
 

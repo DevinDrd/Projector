@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Square extends Entity{
 
+    // position    velocity    rotation    width    height    texture
     public Square(Scanner source) {
         position = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
         velocity = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
@@ -36,7 +37,8 @@ public class Square extends Entity{
         texCoords.add(p4);
         texCoords.add(p1);
 
-        model = new SquareModel(position, width, height, texCoords);
+        model = new SquareModel(position, width, height);
+        texture = new Texture(texCoords, textureX, textureY);
     }
     
 }

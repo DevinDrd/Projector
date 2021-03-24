@@ -124,13 +124,13 @@ public class Level {
         return verts;
     }
 
-    public ArrayList<Float> getColors() {
+    public ArrayList<Float> getCoords() {
         ArrayList<Float> cols = new ArrayList<Float>();
 
         for (Entity e:entities) {
-            ArrayList<Vector> colors = e.getModel().colors();
+            ArrayList<Vector> coords = e.getTexture().getCoords();
             
-            for (Vector v: colors)
+            for (Vector v: coords)
                 for (float f: v.getFloats())
                     cols.add(f);
         }

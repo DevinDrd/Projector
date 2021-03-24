@@ -1,11 +1,11 @@
 texturemap
-res/textures/t2.jpg
+res/textures/test.jpg
 32 32
 player
- ;model vertices
- ;model colors
-0 -100 10      ; position
-0 -100 10    0 1 0    0 0 1    -2 2 -2 2 4 1000   ; camera: position    direction    up    l r b t n f
+0 -100 10    0 0 0    0 0 0      player: position    velocity    rotation
+0 1 0    0 0 1    -2 2 -2 2 4 1000   camera: direction    up    l r b t n f
+       model: vertices
+0 0    texture: x y    coords
 square
 0 0 0    0 0 0    0 0 0    32 32    ; position, velocity, rotation, width, height
 0 0    0 0    1 0    1 1    0 1    ; texturemap, p1, p2, p3, p4

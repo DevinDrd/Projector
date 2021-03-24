@@ -27,5 +27,9 @@ public class Texture {
     public int getY() {
         return yIndex;
     }
+
+    public void setCoords(ArrayList<Vector> coords) {
+        texCoords = coords;
+    }
     
 }

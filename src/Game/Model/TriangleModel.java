@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class TriangleModel extends Model {
 
-    public TriangleModel(Vector p, ArrayList<Vector> verts, ArrayList<Vector> cols) {
-        super(p, verts, cols);
+    public TriangleModel(Vector p, ArrayList<Vector> verts) {
+        super(p, verts);
     }
     
 }

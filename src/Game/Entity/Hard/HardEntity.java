@@ -1,6 +1,7 @@
 package Game.Entity.Hard;
 
 import Game.Entity.Entity;
+import Game.Graphics.Texture;
 import Game.Math.Vector;
 import Game.Model.Model;
 import Game.Physics.RigidBody;
@@ -11,26 +12,8 @@ public class HardEntity extends Entity {
 
     public HardEntity(){};
 
-    public HardEntity(float x, float y, float z, RigidBody rigidBody) {
-        super(x, y, z);
-
-        body = rigidBody;
-    }
-
-    public HardEntity(Vector position, RigidBody rigidBody) {
-        super(position);
-
-        body = rigidBody;
-    }
-
-    public HardEntity(float x, float y, float z, Model model, RigidBody rigidBody) {
-        super(x, y, z, model);
-
-        body = rigidBody;
-    }
-
-    public HardEntity(Vector position, Model model, RigidBody rigidBody) {
-        super(position, model);
+    public HardEntity(Vector position, Model model, Texture texture, RigidBody rigidBody) {
+        super(position, model, texture);
 
         body = rigidBody;
     }
@@ -42,7 +25,6 @@ public class HardEntity extends Entity {
     }
 
     protected void rotate() {
-        // rotate player --- don't need to do anything
         model.rotate(rotationAxis, rotationAxis.magnitude());
         body.rotate(rotationAxis, rotationAxis.magnitude());
     }

@@ -1,6 +1,10 @@
 package Game.Entity;
 
+import Game.Graphics.Texture;
+import Game.Model.Model;
 import Game.Math.*;
+
+import java.util.ArrayList;
 
 public class Camera extends Entity {
 
@@ -15,7 +19,7 @@ public class Camera extends Entity {
     private float f; // far side of the camera
 
     public Camera(Vector position, Vector direction, Vector up, float left, float right, float bottom, float top, float near, float far) {
-        super(position);
+        super(position, new Model(position, new ArrayList<Vector>()), new Texture(new ArrayList<Vector>(), 0, 0));
 
         d = direction.normalize();
         u = up.normalize();
@@ -26,8 +30,6 @@ public class Camera extends Entity {
         t = top;
         n = near;
         f = far;
-
-        rotationAxis = new Vector(0, 0, 0);
     }
 
     public void level() {

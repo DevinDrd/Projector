@@ -123,7 +123,7 @@ public class Game {
 	}
 
     public static void main(String[] args) {
-		new Game("./res/maps/textureLevel.txt").run();
+		new Game("./res/maps/map.txt").run();
     }
 
 }
