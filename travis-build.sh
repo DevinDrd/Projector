@@ -22,8 +22,15 @@ rm LICENSE
 
 mv lib lwjgl
 
-cd ..
+mkdir junit
+cd junit
 
+curl https://search.maven.org/search?q=g:junit%20AND%20a:junit --output junit.jar
+curl https://search.maven.org/artifact/org.hamcrest/hamcrest-core/1.3/jar --output hamcrest-core.jar
+
+cd ../..
+pwd
 ls
 ls lib
-
+ls lib/lwjgl
+ls lib/junit
