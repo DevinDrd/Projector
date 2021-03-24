@@ -24,3 +24,6 @@ mv lib lwjgl
 
 cd ..
 
+ls
+ls lib
+
