@@ -18,8 +18,6 @@ public class Window {
 
     private float[] clearColor = new float[] {.05f, .05f, .2f, 1.0f};
 
-    // private Shader colorVertShader;
-    // private Shader colorFragShader;
     private Shader textureVertShader;
     private Shader textureFragShader;
 
@@ -32,8 +30,6 @@ public class Window {
         openGL = new OpenGL(width, height, title, clearColor);
 
         try {
-			// colorVertShader = new Shader("./res/shaders/colorVertShader.txt");
-			// colorFragShader = new Shader("./res/shaders/colorFragShader.txt");
             textureVertShader = new Shader("./res/shaders/textureVertShader.txt");
 			textureFragShader = new Shader("./res/shaders/textureFragShader.txt");
 		} catch (IOException e) {
@@ -41,8 +37,6 @@ public class Window {
             System.exit(1);
         }
         
-        // openGL.setShader(colorVertShader);
-        // openGL.setShader(colorFragShader);
         openGL.setShader(textureVertShader);
         openGL.setShader(textureFragShader);
     }

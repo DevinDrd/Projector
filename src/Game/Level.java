@@ -128,7 +128,7 @@ public class Level {
         ArrayList<Float> cols = new ArrayList<Float>();
 
         for (Entity e:entities) {
-            ArrayList<Vector> coords = e.getTexture().getCoords();
+            ArrayList<Vector> coords = texMaps.get(0).convert(e.getTexture());
             
             for (Vector v: coords)
                 for (float f: v.getFloats())

@@ -1,17 +1,23 @@
 package Game.Graphics;
 
+import Game.Math.Vector;
+
+import java.util.ArrayList;
 import java.io.IOException;
 
 public class TextureMap {
 
-    // A collage of textures all or which 
-    // have the same dimensions
+    // A collage of textures all of which 
+    // *should* have the same dimensions
 
-    private final int width;
-    private final int height;
+    private final int width; // width of entire texturemap
+    private final int height; // height of entire texturemap
 
-    private final int tWidth;
-    private final int tHeight;
+    private final int tWidth; // texture width
+    private final int tHeight; // texture height
+
+    private final float xRatio;
+    private final float yRatio;
 
     // arraylist of texture colors
     private final byte[] data;
@@ -33,15 +39,38 @@ public class TextureMap {
         this.tWidth = tWidth;
         this.tHeight = tHeight;
 
+        xRatio = ((float) tWidth)/width;
+        yRatio = ((float) tHeight)/height;
+
         slot = 0;
         id = COUNT;
         COUNT++;
+
+        System.out.println(xRatio);
+        System.out.println(yRatio);
 
         data = image.getData();
     }
 
     public byte[] getData() {
         return data;
+    }
+
+    public ArrayList<Vector> convert(Texture texture) {
+        ArrayList<Vector> coords = texture.getCoords();
+        float x = texture.getX();
+        float y = texture.getY();
+
+        for (int i = 0; i < coords.size(); i++) {
+            Vector coord = coords.get(i);
+
+            coord = new Vector(coord.get(0)*xRatio, coord.get(1)*yRatio); // scale down
+            coord = new Vector(coord.get(0) + x*xRatio, coord.get(1) + y*yRatio); // translate
+
+            coords.set(i, coord);
+        }
+
+        return coords;
     }
 
     public int getCols() {
