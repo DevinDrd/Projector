@@ -1,2 +1,2 @@
 langauge: java
-script: javac
+script: ./travis-build.sh
