@@ -3,7 +3,7 @@
 mkdir lib
 cd lib
 
-curl https://build.lwjgl.org/stable/lwjgl.zip --output lwjgl.zip
+wget -O lwjgl.zip https://build.lwjgl.org/stable/lwjgl.zip
 unzip lwjgl.zip
 rm lwjgl.zip
 
@@ -25,8 +25,8 @@ mv lib lwjgl
 mkdir junit
 cd junit
 
-curl https://search.maven.org/remotecontent?filepath=junit/junit/4.13.2/junit-4.13.2.jar --output junit.jar
-curl https://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar --output hamcrest-core.jar
+wget -O junit.jar https://search.maven.org/remotecontent?filepath=junit/junit/4.13.2/junit-4.13.2.jar
+wget -O hamcrest-core.jar https://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
 
 cd ../..
 pwd
