@@ -2,6 +2,7 @@
 A basic 3D world sandbox type game.
 
 To Run from the Projector.jar file:
+*This jar is for linux*
 java -jar Projector.jar
 
 Helpful Commands to compile and run on linux:
