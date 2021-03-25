@@ -46,9 +46,6 @@ public class TextureMap {
         id = COUNT;
         COUNT++;
 
-        System.out.println(xRatio);
-        System.out.println(yRatio);
-
         data = image.getData();
     }
 
@@ -57,17 +54,19 @@ public class TextureMap {
     }
 
     public ArrayList<Vector> convert(Texture texture) {
-        ArrayList<Vector> coords = texture.getCoords();
+        ArrayList<Vector> coords = new ArrayList<Vector>();
+        for (Vector v:texture.getCoords())
+            coords.add(v);
+
         float x = texture.getX();
         float y = texture.getY();
 
         for (int i = 0; i < coords.size(); i++) {
-            Vector coord = coords.get(i);
 
-            coord = new Vector(coord.get(0)*xRatio, coord.get(1)*yRatio); // scale down
-            coord = new Vector(coord.get(0) + x*xRatio, coord.get(1) + y*yRatio); // translate
+            float xCoord = coords.get(i).get(0)*xRatio + x*xRatio;
+            float yCoord = coords.get(i).get(1)*yRatio + y*yRatio;
 
-            coords.set(i, coord);
+            coords.set(i, new Vector(xCoord, yCoord));
         }
 
         return coords;
