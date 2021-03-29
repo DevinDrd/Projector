@@ -24,7 +24,7 @@ public class Player extends HardEntity {
         this.camera = camera;
     }
 
-    // player: position    velocity    rotation
+    // player: position    velocity    rotation    mass
     // camera: direction    up    l r b t n f
     // model: coords
     // texture: x y    coords     
@@ -32,7 +32,11 @@ public class Player extends HardEntity {
         // player
         position = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
         velocity = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
+        acceleration = new Vector(0, 0, 0);
+
         rotationAxis = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
+        mass = file.nextFloat();
+
         file.nextLine();
 
 
@@ -150,22 +154,12 @@ public class Player extends HardEntity {
     }
 
     public void update() {
-        translate();
+        accelerate(acceleration);
+        translate(velocity);
         if (rotationAxis.magnitude() - 0.000001f > 0)
             rotate();
 
         camera.update();
-    }
-
-    public void addToPosition(Vector d) {
-        position = position.add(d);
-        camera.addToPosition(d);
-        model.addToPosition(d);
-        body.addToPosition(d);
-    }
-
-    public void force(Vector f) {
-        addVelocity(f);
     }
     
     public void setVelocity(Vector vec) {
@@ -173,9 +167,13 @@ public class Player extends HardEntity {
         camera.setVelocity(vec);
     }
 
-    public void addVelocity(Vector vec) {
+    public void accelerate(Vector vec) {
         velocity = velocity.add(vec);
-        camera.setVelocity(velocity);
+        camera.accelerate(vec);
+    }
+
+    public float speed() {
+        return speed;
     }
 
     public Camera getCamera() {

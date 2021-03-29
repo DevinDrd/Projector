@@ -114,7 +114,7 @@ public class Level {
         ArrayList<Float> verts = new ArrayList<Float>();
 
         for (Entity e:entities) {
-            ArrayList<Vector> points = e.getModel().vertices();
+            ArrayList<Vector> points = e.model().vertices();
             
             for (Vector v: points)
                 for (float f: v.getFloats())
@@ -128,7 +128,7 @@ public class Level {
         ArrayList<Float> cols = new ArrayList<Float>();
 
         for (Entity e:entities) {
-            ArrayList<Vector> coords = texMaps.get(0).convert(e.getTexture());
+            ArrayList<Vector> coords = texMaps.get(0).convert(e.texture());
             
             for (Vector v: coords)
                 for (float f: v.getFloats())

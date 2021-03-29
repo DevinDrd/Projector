@@ -13,6 +13,8 @@ public class Square extends Entity{
     public Square(Scanner source) {
         position = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
         velocity = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
+        acceleration = new Vector(0, 0, 0);
+
         rotationAxis = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
 
         float width = source.nextFloat();

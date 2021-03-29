@@ -21,6 +21,9 @@ public class Camera extends Entity {
     public Camera(Vector position, Vector direction, Vector up, float left, float right, float bottom, float top, float near, float far) {
         super(position, new Model(position, new ArrayList<Vector>()), new Texture(new ArrayList<Vector>(), 0, 0));
 
+        acceleration = new Vector(0, 0, 0);
+        mass = 0;
+
         d = direction.normalize();
         u = up.normalize();
 
@@ -84,5 +87,5 @@ public class Camera extends Entity {
         d = Matrix.rotate(rotation, d).normalize();
         u = Matrix.rotate(rotation, u).normalize();
     }
-    
+
 }

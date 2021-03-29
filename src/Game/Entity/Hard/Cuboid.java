@@ -15,7 +15,10 @@ public class Cuboid extends HardEntity {
     public Cuboid(Vector pos, int textX, int textY, float width, float height, float length) {
         position = pos;
         velocity = new Vector(0, 0, 0);
+        acceleration = new Vector(0, 0, 0);
+
         rotationAxis = new Vector(0, 0, 0);
+        mass = 0;
 
         model = new CuboidModel(position, width, height, length);
         
@@ -26,7 +29,12 @@ public class Cuboid extends HardEntity {
     public Cuboid(Scanner source) throws FileNotFoundException {
         position = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
         velocity = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
+        acceleration = new Vector(0, 0, 0);
+
         rotationAxis = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
+
+        mass = source.nextFloat();
+
 
         float width = source.nextFloat();
         float height = source.nextFloat();

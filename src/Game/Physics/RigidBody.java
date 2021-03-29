@@ -34,10 +34,10 @@ public class RigidBody {
         return maxPoint;
     }
 
-    public void addToPosition(Vector displacement) {
-        position = position.add(displacement);
+    public void translate(Vector d) {
+        position = position.add(d);
         for (int i = 0; i < vertices.size(); i++)
-            vertices.set(i, vertices.get(i).add(displacement));
+            vertices.set(i, vertices.get(i).add(d));
     }
 
     public void rotate(Vector axis, float alpha) {

@@ -69,7 +69,7 @@ public class Controller {
                 player.getCamera().level();
 
             else if (key == GLFW_KEY_LEFT_CONTROL) // FIXME
-                player.setVelocity(player.getVelocity().multiply(2));
+                ;
 
         }
         else if (event.action == GLFW_REPEAT) {
@@ -135,7 +135,7 @@ public class Controller {
             else if (key == GLFW_KEY_RIGHT);
 
             else if (key == GLFW_KEY_LEFT_CONTROL)
-                player.setVelocity(player.getVelocity().multiply(.5f));
+                ;
         }
     }
     

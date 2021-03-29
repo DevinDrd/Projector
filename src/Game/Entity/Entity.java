@@ -8,6 +8,8 @@ public class Entity {
 
     protected Vector position;
     protected Vector velocity;
+    protected Vector acceleration;
+    protected float mass;
 
     // direction is axis of rotation, magnitude is angular velocity
     // in 60 degrees per second (depending on the update rate)
@@ -22,45 +24,59 @@ public class Entity {
         this.position = position;
         velocity = new Vector(0, 0, 0);
         rotationAxis = new Vector(0, 0, 0);
+        acceleration = new Vector(0, 0, 0);
 
         this.model = model;
         this.texture = texture;
     }
 
     public void update() {
-        translate();
+        
+        accelerate(acceleration);
+        translate(velocity);
         if (rotationAxis.magnitude() - 0.000001f > 0)
             rotate();
     }
     
-    protected void translate() {
-        position = position.add(velocity);
-        model.addToPosition(velocity);
+    public void translate(Vector d) {
+        position = position.add(d);
+        model.translate(d);
+    }
+
+    public void accelerate(Vector v) {
+        velocity = velocity.add(v);
+    }
+
+    public void force(Vector f) {
+        acceleration = acceleration.add(f.divide(mass));
     }
 
     protected void rotate() {
         model.rotate(rotationAxis, rotationAxis.magnitude());
     }
 
-    public Model getModel() {
+    public Model model() {
         return model;
     }
 
-    public Texture getTexture() {
+    public Texture texture() {
         return texture;
     }
 
-    public Vector getPosition() {
+    public Vector position() {
         return position;
     }
 
-    public void addToPosition(Vector d) {
-        position = position.add(d);
-        model.addToPosition(d);
+    public Vector velocity() {
+        return velocity;
     }
 
-    public Vector getVelocity() {
-        return velocity;
+    public Vector acceleration() {
+        return acceleration;
+    }
+
+    public float mass() {
+        return mass;
     }
 
     public Vector getRotation() {
@@ -75,11 +91,22 @@ public class Entity {
         rotationAxis = r;
     }
 
+    public void setAcceleration(Vector a) {
+        acceleration = a;
+    }
+
+    public void setMass(float m) {
+        mass = m;
+    }
+
     public String toString() {
         String output = "Entity:\n";
         output += "position: " + position + "\n";
         output += "velocity: " + velocity + "\n";
+        output += "acceleration: " + acceleration + "\n";
+        output += "mass: " + mass + "\n";
         output += model;
+        output += texture;
         return output;
     }
     

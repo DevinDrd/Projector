@@ -15,30 +15,21 @@ public class HardEntity extends Entity {
     public HardEntity(Vector position, Model model, Texture texture, RigidBody rigidBody) {
         super(position, model, texture);
 
+        acceleration = new Vector(0, 0, 0);
+        mass = 0;
+
         body = rigidBody;
     }
 
-    protected void translate() {
-        position = position.add(velocity);
-        model.addToPosition(velocity);
-        body.addToPosition(velocity);
+    public void translate(Vector d) {
+        position = position.add(d);
+        model.translate(d);
+        body.translate(d);
     }
 
     protected void rotate() {
         model.rotate(rotationAxis, rotationAxis.magnitude());
         body.rotate(rotationAxis, rotationAxis.magnitude());
-    }
-
-    public void addToPosition(Vector d) {
-        position = position.add(d);
-        model.addToPosition(d);
-        body.addToPosition(d);
-    }
-
-    // FIXME: update model and rigid body as well
-    public void setPosition(Vector p) {
-        throw new RuntimeException("This method has no implementation");
-        // position = p;
     }
 
     public RigidBody getBody() {

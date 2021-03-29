@@ -109,6 +109,28 @@ public class Vector {
         return new Vector(diff);
     }
 
+    public Vector multiply(Vector v) {
+        if (length != v.length) throw new IllegalArgumentException();
+
+        float[] mult = new float[length];
+
+        for (int i = 0; i < length; i++)
+            mult[i] = vec[i]*v.vec[i];
+
+        return new Vector(mult);
+    }
+
+    public Vector divide(Vector v) {
+        if (length != v.length) throw new IllegalArgumentException();
+
+        float[] div = new float[length];
+
+        for (int i = 0; i < length; i++)
+            div[i] = vec[i]/v.vec[i];
+
+        return new Vector(div);
+    }
+
     public float dot(Vector v) {
         if (length != v.length) throw new ArithmeticException();
 

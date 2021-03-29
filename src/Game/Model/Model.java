@@ -27,11 +27,11 @@ public class Model {
             vertices.set(i, Matrix.rotate(rotation, vertices.get(i)));
     }
 
-    public void addToPosition(Vector v) {
-        position = position.add(v);
+    public void translate(Vector d) {
+        position = position.add(d);
         
         for (int i = 0; i < vertices.size(); i++)
-            vertices.set(i, vertices.get(i).add(v));
+            vertices.set(i, vertices.get(i).add(d));
     }
 
     public Vector getPosition() {
