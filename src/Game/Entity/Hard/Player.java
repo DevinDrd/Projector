@@ -18,8 +18,11 @@ public class Player extends HardEntity {
     private float speed = 2f; // how quickly player moves from user input
     private float angularSpeed = 15f; // how quickly player rotates from user input in degrees
 
+    private Vector moving; // when user if moving the character
+
     public Player(Vector position, Camera camera, Model model, Texture texture, RigidBody rigidBody) {
         super(position, model, texture, rigidBody);
+        moving = new Vector(0, 0, 0);
 
         this.camera = camera;
     }
@@ -36,6 +39,8 @@ public class Player extends HardEntity {
 
         rotationAxis = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
         mass = file.nextFloat();
+
+        moving = new Vector(0, 0, 0);
 
         file.nextLine();
 
@@ -106,28 +111,28 @@ public class Player extends HardEntity {
         else
             throw new IllegalArgumentException();
 
-        setVelocity(velocity.add(go));
+        moving = moving.add(go);
     }
 
     public void stopMove(Motion m) {
         Vector slow = null;
 
         if (m == Motion.FORWARD)
-            slow = camera.getDirection(Motion.FORWARD).multiply(speed).project(velocity);
+            slow = camera.getDirection(Motion.FORWARD).multiply(speed).project(moving);
         else if (m == Motion.BACKWARD)
-            slow = camera.getDirection(Motion.BACKWARD).multiply(speed).project(velocity);
+            slow = camera.getDirection(Motion.BACKWARD).multiply(speed).project(moving);
         else if (m == Motion.LEFT)
-            slow = camera.getDirection(Motion.LEFT).multiply(speed).project(velocity);
+            slow = camera.getDirection(Motion.LEFT).multiply(speed).project(moving);
         else if (m == Motion.RIGHT)
-            slow = camera.getDirection(Motion.RIGHT).multiply(speed).project(velocity);
+            slow = camera.getDirection(Motion.RIGHT).multiply(speed).project(moving);
         else if (m == Motion.UP)
-            slow = camera.getDirection(Motion.UP).multiply(speed).project(velocity);
+            slow = camera.getDirection(Motion.UP).multiply(speed).project(moving);
         else if (m == Motion.DOWN)
-            slow = camera.getDirection(Motion.DOWN).multiply(speed).project(velocity);
+            slow = camera.getDirection(Motion.DOWN).multiply(speed).project(moving);
         else
             throw new IllegalArgumentException();
 
-        setVelocity(velocity.subtract(slow));
+        moving = moving.subtract(slow);
     }
 
     public void rotate(Motion m) {
@@ -149,11 +154,12 @@ public class Player extends HardEntity {
         else
             throw new IllegalArgumentException();
 
-        setVelocity(Matrix.rotate(rotation, velocity));
+        moving = Matrix.rotate(rotation, moving);
         camera.rotate(rotation);
     }
 
     public void update() {
+        move();
         accelerate(acceleration);
         translate(velocity);
         if (rotationAxis.magnitude() - 0.000001f > 0)
@@ -170,6 +176,11 @@ public class Player extends HardEntity {
     public void accelerate(Vector vec) {
         velocity = velocity.add(vec);
         camera.accelerate(vec);
+    }
+
+    private void move() {
+        translate(moving);
+        camera.translate(moving);
     }
 
     public float speed() {

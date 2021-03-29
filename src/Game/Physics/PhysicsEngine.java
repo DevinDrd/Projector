@@ -1,6 +1,7 @@
 package Game.Physics;
 
 import Game.Entity.Entity;
+import Game.Entity.Hard.Player;
 import Game.Entity.Hard.HardEntity;
 import Game.Math.Vector;
 
@@ -9,11 +10,13 @@ import java.util.ArrayList;
 // credit to winterdev (https://blog.winter.dev/)
 public class PhysicsEngine {
 
+    public static final float G = 0.00006674f;
+
     private Simplex points;
     private Vector direction;
 
     public void update(ArrayList<HardEntity> entities) {
-        // gravity(entities);
+        gravity(entities);
         handleCollisions(entities);
     }
 
@@ -25,13 +28,23 @@ public class PhysicsEngine {
 
     // TODO: TEST
     private void gravity(Entity a, Entity b) {
-        Vector r = b.position().subtract(a.position());
-        Vector rSqr = new Vector(1, 1, 1).divide(r.multiply(r));
+        if (a instanceof Player || b instanceof Player)
+            return;
 
-        Vector force = rSqr.multiply(a.mass()*b.mass());
+        Vector r2 = b.position().subtract(a.position());
+        r2 = r2.multiply(r2);
 
-        a.force(force.divide(100000));
-        b.force(force.divide(100000));
+        float Gab = G*a.mass()*b.mass();
+
+        float fX = (r2.get(0) != 0) ? Gab/r2.get(0): 0;
+        float fY = (r2.get(1) != 0) ? Gab/r2.get(1): 0;
+        float fZ = (r2.get(2) != 0) ? Gab/r2.get(2): 0;
+
+        System.out.println(fZ);
+
+
+        a.force(new Vector(fX, fY, fZ));
+        b.force(new Vector(-fX, -fY, -fZ));
     }
 
     public void handleCollisions(ArrayList<HardEntity> entities) {

@@ -2,14 +2,14 @@ texturemap
 res/textures/tmap.jpg
 32 32
 player
-0 -100 10    0 0 0    0 0 0    1    player: position    velocity    rotation
+0 -100 10    0 0 0    0 0 0    1    player: position    velocity    rotation   mass
 0 1 0    0 0 1    -2 2 -2 2 4 10000   camera: direction    up    l r b t n f
        model: vertices
 0 0    texture: x y    coords
 cuboid
-0 0 -2    0 0 0    0 0 0    99    300 300 4    1 1    clownbox: position    velocity    rotation    width height length    texture: x y
+0 0 -2    0 0 0    0 0 0    99    300 300 4    1 1    clownbox: position    velocity    rotation   mass    width height length    texture: x y
 cuboid
-0 0 40    0 0 -.2    0 0 3.3    1    10 10 10    0 1
+0 0 40    0 0 -.2    0 0 3.3    40    10 10 10    0 1
 cuboid
 -63 0 20    .6 0 0    0 6.3 0    1    5 5 5    0 1
 clownbox
