@@ -34,8 +34,7 @@ public class Entity {
         
         accelerate(acceleration);
         translate(velocity);
-        if (rotationAxis.magnitude() - 0.000001f > 0)
-            rotate();
+        rotate();
     }
     
     public void translate(Vector d) {
@@ -97,6 +96,12 @@ public class Entity {
 
     public void setMass(float m) {
         mass = m;
+    }
+
+    public void freeze() {
+        setVelocity(new Vector(0, 0, 0));
+        setAcceleration(new Vector(0, 0, 0));
+        setRotation(new Vector(0, 0, 0));
     }
 
     public String toString() {

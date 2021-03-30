@@ -113,8 +113,8 @@ public class Game {
 	
 	private void update() {
 		window.update(); // updates window events
-		controller.update(window.getEvents());
 		physicsEngine.update(level.getHardEntities());
+		controller.update(window.getEvents());
 		level.update();
 	}
 	

@@ -162,8 +162,7 @@ public class Player extends HardEntity {
         move();
         accelerate(acceleration);
         translate(velocity);
-        if (rotationAxis.magnitude() - 0.000001f > 0)
-            rotate();
+        rotate();
 
         camera.update();
     }
@@ -181,6 +180,14 @@ public class Player extends HardEntity {
     private void move() {
         translate(moving);
         camera.translate(moving);
+    }
+
+    public void freeze() {
+        setVelocity(new Vector(0, 0, 0));
+        setAcceleration(new Vector(0, 0, 0));
+        setRotation(new Vector(0, 0, 0));
+
+        moving = new Vector(0, 0, 0);
     }
 
     public float speed() {

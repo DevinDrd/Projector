@@ -16,7 +16,7 @@ public class PhysicsEngine {
     private Vector direction;
 
     public void update(ArrayList<HardEntity> entities) {
-        gravity(entities);
+        // gravity(entities);
         handleCollisions(entities);
     }
 
@@ -40,8 +40,7 @@ public class PhysicsEngine {
         float fY = (r2.get(1) != 0) ? Gab/r2.get(1): 0;
         float fZ = (r2.get(2) != 0) ? Gab/r2.get(2): 0;
 
-        System.out.println(fZ);
-
+        System.out.println(new Vector(fX, fY, fZ));
 
         a.force(new Vector(fX, fY, fZ));
         b.force(new Vector(-fX, -fY, -fZ));
@@ -56,14 +55,10 @@ public class PhysicsEngine {
 
     private void collide(HardEntity a, HardEntity b) {
         a.translate(a.velocity().multiply(-1));
-        a.setVelocity(new Vector(0, 0, 0));
-        a.setAcceleration(new Vector(0, 0, 0));
-        a.setRotation(new Vector(0, 0, 0));
+        a.freeze();
 
         b.translate(b.velocity().multiply(-1));
-        b.setVelocity(new Vector(0, 0, 0));
-        b.setAcceleration(new Vector(0, 0, 0));
-        b.setRotation(new Vector(0, 0, 0));
+        b.freeze();
     }
 
     private boolean gjk(RigidBody a, RigidBody b) {
