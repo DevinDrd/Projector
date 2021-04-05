@@ -19,7 +19,7 @@ public class RigidBody {
     }
 
     public Vector findFurthestPoint(Vector direction) {
-        Vector maxPoint = null;
+        Vector maxPoint = vertices.get(0);
         double maxDistance = Double.NEGATIVE_INFINITY;
 
         for (Vector vertex: vertices) {

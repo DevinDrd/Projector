@@ -16,7 +16,7 @@ public class PhysicsEngine {
     private Vector direction;
 
     public void update(ArrayList<HardEntity> entities) {
-        // gravity(entities);
+        gravity(entities);
         handleCollisions(entities);
     }
 
@@ -36,9 +36,9 @@ public class PhysicsEngine {
 
         float Gab = G*a.mass()*b.mass();
 
-        float fX = (r2.get(0) != 0) ? Gab/r2.get(0): 0;
-        float fY = (r2.get(1) != 0) ? Gab/r2.get(1): 0;
-        float fZ = (r2.get(2) != 0) ? Gab/r2.get(2): 0;
+        float fX = (r2.get(0) - 10 > 0) ? Gab/r2.get(0): 0;
+        float fY = (r2.get(1) - 10 > 0) ? Gab/r2.get(1): 0;
+        float fZ = (r2.get(2) - 10 > 0) ? Gab/r2.get(2): 0;
 
         System.out.println(new Vector(fX, fY, fZ));
 
