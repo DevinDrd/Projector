@@ -20,21 +20,21 @@ public class Model {
         vertices = verts;
     }
 
-    public void rotate(Vector axis, float alpha) {
-        Matrix rotation = Matrix.rotate(position, axis, alpha);
+    public void translate(Vector d) {
+        position = position.add(d);
+        
+        for (int i = 0; i < vertices.size(); i++)
+            vertices.set(i, vertices.get(i).add(d));
+    }
+
+    public void rotate(Vector axis) {
+        Matrix rotation = Matrix.rotate(position, axis, axis.magnitude());
 
         for (int i = 0; i < vertices.size(); i++)
             vertices.set(i, Matrix.rotate(rotation, vertices.get(i)));
     }
 
-    public void addToPosition(Vector v) {
-        position = position.add(v);
-        
-        for (int i = 0; i < vertices.size(); i++)
-            vertices.set(i, vertices.get(i).add(v));
-    }
-
-    public Vector getPosition() {
+    public Vector position() {
         return position;
     }
 

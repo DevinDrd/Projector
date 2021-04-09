@@ -1,12 +1,10 @@
-package Game.Entity;
+package Game.Graphics;
 
-import Game.Graphics.Texture;
-import Game.Model.Model;
 import Game.Math.*;
 
-import java.util.ArrayList;
+public class Camera {
 
-public class Camera extends Entity {
+    private Vector p; // camera position in space
 
     private Vector d; // camera direction
     private Vector u; // camera up orientation
@@ -19,7 +17,7 @@ public class Camera extends Entity {
     private float f; // far side of the camera
 
     public Camera(Vector position, Vector direction, Vector up, float left, float right, float bottom, float top, float near, float far) {
-        super(position, new Model(position, new ArrayList<Vector>()), new Texture(new ArrayList<Vector>(), 0, 0));
+        p = position;
 
         d = direction.normalize();
         u = up.normalize();
@@ -32,7 +30,7 @@ public class Camera extends Entity {
         f = far;
     }
 
-    public void level() {
+    public void levelOut() {
         d = new Vector(d.get(0), d.get(1), 0).normalize();
         u = new Vector(0, 0, 1);
     }
@@ -56,7 +54,7 @@ public class Camera extends Entity {
 
     public Matrix getProjection(Projection p) {
         Matrix matrix = null;
-        Matrix lookAt = Matrix.lookAt(position, d, u);
+        Matrix lookAt = Matrix.lookAt(this.p, d, u);
 
         if (p == Projection.PERSPECTIVE)
             matrix = Matrix.frustum(l, r, b, t, n, f);
@@ -68,13 +66,12 @@ public class Camera extends Entity {
         return matrix.multiply(lookAt);
     }
 
-    protected void rotate() {
-        model.rotate(rotationAxis, rotationAxis.magnitude());
-        rotate(rotationAxis, rotationAxis.magnitude());
+    public void translate(Vector d) {
+        p = p.add(d);
     }
 
-    public void rotate(Vector axis, float alpha) {
-        Matrix rotation = Matrix.rotate(new Vector(0, 0, 0), axis, alpha);
+    public void rotate(Vector axis) {
+        Matrix rotation = Matrix.rotate(new Vector(0, 0, 0), axis, axis.magnitude());
 
         d = Matrix.rotate(rotation, d).normalize();
         u = Matrix.rotate(rotation, u).normalize();
@@ -84,5 +81,5 @@ public class Camera extends Entity {
         d = Matrix.rotate(rotation, d).normalize();
         u = Matrix.rotate(rotation, u).normalize();
     }
-    
+
 }

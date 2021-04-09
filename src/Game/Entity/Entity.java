@@ -3,11 +3,14 @@ package Game.Entity;
 import Game.Graphics.Texture;
 import Game.Math.*;
 import Game.Model.*;
+import Game.Physics.RigidBody;
 
 public class Entity {
 
     protected Vector position;
     protected Vector velocity;
+    protected Vector acceleration;
+    protected float mass;
 
     // direction is axis of rotation, magnitude is angular velocity
     // in 60 degrees per second (depending on the update rate)
@@ -15,55 +18,81 @@ public class Entity {
 
     protected Model model;
     protected Texture texture;
+    protected RigidBody body;
 
-    public Entity(){};
+    public Entity() {}
 
-    public Entity(Vector position, Model model, Texture texture) {
+    public Entity(Vector position, Model model, Texture texture, RigidBody rigidBody) {
         this.position = position;
         velocity = new Vector(0, 0, 0);
         rotationAxis = new Vector(0, 0, 0);
+        acceleration = new Vector(0, 0, 0);
 
         this.model = model;
         this.texture = texture;
+        body = rigidBody;
     }
 
     public void update() {
-        translate();
-        if (rotationAxis.magnitude() - 0.000001f > 0)
-            rotate();
+        rotate();
+        accelerate(acceleration);
+        translate(velocity);
     }
     
-    protected void translate() {
-        position = position.add(velocity);
-        model.addToPosition(velocity);
+    public void translate(Vector d) {
+        position = position.add(d);
+        model.translate(d);
+        body.translate(d);
     }
 
     protected void rotate() {
-        model.rotate(rotationAxis, rotationAxis.magnitude());
+        model.rotate(rotationAxis);
+        body.rotate(rotationAxis);
     }
 
-    public Model getModel() {
+    public void freeze() {
+        setRotation(new Vector(0, 0, 0));
+        setVelocity(new Vector(0, 0, 0));
+        setAcceleration(new Vector(0, 0, 0));
+    }
+
+    public void accelerate(Vector v) {
+        velocity = velocity.add(v);
+    }
+
+    public void force(Vector f) {
+        acceleration = acceleration.add(f.divide(mass));
+    }
+
+    public Model model() {
         return model;
     }
 
-    public Texture getTexture() {
+    public Texture texture() {
         return texture;
     }
 
-    public Vector getPosition() {
+    public RigidBody body() {
+        return body;
+    }
+
+    public Vector position() {
         return position;
     }
 
-    public void addToPosition(Vector d) {
-        position = position.add(d);
-        model.addToPosition(d);
-    }
-
-    public Vector getVelocity() {
+    public Vector velocity() {
         return velocity;
     }
 
-    public Vector getRotation() {
+    public Vector acceleration() {
+        return acceleration;
+    }
+
+    public float mass() {
+        return mass;
+    }
+
+    public Vector rotation() {
         return rotationAxis;
     }
 
@@ -75,11 +104,22 @@ public class Entity {
         rotationAxis = r;
     }
 
+    public void setAcceleration(Vector a) {
+        acceleration = a;
+    }
+
+    public void setMass(float m) {
+        mass = m;
+    }
+
     public String toString() {
         String output = "Entity:\n";
         output += "position: " + position + "\n";
         output += "velocity: " + velocity + "\n";
+        output += "acceleration: " + acceleration + "\n";
+        output += "mass: " + mass + "\n";
         output += model;
+        output += texture;
         return output;
     }
     

@@ -120,7 +120,7 @@ public class Matrix {
 
     public static Matrix rotate(Vector position, Vector axis, float alpha) {
         if (axis.length() != 3) throw new IllegalArgumentException();
-        if (axis.magnitude() - 0.000001f < 0) throw new ArithmeticException();
+        if (axis.magnitude() - 0.000001f < 0) return identity(4);
 
         axis = axis.normalize();
 

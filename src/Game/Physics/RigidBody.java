@@ -19,7 +19,7 @@ public class RigidBody {
     }
 
     public Vector findFurthestPoint(Vector direction) {
-        Vector maxPoint = null;
+        Vector maxPoint = vertices.get(0);
         double maxDistance = Double.NEGATIVE_INFINITY;
 
         for (Vector vertex: vertices) {
@@ -34,20 +34,20 @@ public class RigidBody {
         return maxPoint;
     }
 
-    public void addToPosition(Vector displacement) {
-        position = position.add(displacement);
+    public void translate(Vector d) {
+        position = position.add(d);
         for (int i = 0; i < vertices.size(); i++)
-            vertices.set(i, vertices.get(i).add(displacement));
+            vertices.set(i, vertices.get(i).add(d));
     }
 
-    public void rotate(Vector axis, float alpha) {
-        Matrix rotation = Matrix.rotate(position, axis, alpha);
+    public void rotate(Vector axis) {
+        Matrix rotation = Matrix.rotate(position, axis, axis.magnitude());
 
         for (int i = 0; i < vertices.size(); i++)
             vertices.set(i, Matrix.rotate(rotation, vertices.get(i)));
     }
 
-    public float[] getVertices() {
+    public float[] vertices() {
         float[] f = new float[vertices.size() * 3];
 
         for (int i = 0; i < vertices.size(); i++)
@@ -57,7 +57,7 @@ public class RigidBody {
         return f;
     }
 
-    public Vector getPosition() {
+    public Vector position() {
         return position;
     }
 

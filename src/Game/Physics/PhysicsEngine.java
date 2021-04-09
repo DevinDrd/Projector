@@ -1,6 +1,6 @@
 package Game.Physics;
 
-import Game.Entity.Hard.HardEntity;
+import Game.Entity.Entity;
 import Game.Math.Vector;
 
 import java.util.ArrayList;
@@ -11,29 +11,34 @@ public class PhysicsEngine {
     private Simplex points;
     private Vector direction;
 
-    public boolean collision(RigidBody a, RigidBody b) {
-        return gjk(a, b);
-    }
-
-    public void update(ArrayList<HardEntity> entities) {
+    public void update(ArrayList<Entity> entities) {
+        gravity(entities);
         handleCollisions(entities);
     }
 
-    public void handleCollisions(ArrayList<HardEntity> entities) {
+    private void gravity(ArrayList<Entity> entities) {
         for (int i = 0; i < entities.size() - 1; i++)
             for (int j = i + 1; j < entities.size(); j++)
-                if (gjk(entities.get(i).getBody(), entities.get(j).getBody()))
+                gravity(entities.get(i), entities.get(j));
+    }
+
+    private void gravity(Entity a, Entity b) {
+
+    }
+
+    public void handleCollisions(ArrayList<Entity> entities) {
+        for (int i = 0; i < entities.size() - 1; i++)
+            for (int j = i + 1; j < entities.size(); j++)
+                if (gjk(entities.get(i).body(), entities.get(j).body()))
                     collide(entities.get(i), entities.get(j));
     }
 
-    private void collide(HardEntity a, HardEntity b) {
-        a.addToPosition(a.getVelocity().multiply(-1));
-        a.setVelocity(new Vector(0, 0, 0));
-        a.setRotation(new Vector(0, 0, 0));
+    private void collide(Entity a, Entity b) {
+        a.translate(a.velocity().multiply(-1));
+        a.freeze();
 
-        b.addToPosition(b.getVelocity().multiply(-1));
-        b.setVelocity(new Vector(0, 0, 0));
-        b.setRotation(new Vector(0, 0, 0));
+        b.translate(b.velocity().multiply(-1));
+        b.freeze();
     }
 
     private boolean gjk(RigidBody a, RigidBody b) {
