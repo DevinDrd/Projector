@@ -6,43 +6,49 @@ import Game.Model.SquareModel;
 import Game.Physics.RigidBody;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Square extends Entity{
 
-    // position    velocity    rotation    width    height    texture
-    public Square(Scanner source) {
-        position = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
-        velocity = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
+    public Square(Vector position, int textX, int textY, float width, float height) {
+        this.position = position;
+        velocity = new Vector(0, 0, 0);
         acceleration = new Vector(0, 0, 0);
 
-        rotationAxis = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
+        rotationAxis = new Vector(0, 0, 0);
 
-        float width = source.nextFloat();
-        float height = source.nextFloat();
-
-        source.nextLine();
-
-        int textureX = source.nextInt(); // for the texture
-        int textureY = source.nextInt(); // for the texture
-
-        ArrayList<Vector> texCoords = new ArrayList<Vector>();
-
-        Vector p1 = new Vector(source.nextFloat(), source.nextFloat());
-        Vector p2 = new Vector(source.nextFloat(), source.nextFloat());
-        Vector p3 = new Vector(source.nextFloat(), source.nextFloat());
-        Vector p4 = new Vector(source.nextFloat(), source.nextFloat());
-
-        texCoords.add(p1);
-        texCoords.add(p2);
-        texCoords.add(p3);
-        texCoords.add(p3);
-        texCoords.add(p4);
-        texCoords.add(p1);
+        mass = 0;
 
         model = new SquareModel(position, width, height);
-        texture = new Texture(texCoords, textureX, textureY);
-        body = new RigidBody(position, model.vertices());
+
+        build(width, height, textX, textY);
     }
-    
+
+    private void build(float width, float height, int textX, int textY) {
+        float x = position.get(0);
+        float y = position.get(1);
+        float z = position.get(2);
+
+        float w2 = width/2;
+        float h2 = height/2;
+
+        ArrayList<Vector> coords = new ArrayList<Vector>();
+
+        coords.add(new Vector(0, 0));
+        coords.add(new Vector(1, 0));
+        coords.add(new Vector(1, 1));
+        coords.add(new Vector(1, 1));
+        coords.add(new Vector(0, 1));
+        coords.add(new Vector(0, 0));
+
+        texture = new Texture(coords, textX, textY);
+
+        ArrayList<Vector> points = new ArrayList<Vector>();
+
+        points.add(new Vector(x + w2, y - h2, z));
+        points.add(new Vector(x - w2, y - h2, z));
+        points.add(new Vector(x + w2, y + h2, z));
+        points.add(new Vector(x + w2, y + h2, z));
+
+        body = new RigidBody(position, points);
+    }
 }

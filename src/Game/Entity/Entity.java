@@ -28,6 +28,8 @@ public class Entity {
         rotationAxis = new Vector(0, 0, 0);
         acceleration = new Vector(0, 0, 0);
 
+        mass = 0;
+
         this.model = model;
         this.texture = texture;
         body = rigidBody;

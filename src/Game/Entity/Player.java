@@ -6,11 +6,6 @@ import Game.Math.*;
 import Game.Model.Model;
 import Game.Physics.RigidBody;
 
-import java.io.FileNotFoundException;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Player extends Entity {
 
     private Camera camera;
@@ -25,73 +20,7 @@ public class Player extends Entity {
         moving = new Vector(0, 0, 0);
 
         this.camera = camera;
-    }
-
-    // player: position    velocity    rotation    mass
-    // camera: direction    up    l r b t n f
-    // model: coords
-    // texture: x y    coords     
-    public Player(Scanner file) throws FileNotFoundException {
-        // player
-        position = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
-        velocity = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
-        acceleration = new Vector(0, 0, 0);
-
-        rotationAxis = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
-        mass = file.nextFloat();
-
-        moving = new Vector(0, 0, 0);
-
-        file.nextLine();
-
-
-        // camera
-        Vector direction = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
-        Vector up = new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat());
-
-        float l = file.nextFloat();
-        float r = file.nextFloat();
-        float b = file.nextFloat();
-        float t = file.nextFloat();
-        float n = file.nextFloat();
-        float f = file.nextFloat();
-        file.nextLine();
-
-        camera = new Camera(position, direction, up, l, r, b, t, n, f);
-
-
-        // model
-        ArrayList<Vector> verts = new ArrayList<Vector>();
-
-        while (file.hasNextFloat())
-            verts.add(new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat()));
-        file.nextLine();
-
-        model = new Model(position, verts);
-
-
-        // texture
-        ArrayList<Vector> coords = new ArrayList<Vector>();
-        int textX = file.nextInt();
-        int textY = file.nextInt();
-
-        while (file.hasNextFloat())
-            coords.add(new Vector(file.nextFloat(), file.nextFloat(), file.nextFloat()));
-
-        texture = new Texture(coords, textX, textY);
-
-
-        // rigidbody
-        // FIXME: Changes based on the orientation of the camera
-        ArrayList<Vector> list = new ArrayList<Vector>();
-        list.add(new Vector(position.get(0) + l, position.get(1) + n + 1, position.get(2) + t));
-        list.add(new Vector(position.get(0) + r, position.get(1) + n + 1, position.get(2) + t));
-        list.add(new Vector(position.get(0) + r, position.get(1) + n + 1, position.get(2) + b));
-        list.add(new Vector(position.get(0) + l, position.get(1) + n + 1, position.get(2) + b));
-        list.add(new Vector(position.get(0), position.get(1), position.get(2)));
-
-        body = new RigidBody(position, list);
-    }
+    } 
 
     public void move(Motion m) {
         Vector go = null;
@@ -197,5 +126,4 @@ public class Player extends Entity {
     public Camera camera() {
         return camera;
     }
-
 }

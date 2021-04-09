@@ -41,9 +41,8 @@ public class Window {
         openGL.setShader(textureFragShader);
     }
 
-    public void addTextures(Level level) {
-        for (TextureMap map:level.getTexMaps())
-            openGL.addTexture(map);
+    public void addTexture(TextureMap textureMap) {
+        openGL.addTexture(textureMap);
     }
 
     public void update() {
@@ -56,7 +55,7 @@ public class Window {
 
     public void render(Level level) {
         openGL.setUniMat4(projUni, level.getPlayers().get(0).camera().getProjection(Projection.PERSPECTIVE));
-        openGL.setUniTex(texUni, level.getTexMaps().get(0).getSlot());
+        openGL.setUniTex(texUni, level.getTextureMap().getSlot());
         openGL.render(BufferUtil.toFloats(level.getVertices()), BufferUtil.toFloats(level.getCoords()));
     }
 

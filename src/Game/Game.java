@@ -46,6 +46,8 @@ public class Game {
         ups = 60;
 		fps = 60;
 
+		Parser.verbos = true;
+
 		try {
 			level = new Level(mapPath);
 		} catch (FileNotFoundException e) {
@@ -68,7 +70,7 @@ public class Game {
 			System.exit(0);
 		}
 
-		window.addTextures(level);
+		window.addTexture(level.getTextureMap());
 		controller = new Controller(level.getPlayers().get(0));
     }
 
