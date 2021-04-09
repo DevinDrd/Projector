@@ -56,10 +56,6 @@ public class Level {
                 if (verbos) System.out.println("Map->Loading Cuboid");
                 entities.add(new Cuboid(file));
             }
-            else if (type.equals("clownbox")) {
-                if (verbos) System.out.println("Map->Loading ClownBox");
-                entities.add(new ClownBox(file));
-            }
             else if (type.equals("square")) {
                 if (verbos) System.out.println("Map->Loading Square");
                 entities.add(new Square(file));

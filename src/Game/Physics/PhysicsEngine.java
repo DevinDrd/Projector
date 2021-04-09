@@ -23,7 +23,7 @@ public class PhysicsEngine {
     }
 
     private void gravity(Entity entity) {
-        entity.force(new Vector(0, 0, -G));
+        entity.force(new Vector(0, 0, entity.mass()*(-G)));
     }
 
     public void handleCollisions(ArrayList<Entity> entities) {
