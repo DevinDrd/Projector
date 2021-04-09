@@ -1,7 +1,6 @@
 package Game;
 
 import Game.Entity.*;
-import Game.Entity.Hard.*;
 
 import Game.Graphics.TextureMap;
 
@@ -84,16 +83,6 @@ public class Level {
 
     public ArrayList<Entity> getEntities() {
         return entities;
-    }
-
-    public ArrayList<HardEntity> getHardEntities() {
-        ArrayList<HardEntity> hardEntities = new ArrayList<HardEntity>();
-
-        for (Entity entity: entities)
-            if (entity instanceof HardEntity)
-                hardEntities.add((HardEntity) entity);
-
-        return hardEntities;
     }
 
     public ArrayList<Player> getPlayers() {

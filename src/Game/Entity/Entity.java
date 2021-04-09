@@ -3,6 +3,7 @@ package Game.Entity;
 import Game.Graphics.Texture;
 import Game.Math.*;
 import Game.Model.*;
+import Game.Physics.RigidBody;
 
 public class Entity {
 
@@ -17,10 +18,11 @@ public class Entity {
 
     protected Model model;
     protected Texture texture;
+    protected RigidBody body;
 
-    public Entity(){};
+    public Entity() {}
 
-    public Entity(Vector position, Model model, Texture texture) {
+    public Entity(Vector position, Model model, Texture texture, RigidBody rigidBody) {
         this.position = position;
         velocity = new Vector(0, 0, 0);
         rotationAxis = new Vector(0, 0, 0);
@@ -28,18 +30,30 @@ public class Entity {
 
         this.model = model;
         this.texture = texture;
+        body = rigidBody;
     }
 
     public void update() {
-        
+        rotate();
         accelerate(acceleration);
         translate(velocity);
-        rotate();
     }
     
     public void translate(Vector d) {
         position = position.add(d);
         model.translate(d);
+        body.translate(d);
+    }
+
+    protected void rotate() {
+        model.rotate(rotationAxis);
+        body.rotate(rotationAxis);
+    }
+
+    public void freeze() {
+        setRotation(new Vector(0, 0, 0));
+        setVelocity(new Vector(0, 0, 0));
+        setAcceleration(new Vector(0, 0, 0));
     }
 
     public void accelerate(Vector v) {
@@ -50,16 +64,16 @@ public class Entity {
         acceleration = acceleration.add(f.divide(mass));
     }
 
-    protected void rotate() {
-        model.rotate(rotationAxis, rotationAxis.magnitude());
-    }
-
     public Model model() {
         return model;
     }
 
     public Texture texture() {
         return texture;
+    }
+
+    public RigidBody body() {
+        return body;
     }
 
     public Vector position() {
@@ -78,7 +92,7 @@ public class Entity {
         return mass;
     }
 
-    public Vector getRotation() {
+    public Vector rotation() {
         return rotationAxis;
     }
 
@@ -96,12 +110,6 @@ public class Entity {
 
     public void setMass(float m) {
         mass = m;
-    }
-
-    public void freeze() {
-        setVelocity(new Vector(0, 0, 0));
-        setAcceleration(new Vector(0, 0, 0));
-        setRotation(new Vector(0, 0, 0));
     }
 
     public String toString() {

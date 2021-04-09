@@ -20,13 +20,6 @@ public class Model {
         vertices = verts;
     }
 
-    public void rotate(Vector axis, float alpha) {
-        Matrix rotation = Matrix.rotate(position, axis, alpha);
-
-        for (int i = 0; i < vertices.size(); i++)
-            vertices.set(i, Matrix.rotate(rotation, vertices.get(i)));
-    }
-
     public void translate(Vector d) {
         position = position.add(d);
         
@@ -34,7 +27,14 @@ public class Model {
             vertices.set(i, vertices.get(i).add(d));
     }
 
-    public Vector getPosition() {
+    public void rotate(Vector axis) {
+        Matrix rotation = Matrix.rotate(position, axis, axis.magnitude());
+
+        for (int i = 0; i < vertices.size(); i++)
+            vertices.set(i, Matrix.rotate(rotation, vertices.get(i)));
+    }
+
+    public Vector position() {
         return position;
     }
 

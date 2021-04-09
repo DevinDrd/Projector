@@ -1,4 +1,4 @@
-package Game.Entity.Hard;
+package Game.Entity;
 
 import Game.Graphics.Texture;
 import Game.Math.*;
@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 import java.io.FileNotFoundException;
 
-public class Cuboid extends HardEntity {
+public class Cuboid extends Entity {
 
     public Cuboid(Vector pos, int textX, int textY, float width, float height, float length) {
         position = pos;

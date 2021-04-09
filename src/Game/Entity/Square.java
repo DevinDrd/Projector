@@ -3,6 +3,7 @@ package Game.Entity;
 import Game.Graphics.Texture;
 import Game.Math.Vector;
 import Game.Model.SquareModel;
+import Game.Physics.RigidBody;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -41,6 +42,7 @@ public class Square extends Entity{
 
         model = new SquareModel(position, width, height);
         texture = new Texture(texCoords, textureX, textureY);
+        body = new RigidBody(position, model.vertices());
     }
     
 }

@@ -1,9 +1,9 @@
-package Game.Entity.Hard;
+package Game.Entity;
 
-import Game.Entity.Camera;
+import Game.Graphics.Camera;
 import Game.Graphics.Texture;
 import Game.Math.*;
-import Game.Model.*;
+import Game.Model.Model;
 import Game.Physics.RigidBody;
 
 import java.io.FileNotFoundException;
@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Player extends HardEntity {
+public class Player extends Entity {
 
     private Camera camera;
 
@@ -163,29 +163,29 @@ public class Player extends HardEntity {
         accelerate(acceleration);
         translate(velocity);
         rotate();
-
-        camera.update();
-    }
-    
-    public void setVelocity(Vector vec) {
-        velocity = vec;
-        camera.setVelocity(vec);
     }
 
-    public void accelerate(Vector vec) {
-        velocity = velocity.add(vec);
-        camera.accelerate(vec);
+    public void translate(Vector d) {
+        position = position.add(d);
+        model.translate(d);
+        body.translate(d);
+        camera.translate(d);
+    }
+
+    protected void rotate() {
+        model.rotate(rotationAxis);
+        body.rotate(rotationAxis);
+        camera.rotate(rotationAxis);
     }
 
     private void move() {
         translate(moving);
-        camera.translate(moving);
     }
 
     public void freeze() {
+        setRotation(new Vector(0, 0, 0));
         setVelocity(new Vector(0, 0, 0));
         setAcceleration(new Vector(0, 0, 0));
-        setRotation(new Vector(0, 0, 0));
 
         moving = new Vector(0, 0, 0);
     }
@@ -194,7 +194,7 @@ public class Player extends HardEntity {
         return speed;
     }
 
-    public Camera getCamera() {
+    public Camera camera() {
         return camera;
     }
 

@@ -1,8 +1,6 @@
 package Game.Physics;
 
 import Game.Entity.Entity;
-import Game.Entity.Hard.Player;
-import Game.Entity.Hard.HardEntity;
 import Game.Math.Vector;
 
 import java.util.ArrayList;
@@ -10,50 +8,32 @@ import java.util.ArrayList;
 // credit to winterdev (https://blog.winter.dev/)
 public class PhysicsEngine {
 
-    public static final float G = 0.00006674f;
-
     private Simplex points;
     private Vector direction;
 
-    public void update(ArrayList<HardEntity> entities) {
+    public void update(ArrayList<Entity> entities) {
         gravity(entities);
         handleCollisions(entities);
     }
 
-    private void gravity(ArrayList<HardEntity> entities) {
+    private void gravity(ArrayList<Entity> entities) {
         for (int i = 0; i < entities.size() - 1; i++)
             for (int j = i + 1; j < entities.size(); j++)
                 gravity(entities.get(i), entities.get(j));
     }
 
-    // TODO: TEST
     private void gravity(Entity a, Entity b) {
-        if (a instanceof Player || b instanceof Player)
-            return;
 
-        Vector r2 = b.position().subtract(a.position());
-        r2 = r2.multiply(r2);
-
-        float Gab = G*a.mass()*b.mass();
-
-        float fX = (r2.get(0) - 10 > 0) ? Gab/r2.get(0): 0;
-        float fY = (r2.get(1) - 10 > 0) ? Gab/r2.get(1): 0;
-        float fZ = (r2.get(2) - 10 > 0) ? Gab/r2.get(2): 0;
-
-        System.out.println(new Vector(fX, fY, fZ));
-
-        a.force(new Vector(fX, fY, fZ));
-        b.force(new Vector(-fX, -fY, -fZ));
     }
 
-    public void handleCollisions(ArrayList<HardEntity> entities) {
+    public void handleCollisions(ArrayList<Entity> entities) {
         for (int i = 0; i < entities.size() - 1; i++)
             for (int j = i + 1; j < entities.size(); j++)
-                if (gjk(entities.get(i).getBody(), entities.get(j).getBody()))
+                if (gjk(entities.get(i).body(), entities.get(j).body()))
                     collide(entities.get(i), entities.get(j));
     }
 
-    private void collide(HardEntity a, HardEntity b) {
+    private void collide(Entity a, Entity b) {
         a.translate(a.velocity().multiply(-1));
         a.freeze();
 

@@ -1,6 +1,6 @@
 package Game.Input;
 
-import Game.Entity.Hard.Player;
+import Game.Entity.Player;
 import Game.Math.Motion;
 
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class Controller {
                 player.rotate(Motion.CLOCKWISE);
 
             else if (key == GLFW_KEY_ENTER)
-                player.getCamera().level();
+                player.camera().levelOut();
 
             else if (key == GLFW_KEY_LEFT_CONTROL) // FIXME
                 ;
