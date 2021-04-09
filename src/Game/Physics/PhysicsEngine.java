@@ -5,11 +5,12 @@ import Game.Math.Vector;
 
 import java.util.ArrayList;
 
-// credit to winterdev (https://blog.winter.dev/)
 public class PhysicsEngine {
 
     private Simplex points;
     private Vector direction;
+
+    public static final float G = .001f;
 
     public void update(ArrayList<Entity> entities) {
         gravity(entities);
@@ -17,13 +18,12 @@ public class PhysicsEngine {
     }
 
     private void gravity(ArrayList<Entity> entities) {
-        for (int i = 0; i < entities.size() - 1; i++)
-            for (int j = i + 1; j < entities.size(); j++)
-                gravity(entities.get(i), entities.get(j));
+        for (int i = 0; i < entities.size(); i++)
+            gravity(entities.get(i));
     }
 
-    private void gravity(Entity a, Entity b) {
-
+    private void gravity(Entity entity) {
+        entity.force(new Vector(0, 0, -G));
     }
 
     public void handleCollisions(ArrayList<Entity> entities) {
@@ -41,6 +41,7 @@ public class PhysicsEngine {
         b.freeze();
     }
 
+    // credit to winterdev (https://blog.winter.dev/)
     private boolean gjk(RigidBody a, RigidBody b) {
         Vector support = support(a, b, new Vector(1, 0, 0)); // arbitrary direction
 

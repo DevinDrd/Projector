@@ -61,7 +61,8 @@ public class Entity {
     }
 
     public void force(Vector f) {
-        acceleration = acceleration.add(f.divide(mass));
+        if (mass != 0)
+            acceleration = acceleration.add(f.divide(mass));
     }
 
     public Model model() {

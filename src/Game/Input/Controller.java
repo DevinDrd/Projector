@@ -23,7 +23,7 @@ public class Controller {
     }
 
     private void perform(KeyEvent event) {
-        System.out.println(event);
+        // System.out.println(event);
 
         key = event.key;
 
