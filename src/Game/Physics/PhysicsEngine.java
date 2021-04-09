@@ -10,7 +10,7 @@ public class PhysicsEngine {
     private Simplex points;
     private Vector direction;
 
-    public static final float G = .001f;
+    public static float G = .01f;
 
     public void update(ArrayList<Entity> entities) {
         gravity(entities);
@@ -23,7 +23,8 @@ public class PhysicsEngine {
     }
 
     private void gravity(Entity entity) {
-        entity.force(new Vector(0, 0, entity.mass()*(-G)));
+        if (entity.acceleration().get(2) > -.12)
+            entity.force(new Vector(0, 0, entity.mass()*(-G)));
     }
 
     public void handleCollisions(ArrayList<Entity> entities) {
