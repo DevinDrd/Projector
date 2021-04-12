@@ -115,9 +115,9 @@ public class Game {
 	
 	private void update() {
 		window.update(); // updates window events
-		physicsEngine.update(level.getEntities());
 		controller.update(window.getEvents());
 		level.update();
+		physicsEngine.update(level.getEntities());
 	}
 	
 	private void render() {

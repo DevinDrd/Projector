@@ -70,5 +70,14 @@ public class RigidBody {
 
         return output;
     }
+
+    public RigidBody clone() {
+        Vector p = new Vector(position.getFloats());
+        ArrayList<Vector> list = new ArrayList<Vector>();
+        for (Vector v:vertices)
+            list.add(new Vector(v.getFloats()));
+
+        return new RigidBody(p, list);
+    }
     
 }
