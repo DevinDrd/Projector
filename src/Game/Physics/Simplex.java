@@ -22,6 +22,10 @@ public class Simplex {
         return list[i];
     }
 
+    public Vector[] toArray() {
+        return list;
+    }
+
     public int length() {
         return length;
     }

@@ -35,11 +35,62 @@ public class PhysicsEngine {
     }
 
     private void collide(Entity a, Entity b) {
-        a.translate(a.velocity().multiply(-1));
-        a.freeze();
+        Vector mVec = a.velocity().subtract(b.velocity());
+        Vector[] face = findFace(points, mVec);
 
-        b.translate(b.velocity().multiply(-1));
+        mVec = findIntersect(face, mVec);
+
+        b.translate(mVec);
+
+        a.freeze();
         b.freeze();
+    }
+
+    // finds the face of a simplex in 3d that a vector direction passes through
+    // only call this method if the origin is in the simplex
+    private Vector[] findFace(Simplex simplex, Vector direction) {
+        Vector[] points = simplex.toArray();
+        ArrayList<Vector> results = new ArrayList<Vector>();
+
+        float min = Float.MAX_VALUE;
+        int marker = 0;
+
+        // find where the smallest dot product is
+        for (int i = 0; i < 4; i++) {
+            float dot = points[i].dot(direction);
+            if (dot < min) {
+                min = dot;
+                marker = i;
+            }
+        }
+
+        // leave out the smallest dot product
+        for (int i = 0; i < 4; i++)
+            if (i != marker)
+                results.add(points[i]);
+
+        // convert back to Vector[]
+        Vector[] v = new Vector[3];
+        for (int i = 0; i < 3; i++)
+            v[i] = results.get(i);
+        
+        return v;
+    }
+
+    // finds where a line intersects a plane and returns it as a vector
+    private Vector findIntersect(Vector[] plane, Vector line) {
+        if (plane.length != 3) throw new IllegalArgumentException();
+        if (line.equals(new Vector(0, 0, 0))) return line;
+
+        Vector A = plane[0];
+        Vector B = plane[1];
+        Vector C = plane[2];
+
+        Vector N = A.subtract(B).cross(B.subtract(C)); // Normal to the plane
+
+        float t = N.dot(A)/N.dot(line);
+
+        return new Vector(line.get(0)*t, line.get(1)*t, line.get(2)*t);
     }
 
     // credit to winterdev (https://blog.winter.dev/)
@@ -69,7 +120,7 @@ public class PhysicsEngine {
     }
 
     private boolean sameDirection(Vector direction, Vector a) {
-        return direction.dot(a) > 0;
+        return direction.dot(a) >= 0;
     }
 
     private boolean nextSimplex() {
