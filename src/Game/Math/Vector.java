@@ -19,6 +19,8 @@ public class Vector {
     }
 
     public Vector normalize() {
+        if (Float.valueOf(magnitude()).equals(0f)) return new Vector(0, 0, 0);
+        
         float[] n = new float[length];
         float mag = magnitude();
 

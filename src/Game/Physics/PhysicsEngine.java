@@ -35,12 +35,18 @@ public class PhysicsEngine {
     }
 
     private void collide(Entity a, Entity b) {
-        Vector mVec = a.velocity().subtract(b.velocity());
-        Vector[] face = findFace(points, mVec);
+        Vector mVel = a.velocity().subtract(b.velocity());
+        Vector[] face = findFace(points, mVel);
 
-        mVec = findIntersect(face, mVec);
+        System.out.println(mVel);
+        System.out.println(mVel.magnitude());
 
-        b.translate(mVec);
+        Vector correction = findIntersect(face, mVel);
+        float c = (Float.valueOf(mVel.magnitude()).equals(0f)) ?
+                        0 : correction.magnitude()/mVel.magnitude() + 0.00001f;
+
+        a.translate(a.velocity().multiply(-c));
+        b.translate(b.velocity().multiply(-c));
 
         a.freeze();
         b.freeze();
@@ -89,6 +95,7 @@ public class PhysicsEngine {
         Vector N = A.subtract(B).cross(B.subtract(C)); // Normal to the plane
 
         float t = N.dot(A)/N.dot(line);
+        if (Float.valueOf(t).equals(Float.NaN)) return new Vector(0, 0, 0);
 
         return new Vector(line.get(0)*t, line.get(1)*t, line.get(2)*t);
     }
@@ -250,5 +257,4 @@ public class PhysicsEngine {
 
         return true;
     }
-    
 }

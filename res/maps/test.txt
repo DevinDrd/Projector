@@ -1,0 +1,20 @@
+texturemap
+res/textures/tmap.jpg
+32 32
+player
+0 -150 30    0 0 0    0 0 0    0
+0 1 0    0 0 1    -2 2 -2 2 4 10000
+       |model: vertices
+0 0
+cuboid
+4 0 0    -2 0 0    0 0 0    1    2 2 2    1 1
+cuboid
+-3 0 0    1 0 0    0 0 0    0    2 2 2    0 1
+end
+
+|player: position    velocity    rotation   mass
+| camera: direction    up    l r b t n f
+| model: vertices
+| texture: x y    coords
+
+|cuboid: position    velocity    rotation   mass    width height length    texture: x y
