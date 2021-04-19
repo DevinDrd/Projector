@@ -57,6 +57,15 @@ public class RigidBody {
         return f;
     }
 
+    public ArrayList<Vector> points() {
+        ArrayList<Vector> verts = new ArrayList<Vector>();
+
+        for (Vector v:vertices)
+            verts.add(v);
+
+        return verts;
+    }
+
     public Vector position() {
         return position;
     }

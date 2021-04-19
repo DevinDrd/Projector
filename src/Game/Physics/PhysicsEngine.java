@@ -35,18 +35,36 @@ public class PhysicsEngine {
     }
 
     private void collide(Entity a, Entity b) {
-        Vector mVel = a.velocity().subtract(b.velocity());
-        Vector[] face = findFace(points, mVel);
+        Vector cVec = tweak(a, b);
+        reflect(a, b, cVec);
+    }
 
-        System.out.println(mVel);
-        System.out.println(mVel.magnitude());
+    // makes sure the collision is flush so that one object
+    // is not inside of another
+    private Vector tweak(Entity a, Entity b) {
+        Vector mVel = a.velocity().subtract(b.velocity());
+        ArrayList<Vector> face = findFace(points.toArrayList(), mVel);
 
         Vector correction = findIntersect(face, mVel);
         float c = (Float.valueOf(mVel.magnitude()).equals(0f)) ?
-                        0 : correction.magnitude()/mVel.magnitude() + 0.00001f;
+                        0 : -correction.magnitude()/mVel.magnitude() + 0.00001f;
 
-        a.translate(a.velocity().multiply(-c));
-        b.translate(b.velocity().multiply(-c));
+        a.translate(a.velocity().multiply(c));
+        b.translate(b.velocity().multiply(c));
+
+        return mVel;
+    }
+
+    private void reflect(Entity a, Entity b, Vector cVec) {
+        ArrayList<Vector> face = findFace(a.body().points(), cVec);
+
+        Vector A = face.get(0);
+        Vector B = face.get(1);
+        Vector C = face.get(2);
+
+        Vector N = A.subtract(B).cross(B.subtract(C)); // Normal to the plane
+
+        // TODO: finish
 
         a.freeze();
         b.freeze();
@@ -54,43 +72,32 @@ public class PhysicsEngine {
 
     // finds the face of a simplex in 3d that a vector direction passes through
     // only call this method if the origin is in the simplex
-    private Vector[] findFace(Simplex simplex, Vector direction) {
-        Vector[] points = simplex.toArray();
-        ArrayList<Vector> results = new ArrayList<Vector>();
-
+    private ArrayList<Vector> findFace(ArrayList<Vector> simplex, Vector direction) {
         float min = Float.MAX_VALUE;
         int marker = 0;
 
         // find where the smallest dot product is
         for (int i = 0; i < 4; i++) {
-            float dot = points[i].dot(direction);
+            float dot = points.get(i).dot(direction);
             if (dot < min) {
                 min = dot;
                 marker = i;
             }
         }
 
-        // leave out the smallest dot product
-        for (int i = 0; i < 4; i++)
-            if (i != marker)
-                results.add(points[i]);
-
-        // convert back to Vector[]
-        Vector[] v = new Vector[3];
-        for (int i = 0; i < 3; i++)
-            v[i] = results.get(i);
+        simplex.remove(marker);
         
-        return v;
+        return simplex;
     }
 
     // finds where a line intersects a plane and returns it as a vector
-    private Vector findIntersect(Vector[] plane, Vector line) {
-        if (plane.length != 3) throw new IllegalArgumentException();
+    private Vector findIntersect(ArrayList<Vector> plane, Vector line) {
+        if (plane.size() != 3) throw new IllegalArgumentException();
         if (line.equals(new Vector(0, 0, 0))) return line;
 
-        Vector A = plane[0];
-        Vector B = plane[1];
-        Vector C = plane[2];
+        Vector A = plane.get(0);
+        Vector B = plane.get(1);
+        Vector C = plane.get(2);
 
         Vector N = A.subtract(B).cross(B.subtract(C)); // Normal to the plane
 

@@ -1,5 +1,7 @@
 package Game.Physics;
 
+import java.util.ArrayList;
+
 import Game.Math.Vector;
 
 // credit to winterdev (https://blog.winter.dev/)
@@ -28,6 +30,15 @@ public class Simplex {
 
     public int length() {
         return length;
+    }
+
+    public ArrayList<Vector> toArrayList() {
+        ArrayList<Vector> array = new ArrayList<Vector>();
+
+        for (Vector v:list)
+            array.add(v);
+
+        return array;
     }
     
 }
