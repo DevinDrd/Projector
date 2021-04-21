@@ -35,24 +35,13 @@ public class PhysicsEngine {
     }
 
     private void collide(Entity a, Entity b) {
-        Vector cVec = tweak(a, b);
-        reflect(a, b, cVec);
-    }
+        for (int i = 0; i < 20 && gjk(a.body(), b.body()); i++) {
+            a.translate(a.velocity().multiply(-.05f));
+            b.translate(b.velocity().multiply(-.05f));
+        }
 
-    // makes sure the collision is flush so that one object
-    // is not inside of another
-    private Vector tweak(Entity a, Entity b) {
-        Vector mVel = a.velocity().subtract(b.velocity());
-        ArrayList<Vector> face = findFace(points.toArrayList(), mVel);
-
-        Vector correction = findIntersect(face, mVel);
-        float c = (Float.valueOf(mVel.magnitude()).equals(0f)) ?
-                        0 : -correction.magnitude()/mVel.magnitude() + 0.00001f;
-
-        a.translate(a.velocity().multiply(c));
-        b.translate(b.velocity().multiply(c));
-
-        return mVel;
+        a.freeze();
+        b.freeze();
     }
 
     private void reflect(Entity a, Entity b, Vector cVec) {
