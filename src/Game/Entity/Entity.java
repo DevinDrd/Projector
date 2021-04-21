@@ -67,6 +67,11 @@ public class Entity {
             acceleration = acceleration.add(f.divide(mass));
     }
 
+    public void impulse(Vector i) {
+        if (mass != 0)
+            velocity = velocity.add(i.divide(mass));
+    }
+
     public Model model() {
         return model;
     }

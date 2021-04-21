@@ -35,65 +35,28 @@ public class PhysicsEngine {
     }
 
     private void collide(Entity a, Entity b) {
-        for (int i = 0; i < 20 && gjk(a.body(), b.body()); i++) {
-            a.translate(a.velocity().multiply(-.05f));
-            b.translate(b.velocity().multiply(-.05f));
+        // make sure objects aren't overlapping
+        for (int i = 0; i < 100 && gjk(a.body(), b.body()); i++) {
+            a.translate(a.velocity().multiply(-.01f));
+            b.translate(b.velocity().multiply(-.01f));
         }
 
-        a.freeze();
-        b.freeze();
+        reflect(a, b);
+        // a.freeze();
+        // b.freeze();
     }
 
-    private void reflect(Entity a, Entity b, Vector cVec) {
-        ArrayList<Vector> face = findFace(a.body().points(), cVec);
-
-        Vector A = face.get(0);
-        Vector B = face.get(1);
-        Vector C = face.get(2);
-
-        Vector N = A.subtract(B).cross(B.subtract(C)); // Normal to the plane
-
-        // TODO: finish
-
-        a.freeze();
-        b.freeze();
+    private void reflect(Entity a, Entity b) {
+        a.setAcceleration(new Vector(0, 0, 0));
+        a.impulse(a.velocity().multiply(-1.60f*a.mass()));
+        b.setAcceleration(new Vector(0, 0, 0));
+        b.impulse(b.velocity().multiply(-1.60f*b.mass()));
     }
 
-    // finds the face of a simplex in 3d that a vector direction passes through
-    // only call this method if the origin is in the simplex
-    private ArrayList<Vector> findFace(ArrayList<Vector> simplex, Vector direction) {
-        float min = Float.MAX_VALUE;
-        int marker = 0;
-
-        // find where the smallest dot product is
-        for (int i = 0; i < 4; i++) {
-            float dot = points.get(i).dot(direction);
-            if (dot < min) {
-                min = dot;
-                marker = i;
-            }
-        }
-
-        simplex.remove(marker);
-        
-        return simplex;
-    }
-
-    // finds where a line intersects a plane and returns it as a vector
-    private Vector findIntersect(ArrayList<Vector> plane, Vector line) {
-        if (plane.size() != 3) throw new IllegalArgumentException();
-        if (line.equals(new Vector(0, 0, 0))) return line;
-
-        Vector A = plane.get(0);
-        Vector B = plane.get(1);
-        Vector C = plane.get(2);
-
-        Vector N = A.subtract(B).cross(B.subtract(C)); // Normal to the plane
-
-        float t = N.dot(A)/N.dot(line);
-        if (Float.valueOf(t).equals(Float.NaN)) return new Vector(0, 0, 0);
-
-        return new Vector(line.get(0)*t, line.get(1)*t, line.get(2)*t);
+    private Vector bounce(Vector d, Vector n) {
+        Vector r = n.normalize().multiply(2*d.dot(n.normalize()));
+        r = d.subtract(r);
+        return r;
     }
 
     // credit to winterdev (https://blog.winter.dev/)
