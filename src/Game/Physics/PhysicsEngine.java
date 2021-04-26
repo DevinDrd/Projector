@@ -41,22 +41,134 @@ public class PhysicsEngine {
             b.translate(b.velocity().multiply(-.01f));
         }
 
-        reflect(a, b);
-        // a.freeze();
-        // b.freeze();
+        bounce(a, b);
     }
 
-    private void reflect(Entity a, Entity b) {
-        a.setAcceleration(new Vector(0, 0, 0));
-        a.impulse(a.velocity().multiply(-1.60f*a.mass()));
-        b.setAcceleration(new Vector(0, 0, 0));
-        b.impulse(b.velocity().multiply(-1.60f*b.mass()));
+    private void bounce(Entity a, Entity b) {
+        Vector aVel = a.velocity();
+        Vector bVel = b.velocity();
+
+        if (aVel.normalize().equals(bVel.normalize())) { // push
+            System.out.println("1");
+            if (aVel.magnitude() > bVel.magnitude()) {
+                Vector diff = aVel.subtract(bVel).divide(2);
+                b.impulse(diff);
+                a.impulse(diff.multiply(-1.1f));
+            }
+            else {
+                Vector diff = bVel.subtract(aVel).divide(2);
+                a.impulse(diff);
+                b.impulse(diff.multiply(-1.1f));
+            }
+        }
+        else { // bounce
+            if (aVel.normalize().multiply(-1).equals(bVel.normalize())) { // directly opposite
+                Vector cVel = aVel.add(bVel);
+                a.impulse(aVel.multiply(-1));
+                a.impulse(reflect(aVel, cVel).multiply(0.8f));
+                a.setRotation(a.rotation().multiply(.8f));
+                b.impulse(bVel.multiply(-1));
+                b.impulse(reflect(bVel, cVel).multiply(0.8f));
+                b.setRotation(b.rotation().multiply(.8f));
+            }
+            else if (aVel.magnitude() == 0 && bVel.magnitude() == 0) { // if both are not moving, freeze them
+                a.freeze();
+                b.freeze();
+            }
+            else if (aVel.magnitude() == 0 || bVel.magnitude() == 0) { // if one or the other is not moving
+                Vector cVel = aVel.add(bVel);
+
+                a.impulse(aVel.multiply(-1));
+                a.impulse(reflect(aVel, cVel).multiply(0.8f));
+                a.setRotation(a.rotation().multiply(.8f));
+                b.impulse(bVel.multiply(-1));
+                b.impulse(reflect(bVel, cVel).multiply(0.8f));
+                b.setRotation(b.rotation().multiply(.8f));
+            }
+            else { // they are both moving
+                Vector cVel = aVel.add(bVel);
+                Vector N = cVel.cross(aVel).cross(cVel);
+
+                a.impulse(aVel.multiply(-1));
+                a.impulse(reflect(aVel, N).multiply(0.8f));
+                a.setRotation(a.rotation().multiply(.8f));
+                b.impulse(bVel.multiply(-1));
+                b.impulse(reflect(bVel, N).multiply(0.8f));
+                b.setRotation(b.rotation().multiply(.8f));
+            }
+        }
     }
 
-    private Vector bounce(Vector d, Vector n) {
+    // private void bounce(Entity a, Entity b) {
+    //     Vector aVel = a.velocity();
+    //     Vector bVel = b.velocity();
+
+    //     if (aVel.normalize().equals(bVel.normalize())) { // push
+    //         System.out.println("1");
+    //         if (aVel.magnitude() > bVel.magnitude()) {
+    //             Vector diff = aVel.subtract(bVel).divide(2);
+    //             b.impulse(diff);
+    //             a.impulse(diff.multiply(-1.1f));
+    //         }
+    //         else {
+    //             Vector diff = bVel.subtract(aVel).divide(2);
+    //             a.impulse(diff);
+    //             b.impulse(diff.multiply(-1.1f));
+    //         }
+    //     }
+    //     else { // bounce
+    //         Vector[] face;
+    //         if (a.volume() > b.volume())
+    //             face = findFace(b.position().subtract(a.position()), a);
+    //         else
+    //             face = findFace(a.position().subtract(b.position()), b);
+
+    //         Vector N = face[0].subtract(face[1]).cross(face[0].subtract(face[2]));
+
+    //         a.impulse(aVel.multiply(-1));
+    //         a.impulse(reflect(aVel, N).multiply(.8f));
+    //         b.impulse(bVel.multiply(-1));
+    //         b.impulse(reflect(bVel, N).multiply(.8f));
+    //     }
+    // }
+
+    // private Vector reflect(Vector d, Vector n) {
+    //     Vector r = n.normalize().multiply(2*d.dot(n.normalize()));
+    //     return d.subtract(r);
+    // }
+
+    // private Vector[] findFace(Vector d, Entity a) {
+    //     ArrayList<Vector> points = a.body().points();
+    //     d = d.normalize();
+
+    //     for (int i = 0; i < points.size(); i++)
+    //         points.set(i, points.get(i).normalize());
+
+    //     while (points.size() > 3) {
+    //         float min = points.get(0).dot(d);;
+    //         int marker = 0;
+
+    //         for (int i = 1; i < points.size(); i++) {
+    //             float dot = points.get(i).dot(d);
+    //             if (dot < min) {
+    //                 min = dot;
+    //                 marker = i;
+    //             }
+    //         }
+
+    //         points.remove(marker);
+    //     }
+
+    //     Vector[] vec = new Vector[3];
+    //     for (int i = 0; i < points.size(); i++)
+    //         vec[i] = points.get(i);
+
+    //     return vec;
+    // }
+
+    private Vector reflect(Vector d, Vector n) {
         Vector r = n.normalize().multiply(2*d.dot(n.normalize()));
-        r = d.subtract(r);
-        return r;
+        return d.subtract(r);
     }
 
     // credit to winterdev (https://blog.winter.dev/)
@@ -86,7 +198,7 @@ public class PhysicsEngine {
     }
 
     private boolean sameDirection(Vector direction, Vector a) {
-        return direction.dot(a) >= 0;
+        return direction.dot(a) > 0;
     }
 
     private boolean nextSimplex() {

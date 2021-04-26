@@ -165,6 +165,16 @@ public class Vector {
         return multiply(vDot/magSqr);
     }
 
+    public boolean parallel(Vector v) {
+        float ratio = (vec[0] == 0 && v.vec[0] == 0) ? 0 : vec[0]/v.vec[0];
+        for (int i = 1; i < length; i++) {
+            if (vec[i] == 0 || v.vec[i] == 0) continue;
+            if (!Float.valueOf(vec[i]/v.vec[i]).equals(ratio))
+                return false;
+        }
+        return true;
+    }
+
     public Matrix toMatrix() {
         float[][] mat = new float[length][1];
 
@@ -211,5 +221,4 @@ public class Vector {
             sum += (int) f;
         return (length * sum) % 100000;
     }
-
 }

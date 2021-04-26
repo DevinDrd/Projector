@@ -17,6 +17,7 @@ public class Square extends Entity{
         rotationAxis = new Vector(0, 0, 0);
 
         mass = 0;
+        volume = width*height;
 
         model = new SquareModel(position, width, height);
 

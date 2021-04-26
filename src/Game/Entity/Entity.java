@@ -11,6 +11,7 @@ public class Entity {
     protected Vector velocity;
     protected Vector acceleration;
     protected float mass;
+    protected float volume;
 
     // direction is axis of rotation, magnitude is angular velocity
     // in 60 degrees per second (depending on the update rate)
@@ -29,6 +30,7 @@ public class Entity {
         acceleration = new Vector(0, 0, 0);
 
         mass = 0;
+        volume = 0;
 
         this.model = model;
         this.texture = texture;
@@ -69,7 +71,7 @@ public class Entity {
 
     public void impulse(Vector i) {
         if (mass != 0)
-            velocity = velocity.add(i.divide(mass));
+            velocity = velocity.add(i);
     }
 
     public Model model() {
@@ -100,6 +102,10 @@ public class Entity {
         return mass;
     }
 
+    public float volume() {
+        return volume;
+    }
+
     public Vector rotation() {
         return rotationAxis;
     }
@@ -118,6 +124,10 @@ public class Entity {
 
     public void setMass(float m) {
         mass = m;
+    }
+
+    public void setVolume(float v) {
+        volume = v;
     }
 
     public String toString() {

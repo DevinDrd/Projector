@@ -16,6 +16,7 @@ public class Cuboid extends Entity {
 
         rotationAxis = new Vector(0, 0, 0);
         mass = 0;
+        volume = width*height*length;
 
         model = new CuboidModel(position, width, height, length);
         

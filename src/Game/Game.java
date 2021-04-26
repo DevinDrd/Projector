@@ -25,12 +25,6 @@ public class Game {
 
 	private Level level;
 	private String mapPath;
-
-    public Game() {
-		mapPath = "./res/maps/map.txt";
-
-		init();
-	}
 	
 	public Game(String path) {		
 		mapPath = path;
@@ -125,7 +119,10 @@ public class Game {
 	}
 
     public static void main(String[] args) {
-		new Game("./res/maps/map.txt").run();
+		String file = (args.length > 0) ?
+				"./res/maps/" + args[0] :
+				"./res/maps/map.txt";
+		new Game(file).run();
     }
 
 }
