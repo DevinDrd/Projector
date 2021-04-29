@@ -1,6 +1,6 @@
 # Folders
 bin
-lib
+/lib
 
 # My scripts
 jcomp
@@ -17,10 +17,6 @@ trun
 
 # Log file
 *.log
-
-# Package Files #
-*.jar
-!Projector.jar
 
 *.war
 *.nar
