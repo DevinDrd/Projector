@@ -1,6 +1,7 @@
 package Game.Physics;
 
 import Game.Entity.Entity;
+import Game.Entity.Player;
 import Game.Math.Vector;
 
 import java.util.ArrayList;
@@ -41,7 +42,13 @@ public class PhysicsEngine {
             b.translate(b.velocity().multiply(-.01f));
         }
 
-        bounce(a, b);
+        if (a instanceof Player || b instanceof Player) {
+            a.freeze();
+            b.freeze();
+        }
+        else {
+            bounce(a, b);
+        }
     }
 
     private void bounce(Entity a, Entity b) {
@@ -49,7 +56,6 @@ public class PhysicsEngine {
         Vector bVel = b.velocity();
 
         if (aVel.normalize().equals(bVel.normalize())) { // push
-            System.out.println("1");
             if (aVel.magnitude() > bVel.magnitude()) {
                 Vector diff = aVel.subtract(bVel).divide(2);
                 b.impulse(diff);
@@ -65,11 +71,11 @@ public class PhysicsEngine {
             if (aVel.normalize().multiply(-1).equals(bVel.normalize())) { // directly opposite
                 Vector cVel = aVel.add(bVel);
                 a.impulse(aVel.multiply(-1));
-                a.impulse(reflect(aVel, cVel).multiply(0.8f));
-                a.setRotation(a.rotation().multiply(.8f));
+                a.impulse(reflect(aVel, cVel).multiply(0.9f));
+                a.setRotation(a.rotation().multiply(.9f));
                 b.impulse(bVel.multiply(-1));
-                b.impulse(reflect(bVel, cVel).multiply(0.8f));
-                b.setRotation(b.rotation().multiply(.8f));
+                b.impulse(reflect(bVel, cVel).multiply(0.9f));
+                b.setRotation(b.rotation().multiply(.9f));
             }
             else if (aVel.magnitude() == 0 && bVel.magnitude() == 0) { // if both are not moving, freeze them
                 a.freeze();
@@ -79,22 +85,22 @@ public class PhysicsEngine {
                 Vector cVel = aVel.add(bVel);
 
                 a.impulse(aVel.multiply(-1));
-                a.impulse(reflect(aVel, cVel).multiply(0.8f));
-                a.setRotation(a.rotation().multiply(.8f));
+                a.impulse(reflect(aVel, cVel).multiply(0.9f));
+                a.setRotation(a.rotation().multiply(.9f));
                 b.impulse(bVel.multiply(-1));
-                b.impulse(reflect(bVel, cVel).multiply(0.8f));
-                b.setRotation(b.rotation().multiply(.8f));
+                b.impulse(reflect(bVel, cVel).multiply(0.9f));
+                b.setRotation(b.rotation().multiply(.9f));
             }
             else { // they are both moving
                 Vector cVel = aVel.add(bVel);
                 Vector N = cVel.cross(aVel).cross(cVel);
 
                 a.impulse(aVel.multiply(-1));
-                a.impulse(reflect(aVel, N).multiply(0.8f));
-                a.setRotation(a.rotation().multiply(.8f));
+                a.impulse(reflect(aVel, N).multiply(0.9f));
+                a.setRotation(a.rotation().multiply(.9f));
                 b.impulse(bVel.multiply(-1));
-                b.impulse(reflect(bVel, N).multiply(0.8f));
-                b.setRotation(b.rotation().multiply(.8f));
+                b.impulse(reflect(bVel, N).multiply(0.9f));
+                b.setRotation(b.rotation().multiply(.9f));
             }
         }
     }

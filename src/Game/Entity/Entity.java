@@ -136,8 +136,6 @@ public class Entity {
         output += "velocity: " + velocity + "\n";
         output += "acceleration: " + acceleration + "\n";
         output += "mass: " + mass + "\n";
-        output += model;
-        output += texture;
         return output;
     }
     

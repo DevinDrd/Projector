@@ -121,7 +121,7 @@ public class Game {
     public static void main(String[] args) {
 		String file = (args.length > 0) ?
 				"./res/maps/" + args[0] :
-				"./res/maps/map.txt";
+				"./res/maps/level.txt";
 		new Game(file).run();
     }
 
