@@ -10,7 +10,7 @@ public class Player extends Entity {
 
     private Camera camera;
 
-    private float speed = 2f; // how quickly player moves from user input
+    private float speed = 10f; // how quickly player moves from user input
     private float angularSpeed = 15f; // how quickly player rotates from user input in degrees
 
     private Vector moving; // when user if moving the character

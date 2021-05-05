@@ -19,6 +19,8 @@ public class Square extends Entity{
         mass = 0;
         volume = width*height;
 
+        exists = true;
+
         model = new SquareModel(position, width, height);
 
         build(width, height, textX, textY);

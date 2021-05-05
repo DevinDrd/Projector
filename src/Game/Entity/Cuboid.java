@@ -18,6 +18,8 @@ public class Cuboid extends Entity {
         mass = 0;
         volume = width*height*length;
 
+        exists = true;
+
         model = new CuboidModel(position, width, height, length);
         
         buildRigidBody(width, height, length, textX, textY);

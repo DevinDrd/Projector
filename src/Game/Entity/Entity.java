@@ -21,6 +21,8 @@ public class Entity {
     protected Texture texture;
     protected RigidBody body;
 
+    protected boolean exists;
+
     public Entity() {}
 
     public Entity(Vector position, Model model, Texture texture, RigidBody rigidBody) {
@@ -31,6 +33,8 @@ public class Entity {
 
         mass = 0;
         volume = 0;
+
+        exists = true;
 
         this.model = model;
         this.texture = texture;
@@ -110,6 +114,10 @@ public class Entity {
         return rotationAxis;
     }
 
+    public boolean exists() {
+        return exists;
+    }
+
     public void setVelocity(Vector vel) {
         velocity = vel;
     }
@@ -128,6 +136,10 @@ public class Entity {
 
     public void setVolume(float v) {
         volume = v;
+    }
+
+    public void setExists(boolean b) {
+        exists = b;
     }
 
     public String toString() {

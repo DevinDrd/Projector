@@ -38,8 +38,8 @@ public class PhysicsEngine {
     private void collide(Entity a, Entity b) {
         // make sure objects aren't overlapping
         for (int i = 0; i < 100 && gjk(a.body(), b.body()); i++) {
-            a.translate(a.velocity().multiply(-.01f));
-            b.translate(b.velocity().multiply(-.01f));
+            a.translate(a.velocity().multiply(-.05f));
+            b.translate(b.velocity().multiply(-.05f));
         }
 
         if (a instanceof Player || b instanceof Player) {
@@ -54,123 +54,43 @@ public class PhysicsEngine {
     private void bounce(Entity a, Entity b) {
         Vector aVel = a.velocity();
         Vector bVel = b.velocity();
+        Vector mVel = aVel.add(bVel);
 
-        if (aVel.normalize().equals(bVel.normalize())) { // push
-            if (aVel.magnitude() > bVel.magnitude()) {
-                Vector diff = aVel.subtract(bVel).divide(2);
-                b.impulse(diff);
-                a.impulse(diff.multiply(-1.1f));
-            }
-            else {
-                Vector diff = bVel.subtract(aVel).divide(2);
-                a.impulse(diff);
-                b.impulse(diff.multiply(-1.1f));
-            }
+        if (aVel.magnitude() == 0 && bVel.magnitude() == 0) { // both are not moving
+            a.setExists(false);
+            b.setExists(false);
         }
-        else { // bounce
-            if (aVel.normalize().multiply(-1).equals(bVel.normalize())) { // directly opposite
-                Vector cVel = aVel.add(bVel);
-                a.impulse(aVel.multiply(-1));
-                a.impulse(reflect(aVel, cVel).multiply(0.9f));
-                a.setRotation(a.rotation().multiply(.9f));
-                b.impulse(bVel.multiply(-1));
-                b.impulse(reflect(bVel, cVel).multiply(0.9f));
-                b.setRotation(b.rotation().multiply(.9f));
-            }
-            else if (aVel.magnitude() == 0 && bVel.magnitude() == 0) { // if both are not moving, freeze them
-                a.freeze();
-                b.freeze();
-            }
-            else if (aVel.magnitude() == 0 || bVel.magnitude() == 0) { // if one or the other is not moving
-                Vector cVel = aVel.add(bVel);
+        else if (aVel.magnitude() == 0 || bVel.magnitude() == 0) { // one is not moving
+            a.impulse(aVel.multiply(-1));
+            a.impulse(reflect(aVel, mVel).multiply(0.8f));
+            a.setRotation(a.rotation().multiply(.8f));
+            b.impulse(bVel.multiply(-1));
+            b.impulse(reflect(bVel, mVel).multiply(0.8f));
+            b.setRotation(b.rotation().multiply(.8f));
+        }
+        else if (aVel.normalize().equals(bVel.normalize())) { // same exact direction
+            Entity fast = (aVel.magnitude() >= bVel.magnitude()) ? a : b;
+            Entity slow = (aVel.magnitude() < bVel.magnitude()) ? a : b;
 
-                a.impulse(aVel.multiply(-1));
-                a.impulse(reflect(aVel, cVel).multiply(0.9f));
-                a.setRotation(a.rotation().multiply(.9f));
-                b.impulse(bVel.multiply(-1));
-                b.impulse(reflect(bVel, cVel).multiply(0.9f));
-                b.setRotation(b.rotation().multiply(.9f));
-            }
-            else { // they are both moving
-                Vector cVel = aVel.add(bVel);
-                Vector N = cVel.cross(aVel).cross(cVel);
+            Vector diff = fast.velocity().subtract(slow.velocity());
+            fast.impulse(diff.multiply(-1));
+            slow.impulse(diff);
+        }
+        else if (aVel.normalize().equals(bVel.normalize().multiply(-1))) { // exactly opposite directions
+            a.impulse(aVel.multiply(-1.8f));
+            b.impulse(bVel.multiply(-1.8f));
+        }
+        else { // general case
+            Vector N = mVel.cross(aVel).cross(mVel);
 
-                a.impulse(aVel.multiply(-1));
-                a.impulse(reflect(aVel, N).multiply(0.9f));
-                a.setRotation(a.rotation().multiply(.9f));
-                b.impulse(bVel.multiply(-1));
-                b.impulse(reflect(bVel, N).multiply(0.9f));
-                b.setRotation(b.rotation().multiply(.9f));
-            }
+            a.impulse(aVel.multiply(-1));
+            a.impulse(reflect(aVel, N).multiply(0.8f));
+            a.setRotation(a.rotation().multiply(.8f));
+            b.impulse(bVel.multiply(-1));
+            b.impulse(reflect(bVel, N).multiply(0.8f));
+            b.setRotation(b.rotation().multiply(.8f));
         }
     }
-
-    // private void bounce(Entity a, Entity b) {
-    //     Vector aVel = a.velocity();
-    //     Vector bVel = b.velocity();
-
-    //     if (aVel.normalize().equals(bVel.normalize())) { // push
-    //         System.out.println("1");
-    //         if (aVel.magnitude() > bVel.magnitude()) {
-    //             Vector diff = aVel.subtract(bVel).divide(2);
-    //             b.impulse(diff);
-    //             a.impulse(diff.multiply(-1.1f));
-    //         }
-    //         else {
-    //             Vector diff = bVel.subtract(aVel).divide(2);
-    //             a.impulse(diff);
-    //             b.impulse(diff.multiply(-1.1f));
-    //         }
-    //     }
-    //     else { // bounce
-    //         Vector[] face;
-    //         if (a.volume() > b.volume())
-    //             face = findFace(b.position().subtract(a.position()), a);
-    //         else
-    //             face = findFace(a.position().subtract(b.position()), b);
-
-    //         Vector N = face[0].subtract(face[1]).cross(face[0].subtract(face[2]));
-
-    //         a.impulse(aVel.multiply(-1));
-    //         a.impulse(reflect(aVel, N).multiply(.8f));
-    //         b.impulse(bVel.multiply(-1));
-    //         b.impulse(reflect(bVel, N).multiply(.8f));
-    //     }
-    // }
-
-    // private Vector reflect(Vector d, Vector n) {
-    //     Vector r = n.normalize().multiply(2*d.dot(n.normalize()));
-    //     return d.subtract(r);
-    // }
-
-    // private Vector[] findFace(Vector d, Entity a) {
-    //     ArrayList<Vector> points = a.body().points();
-    //     d = d.normalize();
-
-    //     for (int i = 0; i < points.size(); i++)
-    //         points.set(i, points.get(i).normalize());
-
-    //     while (points.size() > 3) {
-    //         float min = points.get(0).dot(d);;
-    //         int marker = 0;
-
-    //         for (int i = 1; i < points.size(); i++) {
-    //             float dot = points.get(i).dot(d);
-    //             if (dot < min) {
-    //                 min = dot;
-    //                 marker = i;
-    //             }
-    //         }
-
-    //         points.remove(marker);
-    //     }
-
-    //     Vector[] vec = new Vector[3];
-    //     for (int i = 0; i < points.size(); i++)
-    //         vec[i] = points.get(i);
-
-    //     return vec;
-    // }
 
     private Vector reflect(Vector d, Vector n) {
         Vector r = n.normalize().multiply(2*d.dot(n.normalize()));

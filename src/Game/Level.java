@@ -17,13 +17,12 @@ public class Level {
 
     private TextureMap textureMap;
 
-    public Level() {
-        entities = new ArrayList<Entity>();
-    }
+    private Spawner spawner;
 
     public Level(String pth) throws FileNotFoundException, IOException {
         entities = new ArrayList<Entity>();
         loadLevel(pth);
+        spawner = new Spawner(this, 60);
     }
 
     public void loadLevel(String path) throws FileNotFoundException, IOException {
@@ -37,7 +36,14 @@ public class Level {
     }
 
     public void update() {
+        spawner.update();
         for (Entity o:entities) o.update();
+        for (int i = entities.size() - 1; i >= 0; i--)
+            if (!entities.get(i).exists()) entities.remove(i);
+    }
+
+    public void addEnitity(Entity e) {
+        entities.add(e);
     }
 
     public ArrayList<Entity> getEntities() {
