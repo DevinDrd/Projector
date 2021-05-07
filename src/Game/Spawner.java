@@ -3,29 +3,39 @@ package Game;
 import Game.Entity.Cuboid;
 import Game.Math.Vector;
 
-import java.util.Random;
-
 public class Spawner {
 // random cuboid spawner
 
-    private Random random;
     private Level level;
+
+    private Vector position;
+    private Vector velocity;
+    private Vector rotation;
+
+    private float size;
+    private float mass;
 
     private int period;
     private int ticker;
 
-    private int cols;   // texturemap columns
-    private int rows;   // texturemap rows
+    private int col;
+    private int row;
 
-    public Spawner(Level level, int period) {
+    public Spawner(Level level, int period, Vector position, Vector velocity, Vector rotation, float size, float mass, int row, int col) {
         this.level = level;
-        random = new Random();
+
+        this.position = position;
+        this.velocity = velocity;
+        this.rotation = rotation;
+
+        this.size = size;
+        this.mass = mass;
+
+        this.col = col;
+        this.row = row;
 
         this.period = period;
         ticker = 0;
-
-        cols = level.getTextureMap().getCols();
-        rows = level.getTextureMap().getRows();
     }
 
     public void update() {
@@ -39,26 +49,11 @@ public class Spawner {
     }
 
     private void spawn() {
-        Vector position = new Vector(0, 0, 500);
-        int tX = random.nextInt(rows);
-        int tY = random.nextInt(cols);
+        Cuboid cube = new Cuboid(position, row, col, size, size, size);
 
-        float size = random.nextFloat()*50 + 15;
-
-        Cuboid cube = new Cuboid(position, tX, tY, size, size, size);
-
-        float x = random.nextFloat()*10 - 5;
-        float y = random.nextFloat()*10 - 5;
-        float z = random.nextFloat()*10 - 5;
-
-        cube.setVelocity(new Vector(x, y, z));
-
-        x = random.nextFloat()*10 - 5;
-        y = random.nextFloat()*10 - 5;
-        z = random.nextFloat()*10 - 5;
-
-        cube.setRotation(new Vector(x, y, z));
-        cube.setMass(random.nextFloat()*50 + 15);
+        cube.setVelocity(velocity);
+        cube.setRotation(rotation);
+        cube.setMass(mass);
 
         level.addEnitity(cube);
     }

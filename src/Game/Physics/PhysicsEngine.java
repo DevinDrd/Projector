@@ -57,6 +57,8 @@ public class PhysicsEngine {
         Vector mVel = aVel.add(bVel);
 
         if (aVel.magnitude() == 0 && bVel.magnitude() == 0) { // both are not moving
+            a.freeze();
+            b.freeze();
             a.setExists(false);
             b.setExists(false);
         }

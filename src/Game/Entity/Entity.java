@@ -22,6 +22,7 @@ public class Entity {
     protected RigidBody body;
 
     protected boolean exists;
+    protected int cCount;
 
     public Entity() {}
 
@@ -140,6 +141,14 @@ public class Entity {
 
     public void setExists(boolean b) {
         exists = b;
+    }
+
+    public void addCount() {
+        cCount++;
+    }
+
+    public int getCount() {
+        return cCount;
     }
 
     public String toString() {

@@ -14,32 +14,34 @@ import java.util.Scanner;
 public class Level {
 
     private ArrayList<Entity> entities;
+    private ArrayList<Spawner> spawners;
 
     private TextureMap textureMap;
 
-    private Spawner spawner;
-
     public Level(String pth) throws FileNotFoundException, IOException {
         entities = new ArrayList<Entity>();
+        spawners = new ArrayList<Spawner>();
         loadLevel(pth);
-        spawner = new Spawner(this, 60);
     }
 
     public void loadLevel(String path) throws FileNotFoundException, IOException {
         Scanner file = new Scanner(new File(path));
-        ArrayList<Object> objects = Parser.level(file);
+        ArrayList<Object> objects = Parser.level(file, this);
         file.close();
 
         textureMap = (TextureMap) objects.remove(0);
-        for (Object obj:objects)
-            entities.add((Entity) obj);
+        for (Object obj:objects) {
+            if (obj instanceof Entity) entities.add((Entity) obj);
+            else spawners.add((Spawner) obj);
+        }
     }
 
     public void update() {
-        spawner.update();
+        for (Spawner s:spawners) s.update();
         for (Entity o:entities) o.update();
-        for (int i = entities.size() - 1; i >= 0; i--)
-            if (!entities.get(i).exists()) entities.remove(i);
+        for (int i = entities.size() - 1; i > 1; i--)
+            if (entities.get(i).getCount() >= 10)
+                entities.remove(i);
     }
 
     public void addEnitity(Entity e) {

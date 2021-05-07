@@ -4,9 +4,11 @@ import Game.Entity.*;
 import Game.Graphics.Camera;
 import Game.Graphics.Texture;
 import Game.Graphics.TextureMap;
+import Game.Level;
 import Game.Math.Vector;
 import Game.Model.*;
 import Game.Physics.RigidBody;
+import Game.Spawner;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class Parser {
 
     public static boolean verbos = false;
 
-    public static ArrayList<Object> level(Scanner source) throws IOException {
+    public static ArrayList<Object> level(Scanner source, Level level) throws IOException {
         ArrayList<Object> objects = new ArrayList<Object>();
 
         String type = source.nextLine();
@@ -37,6 +39,9 @@ public class Parser {
 
             else if (type.equals("square"))
                 objects.add(square(source));
+
+            else if (type.equals("spawner"))
+                objects.add(spawner(source, level));
 
             else if (type.equals("end"))
                 break;
@@ -178,6 +183,26 @@ public class Parser {
         square.setRotation(rotationAxis);
 
         return square;
+    }
+
+    public static Spawner spawner(Scanner source, Level level) {
+        if (verbos) System.out.println("Map->Loading Spawner");
+
+        Vector position = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
+        Vector velocity = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
+
+        Vector rotation = new Vector(source.nextFloat(), source.nextFloat(), source.nextFloat());
+
+        float size = source.nextFloat();
+        float mass = source.nextFloat();
+
+        int x = source.nextInt();
+        int y = source.nextInt();
+
+        int period = source.nextInt();
+
+        Spawner spawner = new Spawner(level, period, position, velocity, rotation, size, mass, x, y);
+        return spawner;
     }
 
     private static void error(String error) {
