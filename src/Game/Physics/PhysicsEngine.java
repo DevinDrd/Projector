@@ -47,6 +47,8 @@ public class PhysicsEngine {
             b.freeze();
         }
         else {
+            a.addCount();
+            b.addCount();
             bounce(a, b);
         }
     }
