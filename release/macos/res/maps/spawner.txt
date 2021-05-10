@@ -7,11 +7,9 @@ player
        |model: vertices
 0 0
 cuboid
-0 0 -50    0 0 0    0 0 0    0    1000 1000 100    1 1
-cuboid
--150 0 150    4 0 0    0 6.3 0    75    25 25 25    0 1
-cuboid
--50 0 150    2 0 0    4 2 1    75    25 25 25    0 0
+0 0 -15    0 0 0    0 0 0    0    5000 5000 30    1 1
+spawner
+-100 0 200    8 0 0    4 2 3    50    40    0 0    60
 end
 
 |player: position    velocity    rotation   mass
@@ -20,3 +18,5 @@ end
 | texture: x y    coords
 
 |cuboid: position    velocity    rotation   mass    width height length    texture: x y
+
+|spawner: position    velocity    rotation    mass    size    texture: x y    period

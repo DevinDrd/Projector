@@ -2,22 +2,34 @@ texturemap
 res/textures/tmap.jpg
 32 32
 player
-0 -750 100    0 0 0    0 0 0    0
+0 -1500 100    0 0 0    0 0 0    0
 0 1 0    0 0 1    -2 2 -2 2 4 10000
        |model: vertices
 0 0
 cuboid
-0 0 -50    0 0 0    0 0 0    0    10000 10000 100    1 1
-cuboid
--63 0 160    0 0 0    0 6.3 0    10    5 5 5    0 1
-cuboid
-0 0 144    0 0 0    4 2 1    75    25 25 25    0 0
-cuboid
--125 0 152    0 0 0    3 0 0    75    25 25 25    0 0
-cuboid
-100 0 156    0 0 0    3 3 0    75    25 25 25    1 0
-cuboid
-150 0 140    2 0 0    3 3 0    75    25 25 25    1 0
+0 0 -15    0 0 0    0 0 0    0    5000 5000 30    1 1
+spawner
+-200 0 200    8 0 0    3 6 2    50    40    0 0    100
+spawner
+0 -100 200    8 0 0    3 6 2    50    40    0 0    100
+spawner
+200 -200 200    8 0 0    3 6 2    50    40    0 0    100
+spawner
+-1500 -1500 1000    0 0 -15    4 2 3    75    30    0 1    60
+spawner
+1000 0 300    10 0 0    0 0 0    50    30    1 1    60
+spawner
+1400 0 300    -10 0 0    0 0 0    50    30    1 1    60
+spawner
+1200 200 353    0 -10 0    0 0 0    50    30    1 0    60
+spawner
+1200 -200 353   0 10 0    0 0 0    50    30    1 0    60
+spawner
+-800 0 100    0 0 25    2 3 4    100    100    0 0    30
+spawner
+1000 -1000 1000    0 0 40    5 5 5    100    100   0 1    60
+spawner
+-2200 1500 100    17 0 17    2 3 4    100    150    1 1    200
 end
 
 |player: position    velocity    rotation   mass
@@ -26,3 +38,5 @@ end
 | texture: x y    coords
 
 |cuboid: position    velocity    rotation   mass    width height length    texture: x y
+
+|spawner: position    velocity    rotation    mass    size    texture: x y    period
